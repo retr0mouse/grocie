@@ -1,0 +1,42 @@
+{
+  "name": "soodne",
+  "version": "1.0.0",
+  "description": "![soodne_logo](https://user-images.githubusercontent.com/90192553/196784413-6a79d5e3-2ab2-4f2c-a295-2a9cf4d6eee4.png)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rakenduste-programmeerimine-2022/soodne.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rakenduste-programmeerimine-2022/soodne/issues"
+  },
+  "homepage": "https://github.com/rakenduste-programmeerimine-2022/soodne#readme",
+  "dependencies": {
+    "@tanstack/react-query": "^4.13.4",
+    "@trpc/client": "^10.0.0-proxy-beta.26",
+    "@trpc/next": "^10.0.0-proxy-beta.26",
+    "@trpc/react-query": "^10.0.0-proxy-beta.26",
+    "@trpc/server": "^10.0.0-proxy-beta.26",
+    "cheerio": "^1.0.0-rc.12",
+    "next": "^13.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.7",
+    "@types/react": "^18.0.24",
+    "autoprefixer": "^10.4.13",
+    "mongoose": "^6.7.0",
+    "postcss": "^8.4.18",
+    "tailwindcss": "^3.2.1",
+    "typescript": "^4.8.4",
+    "zod": "^3.19.1"
+  }
+}
