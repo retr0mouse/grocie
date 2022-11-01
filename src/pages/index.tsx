@@ -1,20 +1,23 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import { getBarboraCategories, getBarboraItemsByUrl} from '../lib/items';
+import { getBarboraCategories, getBarboraItemsByUrl, getRimiCategories} from '../lib/items';
 
 export async function getStaticProps() {  // for ssg
   const allItems = await getBarboraItemsByUrl('https://barbora.ee/');
   const allCategoriesBarbora = await getBarboraCategories();
+  const allCategoriesRimi = await getRimiCategories();
+
   return {
     props:{
       allItems,
       allCategoriesBarbora,
+      allCategoriesRimi
     }
   }
 }
 
-export default function Home({ allCategoriesBarbora}: {allCategoriesBarbora: any[]}) {
+export default function Home({ allCategoriesBarbora, allCategoriesRimi}: {allCategoriesBarbora: any[], allCategoriesRimi: any[]}) {
   return (
     <Layout>
       <Head>
