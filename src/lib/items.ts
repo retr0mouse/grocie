@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { Grocery } from "groceries-component";
+import { BarboraGrocery, RimiGrocery } from "groceries-result";
 
 export async function getBarboraItemsByUrl(url: string): Promise<Grocery[]> {
     const resp = await fetch(url);
@@ -7,7 +8,7 @@ export async function getBarboraItemsByUrl(url: string): Promise<Grocery[]> {
     const items = $('div[class="b-product--wrap clearfix b-product--js-hook   "]');
     const resultProducts = [] as Grocery[];
     for (let i = 0; i < items.length; i++) {
-        const item = JSON.parse($(items[i]).attr("data-b-for-cart") ?? "") as any;
+        const item = JSON.parse($(items[i]).attr("data-b-for-cart") ?? "") as BarboraGrocery;
         resultProducts.push({
             name: item.title,
             price: item.price.toString(),
@@ -57,7 +58,7 @@ export async function getRimiItemsByUrl(url: string): Promise<Grocery[]> {
     const items = $('li[class="product-grid__item"]');
     const resultProducts = [] as Grocery[];
     for (let i = 0; i < items.length; i++) {
-        const item = JSON.parse($(items[i]).children("div").attr("data-gtm-eec-product") ?? "") as any;
+        const item = JSON.parse($(items[i]).children("div").attr("data-gtm-eec-product") ?? "") as RimiGrocery;
         const image = $(items[i]).children("div").children("div").children("div").children("img").attr("src");
         resultProducts.push({
             name: item.name,
