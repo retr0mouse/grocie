@@ -1,12 +1,15 @@
 import Head from 'next/head';
+import { useState } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import { getBarboraCategories, getBarboraItemsByUrl, getRimiCategories} from '../lib/items';
+import { trpc } from '../utils/trpc';
 
 export async function getStaticProps() {  // for ssg
   const allItems = await getBarboraItemsByUrl('https://barbora.ee/');
   const allCategoriesBarbora = await getBarboraCategories();
   const allCategoriesRimi = await getRimiCategories();
+  
 
   return {
     props:{
@@ -18,12 +21,26 @@ export async function getStaticProps() {  // for ssg
 }
 
 export default function Home({ allCategoriesBarbora, allCategoriesRimi}: {allCategoriesBarbora: any[], allCategoriesRimi: any[]}) {
+  const helloNoArgs = trpc.hello.useQuery();
+  const helloWithArgs = trpc.hello.useQuery({ text: 'client' });
+  const mutation = trpc.addProduct.useMutation(); // in future use this with mutation.mutate() to add products
+
+  if (helloWithArgs.isLoading) return <h1>Loading....</h1>
+  
   return (
     <Layout>
       <Head>
         <title>Groceries comparing app</title>|
       </Head>
       <div className="flex p-10 absolute gap-10 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] border-solid border-2 border-indigo-400 rounded-2xl">
+      <li>
+          helloNoArgs ({helloNoArgs.status}):{' '}
+          <pre>{JSON.stringify(helloNoArgs.data, null, 2)}</pre>
+        </li>
+        <li>
+          helloWithArgs ({helloWithArgs.status}):{' '}
+          <pre>{JSON.stringify(helloWithArgs.data, null, 2)}</pre>
+        </li>
         <div className='flex flex-col items-center gap-5'>
           <h1 className="font-sans text-4xl font-bold">Barbora</h1>
           <div className='flex flex-col'>
