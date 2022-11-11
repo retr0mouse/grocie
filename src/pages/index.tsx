@@ -23,8 +23,10 @@ export async function getStaticProps() {  // for ssg
 export default function Home({ allCategoriesBarbora, allCategoriesRimi}: {allCategoriesBarbora: any[], allCategoriesRimi: any[]}) {
   const helloNoArgs = trpc.hello.useQuery();
   const helloWithArgs = trpc.hello.useQuery({ text: 'client' });
+  const mutation = trpc.addProduct.useMutation(); // in future use this with mutation.mutate() to add products
 
   if (helloWithArgs.isLoading) return <h1>Loading....</h1>
+  
   return (
     <Layout>
       <Head>
