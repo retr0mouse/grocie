@@ -1,5 +1,6 @@
 import { initTRPC } from '@trpc/server';
 import * as z from 'zod';
+import { Compare } from '../lib/Compare';
 import { Database } from '../middleware/Database';
 
 const t = initTRPC.create();
@@ -40,6 +41,12 @@ export const appRouter = router({
           // console.log(input);
           if (input != null) await Database.addProducts([input])
       }),
+      findItem: publicProcedure    
+        .input(z.object({ title: z.string() }))
+        .query(async ({ input }) => {
+            const findItems = await Compare.compareCommonItem(input.title);
+            return findItems;
+        })
 });
 
 // export type definition of API
