@@ -41,7 +41,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi}: {allCat
         <div className='flex flex-col'>
           {allCategoriesBarbora.map((item: any, key) => {
             return (
-              <Link key={key} href={`/category/barbora/${item.path}`}><a key={key} className='font-sans text-lg py-1.5 pl-1 pr-1my-2 hover:underline visited:text-purple-600'>{item.title}</a></Link>
+              <Link legacyBehavior key={key} href={`/category/barbora/${item.path}`}><a key={key} className='font-sans text-lg py-1.5 pl-1 pr-1my-2 hover:underline visited:text-purple-600'>{item.title}</a></Link>
             );
           })}
         </div>
@@ -52,7 +52,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi}: {allCat
         <div className='flex flex-col'>
           {allCategoriesRimi.map((item: any, key) => {
           return (
-            <Link key={key} href={`/category/rimi/${item.path}`}><a key={key} className='font-sans text-lg py-1.5 pl-1 pr-1my-2 hover:underline visited:text-purple-600'>{item.title}</a></Link>
+            <Link legacyBehavior key={key} href={`/category/rimi/${item.path}`}><a key={key} className='font-sans text-lg py-1.5 pl-1 pr-1my-2 hover:underline visited:text-purple-600'>{item.title}</a></Link>
           );
         })}
         </div>

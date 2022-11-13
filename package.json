@@ -27,7 +27,8 @@
     "cheerio": "^1.0.0-rc.12",
     "next": "^13.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "string-similarity": "^4.0.4"
   },
   "devDependencies": {
     "@types/node": "^18.11.7",
