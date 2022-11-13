@@ -23,4 +23,36 @@ export function parseCategory(categoryName: string) {
     else{
         return "Muu";
     }
+
+    
+}
+
+export function isMessure(input: string) {
+    const regex = /[0-9](l|ml|kg|g|mg)/i;
+    return regex.test(input);
+}
+
+export function convertMessure(input: string) {
+    const regex = /[0-9](l|ml|kg|g|mg)/i;
+    if (regex.test(input)){
+        let num = input.replace(/\D/g,'')
+        let mes = input.replace(/\d+|^\s+|\s+$/g,'').replace(",","");
+
+        if (num[0] == "0"){
+          num = num.replace("0", "0.")
+        }
+
+        if (mes == "kg"){
+        let result = Number(num) * 1000 + "g"
+        return result}
+        else if (mes == "l"){
+        let result = Number(num) * 1000 + "ml"
+        return result}
+        else{
+            return Number(num) + mes;
+        }
+    }
+    else{
+        return input;
+    }
 }

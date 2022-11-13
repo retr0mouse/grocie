@@ -1,39 +1,66 @@
+import { convertMessure, isMessure } from '../../utils/parseCategory';
 import { Database } from '../middleware/Database';
+import { ProductType } from '../models/Product';
+
 
 export class Compare{
-    
-    static async compareCommonItem(productTitle: string){
-        const { compare } = require('string-compare');
-        let fullTitleElem = productTitle.split(" ");
-        let measure: string | undefined = fullTitleElem.pop()
+    static async compareCommonItem(productTitle: string): Promise<string | undefined> {
+        //console.log("----------- " + productTitle + "------------");
+        const stringSimilarity = require("string-similarity");
+        const fullTitleElem = productTitle.split(" ");
+        let measure : string | undefined;
+        if (fullTitleElem.length > 1) {
+            fullTitleElem.forEach(element => {
+                if (isMessure(element)){
+                    measure = element
+                }
+                else if (element === "kg"){
+                    measure = element
+                }
+            });
+            //console.log(measure)
+        }
         if (typeof measure === 'string') {
-            measure = measure.toUpperCase();
+            measure = measure.toLowerCase().replace(" ","");
         }
-        let findTitle = ""
-        if (fullTitleElem.length > 1){
-        findTitle = fullTitleElem[0] + " " + fullTitleElem[1]
-        }
-        else{
-        findTitle = fullTitleElem[0]
-        }
+        const findTitle = fullTitleElem[0];
+        let compareTitles: string[] | ProductType[] = (await Database.getProductsContainingTitle(findTitle));
+        let titles = compareTitles.map(x => x.name);
+        compareTitles = compareTitles.map(x => x.name.toLowerCase());
+        for (let i = 0; i < compareTitles.length; i++) {
+            const comparison = stringSimilarity.findBestMatch(productTitle.toLowerCase(), compareTitles);
+            if (comparison.bestMatch.rating > 0.71) {
+                let comapeMeasureFindArray: string[] | undefined  = comparison.bestMatch.target.split(" ");
+                let comapeMeasure : string | undefined;
+                if (typeof comapeMeasureFindArray !== "undefined" && comapeMeasureFindArray.length > 1) {
+                    comapeMeasureFindArray.forEach(element => {
+                        if (isMessure(element)){
+                            comapeMeasure = element
+                        }
+                        else if (element === "kg"){
+                            comapeMeasure = element
+                        }
+                    });
+                }
 
-        let compareTitles = (await Database.getProductsContainingTitle(findTitle));
-        let comapeMeasure: string | undefined = fullTitleElem.pop()
-        if (typeof comapeMeasure === 'string') {
-            comapeMeasure = comapeMeasure.toUpperCase();
-        }
-        
-        let maximum = 0
-        let sameProduct = "" 
-        compareTitles.forEach(element => {
-            let comparison = compare(element.name.toLowerCase(), productTitle.toLocaleLowerCase())
-            if (comparison > maximum){
-                sameProduct = element.name
-                maximum = comparison
+                if (typeof comapeMeasure !== "undefined" && typeof measure !== "undefined") {
+                    comapeMeasure === comapeMeasure.toLowerCase().replace(" ","")
+                    // console.log (convertMessure(measure) + " -  " + (convertMessure(comapeMeasure))) +  "!"
+                }
+
+                if (typeof comapeMeasure !== "undefined" && typeof measure !== "undefined" && convertMessure(measure).search(convertMessure(comapeMeasure)) > -1){
+                    //console.log(titles[comparison.bestMatchIndex])
+
+                    return titles[comparison.bestMatchIndex]
+                }
+                else {
+                    console.log("try: " + comparison.bestMatch.target + " needed: " + productTitle);
+                    compareTitles.splice(comparison.bestMatchIndex, 1);
+                }
             }
-        });
-        if (maximum > 0.72 && measure === comapeMeasure){
-            return sameProduct
+            else{
+                return;
+            }
         }
-    }
+   }
 }
