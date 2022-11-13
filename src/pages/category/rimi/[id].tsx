@@ -8,10 +8,10 @@ export default function Category({ itemsData, title }: any) {
                 {itemsData?.map((item: any, key: number) => {
                     return(
                         <div key={key} className='w-[200px] m-2 bg-slate-50 p-3'> 
-                            <h1 className="w-fit">{item.name}</h1> 
-                            <h2>price: {item.price}€</h2>
-                            <img className='w-25' src={item.image} alt={`image of ${item.name}`} />
-                        </div>
+                        <h1 className="w-fit">{item.name}</h1> 
+                        <h2>price: {item.price}€</h2>
+                        <img className='w-25' src={item.image} alt={`image of ${item.name}`} />
+                    </div>
                     );
                 })}
             </div>
@@ -20,22 +20,22 @@ export default function Category({ itemsData, title }: any) {
 }
 
 export async function getStaticPaths() {
-    const categoriesCount = await Parser.getBarboraCategoriesCount();
+    const categoriesCount = await Parser.getRimiCategoriesCount();
     const paths = [] as string[];
     for (let i = 0; i < categoriesCount; i++) {
-        paths.push("/category/barbora/" + i)
+        paths.push("/category/rimi/" + i);
     }
     return {
         paths,
         fallback: false
     };
 }
-    
+
 export async function getStaticProps({ params }: any) {
-    const category = await Parser.getBarboraCategoryById(params.id);
+    const category = await Parser.getRimiCategoryById(params.id);
     if (!category.link) return;
     const title = category.title;
-    const itemsData = await Parser.getBarboraItemsByCategory(category);
+    const itemsData = await Parser.getRimiItemsByCategory(category);
     return {
         props: {
             itemsData,

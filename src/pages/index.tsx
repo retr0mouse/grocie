@@ -1,19 +1,16 @@
 import Head from 'next/head';
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 import Layout from '../components/Layout';
-import { getBarboraCategories, getBarboraItemsByUrl, getRimiCategories} from '../lib/items';
+import { Parser } from '../server/lib/Parser';
 import { trpc } from '../utils/trpc';
 
 export async function getStaticProps() {  // for ssg
-  const allItems = await getBarboraItemsByUrl('https://barbora.ee/');
-  const allCategoriesBarbora = await getBarboraCategories();
-  const allCategoriesRimi = await getRimiCategories();
-  
+  const allCategoriesBarbora = await Parser.getBarboraCategories();
+  const allCategoriesRimi = await Parser.getRimiCategories();
 
   return {
     props:{
-      allItems,
       allCategoriesBarbora,
       allCategoriesRimi
     }
