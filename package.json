@@ -19,6 +19,10 @@
   },
   "homepage": "https://github.com/rakenduste-programmeerimine-2022/soodne#readme",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.13",
     "@tanstack/react-query": "^4.13.4",
     "@trpc/client": "^10.0.0-proxy-beta.26",
     "@trpc/next": "^10.0.0-proxy-beta.26",
