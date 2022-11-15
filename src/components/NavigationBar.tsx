@@ -6,7 +6,18 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import red from "@mui/material/colors/red";
 import { deepOrange, green, orange, yellow } from "@mui/material/colors";
-
+import VegetablesPicture from '../images/vegetables.svg'
+import MilkPicture from '../images/milk.svg'
+import BreadPicture from '../images/bread.svg'
+import MeatPicture from '../images/meat.svg'
+import BrushPicture from '../images/toothbrush.svg'
+import FlourPicture from '../images/flour.svg'
+import CleaningPicture from '../images/cleaning.svg'
+import DrinksPicture from '../images/drinks.svg'
+import FrozenPicture from '../images/frozen.svg'
+import ChildrenPicture from '../images/children.svg'
+import HomePicture from '../images/home.svg'
+import Image from 'next/image'
 
 
     const Soodnecolor = deepOrange[400]
@@ -102,7 +113,7 @@ export default function NavigationBar() {
               <div className='flex-column w-32 h-32 transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
                 <button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
                   bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-                    <img className="w-24 h-24 flex" src="/images/vegetables.svg" alt=""/>
+                    <Image className="w-24 h-24 flex" src={VegetablesPicture} alt=""/>
                 </button>
                 <a href="" className='text-center break-normal transition
                 flex place-content-center place-items-center'>Köögiviljad, puuviljad</a>
@@ -111,7 +122,7 @@ export default function NavigationBar() {
               <div className='flex-column w-32 h-32 transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
                 <button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
                 bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-                  <img className="w-24 h-24 flex" src="/images/milk.svg" alt=""/>
+                  <Image className="w-24 h-24 flex" src={MilkPicture} alt=""/>
                 </button>
                 <a href="" className='text-center break-normal 
                 flex place-content-center place-items-center'>Piimatooted ja munad
@@ -121,7 +132,7 @@ export default function NavigationBar() {
               <div className='flex-column w-32 h-32 transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
                 <button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
                 bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-                  <img className="w-24 h-24 flex" src="/images/bread.svg" alt=""/>
+                  <Image className="w-24 h-24 flex" src={BreadPicture} alt=""/>
                 </button>
                 <a href="" className='text-center break-normal 
                 flex place-content-center place-items-center'>Leivad, saiad, kondiitritooted
@@ -131,7 +142,7 @@ export default function NavigationBar() {
                <div className='flex-column w-32 h-32 transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
                 <button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
                 bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-                  <img className="w-24 h-24 flex" src="/images/meat.svg" alt=""/>
+                  <Image className="w-24 h-24 flex" src={MeatPicture} alt=""/>
                 </button>
                 <a href="" className='text-center break-normal 
                 flex place-content-center place-items-center'>Liha, kala, valmistoit
@@ -141,7 +152,7 @@ export default function NavigationBar() {
               <div className='flex-column w-32 h-32 transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
                 <button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
                 bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-                  <img className="w-24 h-24 flex" src="/images/flour.svg" alt=""/>
+                  <Image className="w-24 h-24 flex" src={FlourPicture} alt=""/>
                 </button>
                 <a href="" className='text-center break-normal 
                 flex place-content-center place-items-center'>Kauasäilivad toidukaubad
@@ -151,7 +162,7 @@ export default function NavigationBar() {
               <div className='flex-column w-32 h-32 transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
                 <button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
                 bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-                  <img className="w-24 h-24 flex" src="/images/frozen.svg" alt=""/>
+                  <Image className="w-24 h-24 flex" src={FrozenPicture} alt=""/>
                 </button>
                 <a href="" className='text-center break-normal 
                 flex place-content-center place-items-center'>Külmutatud tooted
@@ -161,7 +172,7 @@ export default function NavigationBar() {
               <div className='flex-column w-32 h-32 transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
                 <button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
                 bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-                  <img className="w-24 h-24 flex" src="/images/drinks.svg" alt=""/>
+                  <Image className="w-24 h-24 flex" src={DrinksPicture} alt=""/>
                 </button>
                 <a href="" className='text-center break-normal 
                 flex place-content-center place-items-center'>Joogid
@@ -171,7 +182,7 @@ export default function NavigationBar() {
               <div className='flex-column w-32 h-32 transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
                 <button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
                 bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-                  <img className="w-24 h-24 flex" src="/images/toothbrush.svg" alt=""/>
+                  <Image className="w-24 h-24 flex" src={BrushPicture} alt=""/>
                 </button>
                 <a href="" className='text-center break-normal 
                 flex place-content-center place-items-center'>Enesehooldustooted
@@ -181,7 +192,7 @@ export default function NavigationBar() {
               <div className='flex-column w-32 h-32 transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
                 <button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
                 bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-                  <img className="w-24 h-24 flex" src="/images/cleaning.svg" alt=""/>
+                  <Image className="w-24 h-24 flex" src={CleaningPicture} alt=""/>
                 </button>
                 <a href="" className='text-center break-normal 
                 flex place-content-center place-items-center'>Puhastustarbed ja lemmikloomatooted
@@ -191,7 +202,7 @@ export default function NavigationBar() {
               <div className='flex-column w-32 h-32 transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
                 <button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
                 bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-                  <img className="w-24 h-24 flex" src="/images/children.svg" alt=""/>
+                  <Image className="w-24 h-24 flex" src={ChildrenPicture} alt=""/>
                 </button>
                 <a href="" className='text-center break-normal 
                 flex place-content-center place-items-center'>Lastekaubad
@@ -201,7 +212,7 @@ export default function NavigationBar() {
               <div className='flex-column w-32 h-32 transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
                 <button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
                 bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-                  <img className="w-24 h-24 flex" src="/images/home.svg" alt=""/>
+                  <Image className="w-24 h-24 flex" src={HomePicture} alt=""/>
                 </button>
                 <a href="" className='text-center break-normal 
                 flex place-content-center place-items-center'>Kodukaubad ja vaba aeg
