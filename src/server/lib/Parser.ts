@@ -76,9 +76,11 @@ export class Parser {
             for (let i = 0; i < items.length; i++) {
                 const item = JSON.parse($(items[i]).children("div").attr("data-gtm-eec-product") ?? "") as RimiGrocery;
                 const image = $(items[i]).children("div").children("div").children("div").children("img").attr("src");
+                const euros = $(items[i]).children("div").children('div [class="card__details"]').children("div").children("div").children("div").children("span").text();
+                const cents = $(items[i]).children("div").children('div [class="card__details"]').children("div").children("div").children("div").children("div").children("sup").text();
                 resultProducts.push({
                     name: item.name,
-                    price: item.price,
+                    price: Number(euros + "." + cents) ,
                     image: image ?? "",
                     id: item.id,
                     category: item.category
