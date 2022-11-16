@@ -49,6 +49,39 @@ export class Database {
         const allCategories = await (Product.find().exec()) as Category[];
         return allCategories;
     }
+
+    static async setStat(product:ProductType){
+        if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
+        mongoose.connect(process.env.DATABASE_URL);
+
+        let prices: number[] = []
+        if (typeof product.barbora_price  !== "undefined"){
+            prices.push(product.barbora_price)
+        }
+        else if (typeof product.rimi_price  !== "undefined"){
+            prices.push(product.rimi_price)
+        }
+        else if (typeof product.selver_price  !== "undefined"){
+            prices.push(product.selver_price)
+        }
+        else if (typeof product.coop_price  !== "undefined"){
+            prices.push(product.coop_price)
+        }
+
+
+        let MinimumPrice = Math.min.apply(null, prices);
+        let avaragePrice = prices.reduce((a, b) => a + b, 0) / prices.length;
+        let MaximumPrice = Math.max.apply(null, prices);
+
+        Product.updateOne({name: product.name}, { $push:{statistics: {
+            date: new Date().toISOString().slice(0, 10),
+            min_price: MinimumPrice,
+            avg_price: avaragePrice,
+            max_price: MaximumPrice
+        }} });
+
+
+    }
     
     static async updateBarboraItems() {
         const items = await Parser.getAllBarboraItems();
