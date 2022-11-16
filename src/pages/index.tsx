@@ -3,42 +3,46 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import NavigationBar from '../components/NavigationBar';
+import BigProduct from '../components/BigProduct';
 import { Parser } from '../server/lib/Parser';
 import { trpc } from '../utils/trpc';
+import BreadPicture from "../../src/images/bread.svg";
+import SmallProduct from '../components/SmallProduct';
 
 export async function getStaticProps() {  // for ssg
   const allCategoriesBarbora = await Parser.getBarboraCategories();
   const allCategoriesRimi = await Parser.getRimiCategories();
 
   return {
-    props:{
+    props: {
       allCategoriesBarbora,
       allCategoriesRimi
     }
   }
 }
 
-export default function Home({ allCategoriesBarbora, allCategoriesRimi}: {allCategoriesBarbora: any[], allCategoriesRimi: any[]}) {  
+export default function Home({ allCategoriesBarbora, allCategoriesRimi }: { allCategoriesBarbora: any[], allCategoriesRimi: any[] }) {
   const mutation = trpc.storeItems.useMutation();
   const [title, setTitle] = useState("Banaan");
   const [result, setResult] = useState("Banaan");
-  const query = trpc.findItem.useQuery({title: result});
+  const query = trpc.findItem.useQuery({ title: result });
 
   return (
-    // <NavigationBar/>
-    // <Product 
-    //   image="../images/bread.svg" 
-    //   productName='Product Name'
-    //   rimiPrice={12.22}
-    //   selverPrice={12.22}
-    //   coopPrice={13.22}
-    //   barboraPrice={15.56}
-    // />
     <Layout>
+      <NavigationBar />
+      <SmallProduct image={BreadPicture} productName={"Just a Bread"} price={9.99} />
+      {/* <BigProduct 
+        image={BreadPicture}
+        productName='Product Name'
+        rimiPrice={12.22}
+        selverPrice={12.22}
+        coopPrice={13.22}
+        barboraPrice={15.56}
+      /> */}
       <Head>
         <title>Groceries comparing app</title>|
       </Head>
-      <div className="flex p-10 absolute gap-10 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] border-solid border-2 border-indigo-400 rounded-2xl">
+      {/* <div className="flex p-10 absolute gap-10 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] border-solid border-2 border-indigo-400 rounded-2xl">
         <div className='flex flex-col items-center gap-5'>
           <h1 className="font-sans text-4xl font-bold">Barbora</h1>
           <div className='flex flex-col'>
@@ -65,7 +69,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi}: {allCat
         <input type="text" className={"bg-slate-600"} defaultValue={title} onChange={(input) => setTitle(input.target.value)}/> 
         <button className={"bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"} onClick={() => mutation.mutate()}>BREAK EVERYTHING</button>
         <h1 className={"bg-red-600"}>RESULT: {query.data ?? "nothing"}</h1>
-      </div>
+      </div>  */}
     </Layout>
   )
 }
