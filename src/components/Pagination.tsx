@@ -41,7 +41,7 @@ export default function Pagination(props: Props): ReactElement {
 
         return (
             <button 
-                className={`pagination-item ${pageNumber === props.currentPage ? 'bg-slate-500' : null}`} 
+                className={`pagination-item ${pageNumber === props.currentPage ? 'text-3xl text-orange-400' : null}`} 
                 onClick={() => props.onPageChange(pageNumber)}
             >
                 {pageNumber}
