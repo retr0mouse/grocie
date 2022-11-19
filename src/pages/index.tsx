@@ -35,7 +35,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 
   const [currentPage, setCurrentPage] = useState(1) as any;
 
-  const pageSize = 50;
+  const pageSize = 48;
 
   const currentItems = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
@@ -45,12 +45,13 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
   }, [currentPage]);
 
   return (
+    <>
+    <NavigationBar />
     <Layout>
       <Head>
         <title>Groceries comparing app</title>|
       </Head>
-      <NavigationBar />
-      <div className={"flex flex-wrap self-center"}>
+      <div className={"flex flex-wrap self-center space-x-3"}>
         {currentItems?.map((item: Grocery) => {
           return (
             <SmallProduct image={item.image} productName={item.name} price={item.price} />
@@ -101,5 +102,6 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
         <h1 className={"bg-red-600"}>RESULT: {query.data ?? "nothing"}</h1>
       </div>  */}
     </Layout>
+    </>
   )
 }
