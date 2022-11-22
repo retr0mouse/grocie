@@ -60,7 +60,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
       </div>
       <Pagination 
         onPageChange={page => setCurrentPage(page)} 
-        totalCount={allItemsBarbora?.length} 
+        totalCount={allItemsBarbora?.length ?? 0} 
         currentPage={currentPage} 
         pageSize={pageSize}
       />
