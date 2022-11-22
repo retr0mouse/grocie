@@ -23,7 +23,7 @@ export class Parser {
 
     static async getAllBarboraItems(): Promise<Grocery[]> {
         let itemsData = [] as Grocery[];
-        for (let categoryIndex = 0; categoryIndex < 1; categoryIndex++) {
+        for (let categoryIndex = 0; categoryIndex < 2; categoryIndex++) {
         // for (let categoryIndex = 0; categoryIndex < await this.getBarboraCategoriesCount(); categoryIndex++) {
             const category = await Parser.getBarboraCategoryById(categoryIndex);
             console.log(categoryIndex + " - barbora");

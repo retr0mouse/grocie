@@ -33,7 +33,7 @@ const themeColor = createTheme({
 });
 
 export default function BigProduct(props: Props) {
-    const [productCounter, setProductCounter] = useState(0);
+    const [counter, setCounter] = useState(0);
     return (
         <div className="w-auto h- object-center">
             <Box>
@@ -47,19 +47,19 @@ export default function BigProduct(props: Props) {
                         <div className="h-10 border-orange-500 border-2 rounded-full space-x-20 flex flex-row place-content-center place-items-center">
                             <IconButton
                                 color="primary"
-                                disabled={productCounter == 0}
+                                disabled={counter == 0}
                                 aria-label="upload picture"
                                 component="label"
-                                onClick={() => setProductCounter(productCounter - 1)}
+                                onClick={() => setCounter(counter - 1)}
                             >
                                 <RemoveIcon />
                             </IconButton>
-                            <p className="">{productCounter}</p>
+                            <p className="">{counter}</p>
                             <IconButton
                                 color="primary"
                                 aria-label="upload picture"
                                 component="label"
-                                onClick={() => setProductCounter(productCounter + 1)}
+                                onClick={() => setCounter(counter + 1)}
                             >
                                 <AddIcon />
                             </IconButton>

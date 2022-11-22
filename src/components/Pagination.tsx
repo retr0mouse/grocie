@@ -26,22 +26,22 @@ export default function Pagination(props: Props): ReactElement {
 
   let lastPage = paginationRange[paginationRange.length - 1];
   return (
-    <ul>
-      <li
-        className={'pagination-item'} 
+    <div className={"relative mt-5 flex justify-center"}>
+      <button
+        className={'m-2 border-2 border-amber-500 rounded-md w-10 h-10'} 
         // disabled-aria={props.currentPage === 1}
         onClick={() => props.onPageChange(props.currentPage - 1)}
       >
-        <div className="arrow left" />
-      </li>
+        <div className="">&#8592;</div>
+      </button>
       {paginationRange.map((pageNumber: string | number) => {
         if (pageNumber === DOTS) {
-          return <li className="pagination-item dots">&#8230;</li>;
+          return <button className="m-2 border-2 border-amber-500 rounded-md w-10 h-10">&#8230;</button>;
         }
 
         return (
             <button 
-                className={`pagination-item ${pageNumber === props.currentPage ? 'text-3xl text-orange-400' : null}`} 
+                className={`${pageNumber === props.currentPage ? 'text-2xl text-orange-400' : null} m-2 border-2 border-amber-500 rounded-md w-10 h-10`} 
                 onClick={() => props.onPageChange(pageNumber)}
             >
                 {pageNumber}
@@ -49,12 +49,13 @@ export default function Pagination(props: Props): ReactElement {
         );
       })}
       <button
+        className={'m-2 border-2 border-amber-500 rounded-md w-10 h-10'}
         disabled={props.currentPage === lastPage}
         onClick={() => props.onPageChange(props.currentPage + 1)}
       >
-        <div className="arrow right" />
+        <div className={""}>&#8594;</div>
       </button>
-    </ul>
+    </div>
   );
 };
 
