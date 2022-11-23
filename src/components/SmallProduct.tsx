@@ -11,10 +11,10 @@ interface Props {
 }
 
 
-const themeColor = createTheme({
+const Color = createTheme({
     palette: {
         primary: {
-            main: grey[900]
+            main: grey[900],
         },
         secondary: {
             main: '#ff5722',
@@ -26,18 +26,22 @@ export default function SmallProduct(props: Props) {
     const [counter, setCounter] = useState(0);
     
     return (
-    <div className="text-center flex-[1_0_15%] w-60 h-[400px] mt-16 border-2 border-orange-500 rounded-2xl flex-col flex">
-        <img height={200} width={200} alt={"a picture of " + props.productName} className="mt-4 self-center" src={props.image}></img>
-        <p className="self-center text-2xl">{props.productName}</p>
+    <div className="text-center flex-[1_0_15%] w-60 h-[400px] mt-16 border border-orange-500 rounded-2xl flex-col flex">
+        <button className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:scale-90  duration-200">
+        <img height={230} width={230} alt={"a picture of " + props.productName} className="" src={props.image}></img>
+        <p className="font-sans font-semibold">{props.productName}</p>
+        </button>
+        
         <div className="mt-auto self-center place-content-center w-3/4">
             <p className="text-orange-700 self-center mb-auto text-3xl font-bold mt-auto">{props.price} EUR</p>
-            {counter > 0 ? <div className="mb-4 mt-10 h-8 border-orange-500 border-2 rounded-full space-x-20 flex flex-row place-content-center place-items-center">
+            {counter > 0 ? <div className="mb-4 mt-10 h-8 border-orange-500 border-2 rounded-full space-x-16 flex flex-row place-content-center place-items-center">
                 <IconButton
                     color="primary"
                     disabled={counter == 0}
                     aria-label="upload picture"
                     component="label"
                     onClick={() => setCounter(counter - 1)}
+                    className="ml-0"
                 >
                     <RemoveIcon />
                 </IconButton>
@@ -47,6 +51,7 @@ export default function SmallProduct(props: Props) {
                     aria-label="upload picture"
                     component="label"
                     onClick={() => setCounter(counter + 1)}
+                    className=""
                 >
                     <AddIcon />
                 </IconButton>

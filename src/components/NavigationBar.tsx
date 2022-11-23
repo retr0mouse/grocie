@@ -18,6 +18,7 @@ import FrozenPicture from '../images/frozen.svg'
 import ChildrenPicture from '../images/children.svg'
 import HomePicture from '../images/home.svg'
 import Image from 'next/image'
+import { Popover, Transition } from '@headlessui/react';
 
 
     const Soodnecolor = deepOrange[400]
@@ -86,8 +87,7 @@ export default function NavigationBar() {
                   sx={{ mr: 3 }}
                 >
                 <a className="ml-40"href="">Soodne</a></Typography>
-                <Search sx={{zIndex:'tooltip'}} 
-                >
+                <Search sx={{zIndex:'tooltip'}}>
                   <SearchIconWrapper>
                     <SearchIcon />
                   </SearchIconWrapper>
@@ -96,7 +96,9 @@ export default function NavigationBar() {
                     inputProps={{ 'aria-label': 'search' }}
                   />
                 </Search>
-                <IconButton
+                <Popover className="relative">
+                  <Popover.Button>
+                    <IconButton
                   size="large"
                   edge="start"
                   color="secondary"
@@ -105,6 +107,48 @@ export default function NavigationBar() {
                 >
                   <ShoppingCartOutlinedIcon/>
                 </IconButton>
+                </Popover.Button>
+                <Transition
+                  enter="transition ease-out duration-200"
+                  enterFrom="opacity-0 translate-y-1"
+                  enterTo="opacity-100 translate-y-0"
+                  leave="transition ease-in duration-150"
+                  leaveFrom="opacity-100 translate-y-0"
+                  leaveTo="opacity-0 translate-y-1"
+                >
+                  <Popover.Panel className="absolute z-10 mt-3 w-screen h-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl">
+                    <div className="overflow-hidden rounded-lg shadow-xl ring-1 border border-red-900 ring-black ring-opacity-5">
+                      <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
+                        
+                          <a className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                          >
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-12 sm:w-12">
+                            </div>
+                            <div className="ml-4">
+                              <p className="text-sm font-medium text-gray-900">
+                                
+                              </p>
+                              <p className="text-sm text-gray-500">
+                              
+                              </p>
+                            </div>
+                          </a>
+                      </div>
+                      <div className="bg-gray-50 p-4">
+                      </div>
+                    </div>
+                  </Popover.Panel>
+            </Transition>
+                </Popover>
+                {/* <IconButton
+                  size="large"
+                  edge="start"
+                  color="secondary"
+                  aria-label="open drawer"
+                  sx={{ ml: 2, mr: 40}}
+                >
+                  <ShoppingCartOutlinedIcon/>
+                </IconButton> */}
               </Toolbar>
             </AppBar>
           </Box>
