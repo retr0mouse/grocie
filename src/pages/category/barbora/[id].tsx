@@ -23,7 +23,7 @@ export async function getStaticPaths() {
     const categoriesCount = await Parser.getBarboraCategoriesCount();
     const paths = [] as string[];
     for (let i = 0; i < categoriesCount; i++) {
-        paths.push("/category/barbora/" + i)
+        paths.push("/category/barbora/" + i);
     }
     return {
         paths,

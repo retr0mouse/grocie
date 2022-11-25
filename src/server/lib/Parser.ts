@@ -128,9 +128,9 @@ export class Parser {
 
     static async getAllRimiItems(): Promise<Grocery[]> {
         let itemsData = [] as Grocery[];
-        //for (let categoryIndex = 0; categoryIndex < 1; categoryIndex++) {
+        for (let categoryIndex = 0; categoryIndex < 1; categoryIndex++) {
         
-        for (let categoryIndex = 0; categoryIndex < await this.getRimiCategoriesCount(); categoryIndex++) {
+        // for (let categoryIndex = 0; categoryIndex < await this.getRimiCategoriesCount(); categoryIndex++) {
             console.log(categoryIndex + " - rimi");
             const category = await Parser.getRimiCategoryById(categoryIndex);
             if (!category.link) break;

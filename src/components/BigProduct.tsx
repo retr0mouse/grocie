@@ -39,11 +39,13 @@ export default function BigProduct(props: Props) {
             <Box>
                 <div className="mt-16 border-2 border-orange-500 rounded flex-row flex place-content-center place-items-center space-x-40">
                     <div className="felx-col items-center">
-                        <Image
+                        <img
                             alt={"a picture of " + props.productName}
                             className=""
                             src={props.image}
-                        ></Image>
+                            width={200}
+                            height={200}
+                        ></img>
                         <div className="h-10 border-orange-500 border-2 rounded-full space-x-20 flex flex-row place-content-center place-items-center">
                             <IconButton
                                 color="primary"

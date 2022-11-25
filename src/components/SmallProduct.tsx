@@ -3,6 +3,7 @@ import { grey } from "@mui/material/colors";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
+import Link from "next/link";
 
 interface Props {
     image: string,
@@ -27,10 +28,10 @@ export default function SmallProduct(props: Props) {
     
     return (
     <div className="shadow-2xl text-center flex-[1_0_15%] w-60 h-[400px] mt-16 border border-orange-500 rounded-2xl flex-col flex">
-        <button className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:scale-90  duration-200">
-        <img height={230} width={230} alt={"a picture of " + props.productName} className="" src={props.image}></img>
-        <p className="font-sans font-semibold">{props.productName}</p>
-        </button>
+        <Link href={{pathname: `/product/what`, query: { product: JSON.stringify(props)}}} className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:scale-90  duration-200">
+            <img height={230} width={230} alt={"a picture of " + props.productName} className="" src={props.image}></img>
+            <p className="font-sans font-semibold">{props.productName}</p>
+        </Link>
         
         <div className="mt-auto self-center place-content-center w-3/4">
             <p className="text-orange-700 self-center mb-auto text-3xl font-bold mt-auto">{props.price} 
