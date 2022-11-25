@@ -28,21 +28,21 @@ export async function getStaticProps() {  // for ssg
 }
 
 export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItemsBarbora }: { allCategoriesBarbora: any[], allCategoriesRimi: any[], allItemsBarbora: any[] }) {
-	// const mutation = trpc.storeItems.useMutation();
+	const mutation = trpc.storeItems.useMutation();
 	const [title, setTitle] = useState("Banaan");
 	const [result, setResult] = useState("Banaan");
-	// const query = trpc.findItem.useQuery({ title: result });
+	const query = trpc.findItem.useQuery({ title: result });
 
 	const [currentPage, setCurrentPage] = useState(1) as any;
 
 	const pageSize = 48;
 
-	// const currentItems = useMemo(() => {
-	// 	const firstPageIndex = (currentPage - 1) * pageSize;
-	// 	const lastPageIndex = firstPageIndex + pageSize;
-	// 	console.log("page changed");
-	// 	if (allItemsBarbora) return allItemsBarbora.slice(firstPageIndex, lastPageIndex);
-	// }, [currentPage]);
+	const currentItems = useMemo(() => {
+		const firstPageIndex = (currentPage - 1) * pageSize;
+		const lastPageIndex = firstPageIndex + pageSize;
+		console.log("page changed");
+		if (allItemsBarbora) return allItemsBarbora.slice(firstPageIndex, lastPageIndex);
+	}, [currentPage]);
 
   return (
 	<>
@@ -51,13 +51,13 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 	  <Head>
 		<title>Groceries comparing app</title>|
 	  </Head>
-	  {/* <div className={"flex flex-wrap self-center space-x-3"}>
+	  <div className={"flex flex-wrap self-center space-x-3"}>
 		{currentItems?.map((item: Grocery) => {
 		  return (
 			<SmallProduct image={item.image} productName={item.name} price={item.price} />
 		  )
 		})}
-	  </div> */}
+	  </div>
 	  <Pagination 
 		onPageChange={page => setCurrentPage(page)} 
 		totalCount={allItemsBarbora?.length ?? 0} 
