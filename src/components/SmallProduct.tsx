@@ -25,6 +25,7 @@ const Color = createTheme({
 
 export default function SmallProduct(props: Props) {
     const [counter, setCounter] = useState(0);
+    const price = String(props.price).split('.');
 
     return (
         <div className="shadow-2xl text-center flex-[1_0_15%] w-60 h-[400px] mt-16 border border-orange-500 rounded-2xl flex-col flex">
@@ -34,11 +35,17 @@ export default function SmallProduct(props: Props) {
             </Link>
 
             <div className="mt-auto self-center place-content-center w-3/4">
-                <p className="text-orange-700 self-center mb-auto text-3xl font-bold mt-auto">{props.price}
-                    <sup>€</sup>
-                    {/* <sub>€/tk</sub> */}
+                <div className="flex flex-raw place-content-center items-center">
+                    <span className="text-orange-700 self-center mb-auto text-5xl font-bold mt-auto">{price[0]}</span>
+                    <div>
+                        <sup className="text-orange-700 text-2xl block ">{price[1]}</sup>
+                        <sub className="text-orange-700 block text-2xl -mt-6">€</sub>
+                    </div>
+                </div>
+                
+                        
 
-                </p>
+                
                 {counter > 0 ? <div className="mb-4 mt-10 h-8 border-orange-500 border-2 rounded-full space-x-16 flex flex-row place-content-center place-items-center">
                     <IconButton
                         color="primary"

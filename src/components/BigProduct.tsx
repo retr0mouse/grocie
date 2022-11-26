@@ -11,6 +11,11 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { grey, red } from "@mui/material/colors";
 import { useState } from "react";
 import Image from "next/image";
+import Barbora from "../images/barbore.png"
+import Rimi from "../images/rime.png"
+import Coop from "../images/cope.png"
+import Selver from "../images/selve.png"
+import { promise } from "zod";
 
 interface Props {
     image: string;
@@ -36,8 +41,9 @@ export default function BigProduct(props: Props) {
     const [counter, setCounter] = useState(0);
 
     return (
-        <div className="bg-white p-10 w-[800px] mt-[19px] flex-row flex place-content-center place-items-centerspace-x-40 self-center">
-            <div className="felx-col items-center">
+        <div className="mt-16 rounded-lg space-x-20 bg-white p-10 w-2/4 flex-row flex place-content-center place-items-center self-center">
+            <div className="felx-col ">
+                <p>{props.productName}</p>
                 <img
                     alt={"a picture of " + props.productName}
                     className=""
@@ -69,13 +75,23 @@ export default function BigProduct(props: Props) {
                     <button className="text-2xl">Add to Cart</button>
                 </div>
             </div>
-            <div className="pr-10 flex-row space-y-10 text-orange-500 w-[20rem]">
-                <p className="text-5xl">{props.productName}</p>
-                <p className="text-2xl">Rimi : {props.rimiPrice}</p>
-                <p className="text-2xl">Selver : {props.selverPrice}</p>
-                <p className="text-2xl">Coop : {props.coopPrice}</p>
-                <p className="text-2xl">Barbora : {props.barboraPrice}</p>
+            <div className="pr-10 flex-col space-y-10 w-[20rem]">
+                <div className="flex flex-raw items-center">
+                    <Image alt="barbora logo" className="w-16 h-6 mr-16 flex" src={Barbora}></Image>
+                    <p className="text-2xl text-orange-500 font-medium">{props.barboraPrice}</p>
+                </div>
+                <div className="flex flex-raw items-center">
+                    <Image alt="rimi logo" className="w-auto h-6 mr-16 flex" src={Rimi}></Image>
+                    <p className="text-2xl text-orange-500 font-medium">{props.rimiPrice}</p>
+                </div>
+                <div className="flex flex-raw items-center">
+                    <Image alt="rimi logo" className="w-auto h-6 mr-16 flex" src={Selver}></Image>
+                    <p className="text-2xl text-orange-500 font-medium">{props.selverPrice}</p>
+                </div>
+                <div className="flex flex-raw items-center">
+                    <Image alt="rimi logo" className="w-16 h-6 mr-16 flex" src={Coop}></Image>
+                    <p className="text-2xl text-orange-500 font-medium">{props.coopPrice}</p>
+                </div>
             </div>
         </div>
-    );
-}
+)}

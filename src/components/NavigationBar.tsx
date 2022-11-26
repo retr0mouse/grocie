@@ -219,7 +219,7 @@ export default function NavigationBar() {
 						<Image className="w-24 h-24 flex" src={BrushPicture} alt="" />
 					</button>
 					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Enesehooldustooted
+					flex place-content-center place-items-center'>Enesehooldus tooted
 					</a>
 				</div>
 
@@ -229,7 +229,7 @@ export default function NavigationBar() {
 						<Image className="w-24 h-24 flex" src={CleaningPicture} alt="" />
 					</button>
 					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Puhastustarbed ja lemmikloomatooted
+					flex place-content-center place-items-center'>Puhastustarbed ja loomatooted
 					</a>
 				</div>
 
