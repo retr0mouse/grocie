@@ -54,7 +54,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 	  <div className={"flex flex-wrap self-center space-x-3"}>
 		{currentItems?.map((item: Grocery) => {
 		  return (
-			<SmallProduct image={item.image} productName={item.name} price={item.price} />
+			<SmallProduct image={item.image} name={item.name} price={item.price} />
 		  )
 		})}
 	  </div>

@@ -8,19 +8,19 @@ import BreadPicture from "../../src/images/bread.svg";
 export default function BigProductPage( {}: any){
     const router = useRouter();
     if (typeof router.query.product !== "string") return;
-    const product = JSON.parse(router.query.product);
+    const product = JSON.parse(router.query.product) as Grocery;
     
     const image = product.image;
     const name = product.name;
-    const rimiPrice = product.rimiPrice;
-    const selverPrice = product.selverPrice;
-    const coopPrice = product.coopPrice;
-    const barboraPrice = product.barboraPrice;
+    const rimiPrice = product.price;
+    const selverPrice = product.price;
+    const coopPrice = product.price;
+    const barboraPrice = product.price;
 
     console.log(product);
 
     return(
-        <>
+        <div className={'flex flex-col'}>
             <NavigationBar/>
             <BigProduct 
                 image={image}
@@ -30,7 +30,7 @@ export default function BigProductPage( {}: any){
                 coopPrice={coopPrice}
                 barboraPrice={barboraPrice}
             />
-        </>
+        </div>
     )
 }
 
