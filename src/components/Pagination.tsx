@@ -34,18 +34,19 @@ export default function Pagination(props: Props): ReactElement {
 			>
 				<div className="">&#8592;</div>
 			</button>
-			{paginationRange.map((pageNumber: string | number) => {
+			{paginationRange.map((pageNumber: string | number, index: number) => {
 				if (pageNumber === DOTS) {
-					return <button className="m-2 border-2 border-amber-500 rounded-md w-10 h-10">&#8230;</button>;
+					return <button key={index} className="m-2 border-2 border-amber-500 rounded-md w-10 h-10">&#8230;</button>;
 				}
 
 				return (
-						<button 
-								className={`${pageNumber === props.currentPage ? 'text-2xl text-orange-400' : null} m-2 border-2 border-amber-500 rounded-md w-10 h-10`} 
-								onClick={() => props.onPageChange(pageNumber)}
-						>
-								{pageNumber}
-						</button>
+					<button 
+						key={index}
+						className={`${pageNumber === props.currentPage ? 'text-2xl text-orange-400' : null} m-2 border-2 border-amber-500 rounded-md w-10 h-10`} 
+						onClick={() => props.onPageChange(pageNumber)}
+					>
+						{pageNumber}
+					</button>
 				);
 			})}
 			<button

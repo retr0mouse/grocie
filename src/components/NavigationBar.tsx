@@ -19,6 +19,7 @@ import ChildrenPicture from '../images/children.svg';
 import HomePicture from '../images/home.svg';
 import Image from 'next/image';
 import { Popover, Transition } from '@headlessui/react';
+import { Grocery } from 'groceries-component';
 
 
 const Soodnecolor = deepOrange[400]
@@ -35,13 +36,12 @@ const themeColor = createTheme({
 });
 
 const Search = styled('div')(({ theme }) => ({
-	position: 'sticky',
 	borderRadius: "16px",
 	backgroundColor: alpha(theme.palette.common.black, 0.15),
 	'&:hover': {
 		backgroundColor: alpha(theme.palette.common.black, 0.25),
 	},
-	width: '100%',
+	width: '60%',
 	[theme.breakpoints.up('sm')]: {
 		width: 'center',
 	},
@@ -70,10 +70,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
+interface Props {
+	items: Map<Grocery, number>,
+	triggerOpen: boolean
+}
 
-export default function NavigationBar() {
+export default function NavigationBar(props: Props) {
+	const items = Array.from(props.items.keys());
+	const values = Array.from(props.items.values());
+
 	return (
-		<ThemeProvider theme={themeColor}>
+		<div>
+			<ThemeProvider theme={themeColor}>
 			<Box sx={{ flexGrow: 1 }}>
 				<AppBar position="relative" className={"shadow-none"}>
 					<Toolbar>
@@ -94,6 +102,41 @@ export default function NavigationBar() {
 								inputProps={{ 'aria-label': 'search' }}
 							/>
 						</Search>
+						<Popover className={'h-10 sticky top-0'}>
+							{({ open }) => (
+								<>
+									<Popover.Button className={`focus:outline-none w-16 h-16 group sticky top-0`}>
+										<ShoppingCartOutlinedIcon className={"group-hover:fill-orange-700 w-10 h-10"}/>
+									</Popover.Button>
+									<Transition
+										className={`${props.triggerOpen ? "fixed right-0 top-0" : ""}`}
+										show={props.triggerOpen}
+										enter="transition duration-100 ease-out"
+										enterFrom="transform scale-95 opacity-0"
+										enterTo="transform scale-100 opacity-100"
+										leave="transition duration-75 ease-out"
+										leaveFrom="transform scale-100 opacity-100"
+										leaveTo="transform scale-95 opacity-0"
+									>
+										<Popover.Panel className={'-left-[100px] bg-orange-400 bg-opacity-80' }>
+											<div className='p-5 rounded-xl w-96'>
+												{items.length > 0 ? items.map((item: Grocery, index: number) => {
+													return (
+														<div className='flex items-center bg-white rounded-xl gap-3 mb-2 p-2 '>
+															<div className={'block relative'}>
+																<img className={"w-20"} src={item.image}/>
+																<span className={'absolute bottom-0 right-0 bg-slate-500 w-8 h-8 rounded-full m-0 flex items-center text-center justify-center'}> <p className='text-white'>{values[index]}</p> </span>
+															</div>
+															<p key={index}><span>{item.name.length > 15 ? item.name.substr(0,15) + '...': item.name}</span> {item.price} $</p>
+														</div>
+													)
+												}): <p>Your cart is empty!</p>}
+											</div>
+										</Popover.Panel>
+									</Transition>
+								</>
+							)}
+						</Popover>
 						{/* <Popover className="relative">
 							<Popover.Button>
 								<IconButton
@@ -254,5 +297,8 @@ export default function NavigationBar() {
 				</div>
 			</div>
 		</ThemeProvider>
+
+		</div>
+		
 	);
 }
