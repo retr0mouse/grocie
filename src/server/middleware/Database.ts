@@ -89,7 +89,8 @@ export class Database {
             const newItem = {
                 category: item.category.trim(),
                 name: item.name.trim(),
-                barbora_price: item.price
+                barbora_price: item.price,
+                product_image: item.image
             } as ProductType;
             const commonTitle = await Compare.compareCommonItem(item.name);
 
@@ -113,7 +114,8 @@ export class Database {
             const newItem = {
                 category: newCategory,
                 name: item.name,
-                rimi_price: item.price
+                rimi_price: item.price,
+                product_image: item.image
             } as ProductType;
 
             if (typeof commonTitle == 'string' && commonTitle.length > 1) {
@@ -125,6 +127,39 @@ export class Database {
                 await this.addProducts([newItem]);
             }
         });
+    }
+
+    static async getProductsByCategory(categoryTitle: string): Promise<Grocery[]> {
+        let foundProduct = {} as ProductType[];
+        let itemsData = [] as Grocery[];
+        if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
+        mongoose.connect(process.env.DATABASE_URL);
+        foundProduct = await Product.find({category: categoryTitle}).exec();
+        for (let i = 0; i < foundProduct.length; i++) {
+            const item = foundProduct[i] as ProductType;
+            let prices: number[] = []
+            if (typeof item.barbora_price  !== "undefined"){
+                prices.push(item.barbora_price)
+            }
+            else if (typeof item.rimi_price  !== "undefined"){
+                prices.push(item.rimi_price)
+            }
+            else if (typeof item.selver_price  !== "undefined"){
+                prices.push(item.selver_price)
+            }
+            else if (typeof item.coop_price  !== "undefined"){
+                prices.push(item.coop_price)
+            }
+            let MinimumPrice = Math.min.apply(null, prices);
+
+            itemsData.push({
+                name: item.name,
+                price: MinimumPrice,
+                image: item.product_image,
+                category: item.category
+            });
+        }
+        return itemsData;
     }
 }
 

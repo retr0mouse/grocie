@@ -14,7 +14,6 @@ export class Parser {
                 name: item.title,
                 price: item.price,
                 image: item.image,
-                id: item.id,
                 category: category.title
             });
         }
@@ -83,7 +82,6 @@ export class Parser {
                     name: item.name,
                     price: Number(euros + "." + cents) ,
                     image: image ?? "",
-                    id: item.id,
                     category: item.category
                 });
             }
