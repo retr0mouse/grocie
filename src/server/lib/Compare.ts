@@ -1,4 +1,4 @@
-import { convertMessure, isMessure } from '../../utils/parseCategory';
+import { convertMessure, isMessure } from '../../utils/parseData';
 import { Database } from '../middleware/Database';
 import { ProductType } from '../models/Product';
 

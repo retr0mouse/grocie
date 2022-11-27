@@ -1,3 +1,5 @@
+import { Database } from "../server/middleware/Database";
+
 export function parseCategory(categoryName: string) {
     let newName = categoryName.split("-") as string | string[]
     newName = newName[0] + "-" + newName[1]
@@ -55,4 +57,51 @@ export function convertMessure(input: string) {
     else{
         return input;
     }
+}
+
+export async function createChart(productName: string){
+  const product = Database.getProduct(productName)
+
+  let dates:Date[] = []
+  let minimum:number[] = []
+  let avarage:number[] = []
+  let maximum:number[] = []
+  let stats = (await product).statistics
+
+  if ( typeof stats !== "undefined"){
+  for (let i = 0; i < stats.length; i++) {
+    dates.push(stats[i].date)
+    minimum.push(stats[i].min_price)
+    avarage.push(stats[i].avg_price)
+    maximum.push(stats[i].max_price)
+  }
+  }
+  let data = {
+    labels: dates,
+    datasets: [
+      {
+        label: 'Minimaalne',
+        data: minimum,
+        borderColor: 'blue',
+        fill: false,
+        stepped: false,
+      },
+      {
+        label: 'Keskmine',
+        data: avarage,
+        borderColor: "green",
+        fill: false,
+        stepped: false,
+      },
+      {
+        label: 'Maksimaalne',
+        data: maximum,
+        borderColor: "red",
+        fill: false,
+        stepped: false,
+      }
+      
+    ]
+  };
+  return data;
 }

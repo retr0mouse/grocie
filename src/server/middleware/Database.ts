@@ -1,6 +1,6 @@
 import { Category, Grocery } from "groceries-component";
 import mongoose from "mongoose";
-import { parseCategory } from "../../utils/parseCategory";
+import { parseCategory } from "../../utils/parseData";
 import { Compare } from "../lib/Compare";
 import { Parser } from "../lib/Parser";
 import { Product, ProductType } from "../models/Product";
