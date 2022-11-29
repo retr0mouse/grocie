@@ -16,14 +16,16 @@ import Rimi from "../images/rime.png"
 import Coop from "../images/cope.png"
 import Selver from "../images/selve.png"
 import { promise } from "zod";
+import { Chart } from "chart.js";
+import { createChart } from "../utils/parseData";
 
 interface Props {
     image: string;
     productName: string;
-    rimiPrice: number;
-    selverPrice: number;
-    coopPrice: number;
-    barboraPrice: number;
+    rimiPrice?: number;
+    selverPrice?: number;
+    coopPrice?: number;
+    barboraPrice?: number;
 }
 
 const themeColor = createTheme({
@@ -37,9 +39,9 @@ const themeColor = createTheme({
     },
 });
 
-export default function BigProduct(props: Props) {
-    const [counter, setCounter] = useState(0);
 
+export default function BigProduct( props: Props ) {
+    const [counter, setCounter] = useState(0);
     return (
         <div className="mt-16 rounded-lg space-x-20 bg-white p-10 w-2/4 flex-row flex place-content-center place-items-center self-center">
             <div className="felx-col ">
@@ -76,22 +78,41 @@ export default function BigProduct(props: Props) {
                 </div>
             </div>
             <div className="pr-10 flex-col space-y-10 w-[20rem]">
-                <div className="flex flex-raw items-center">
+                {props.barboraPrice ? <div className="flex flex-raw items-center">
                     <Image alt="barbora logo" className="w-16 h-6 mr-16 flex" src={Barbora}></Image>
                     <p className="text-2xl text-orange-500 font-medium">{props.barboraPrice}</p>
-                </div>
-                <div className="flex flex-raw items-center">
+                </div>: null}
+                {props.rimiPrice ? <div className="flex flex-raw items-center">
                     <Image alt="rimi logo" className="w-auto h-6 mr-16 flex" src={Rimi}></Image>
                     <p className="text-2xl text-orange-500 font-medium">{props.rimiPrice}</p>
-                </div>
-                <div className="flex flex-raw items-center">
+                </div>: null}
+                {props.selverPrice ? <div className="flex flex-raw items-center">
                     <Image alt="rimi logo" className="w-auto h-6 mr-16 flex" src={Selver}></Image>
                     <p className="text-2xl text-orange-500 font-medium">{props.selverPrice}</p>
-                </div>
-                <div className="flex flex-raw items-center">
+                </div>: null}
+                {props.coopPrice ? <div className="flex flex-raw items-center">
                     <Image alt="rimi logo" className="w-16 h-6 mr-16 flex" src={Coop}></Image>
                     <p className="text-2xl text-orange-500 font-medium">{props.coopPrice}</p>
-                </div>
+                </div>: null}
             </div>
+            <div></div>
+            {/* {new Chart(
+                type: 'line',
+                data: parseData.createChart(props.productName),
+                options: {
+                  responsive: true,
+                  interaction: {
+                    intersect: false,
+                    axis: 'x'
+                  },
+                  plugins: {
+                    title: {
+                      display: true,
+                      text: (ctx) => 'Step ' + ctx.chart.data.datasets[0].stepped + ' Interpolation',
+                    }
+                  }
+                }
+            )}; */}
         </div>
 )}
+

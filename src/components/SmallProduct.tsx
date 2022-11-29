@@ -8,7 +8,11 @@ import Link from "next/link";
 interface Props {
     image: string,
     name: string,
-    price: number,
+    minPrice: number,
+    rimi_price?: number,
+    barbora_price?: number,
+    selver_price?: number,
+    coop_price?: number,
     onChanged(count: number): void
 }
 
@@ -25,17 +29,18 @@ const Color = createTheme({
 });
 
 export default function SmallProduct(props: Props) {
-    const [counter, setCounter] = useState<number>();
-    const price = String(props.price).split('.');
+    const [counter, setCounter] = useState<number>(0);
+    const price = String(props.minPrice).split('.');
 
     useEffect(() => {
-        if (!counter || counter < 0) return;
+        if (typeof counter === 'undefined' || counter < 0) return;
         props.onChanged(counter);
     }, [counter])
 
     return (
         <div className="pr-5 pl-5 bg-white text-center flex-[1_0_15%] w-60 h-[400px] mt-16 rounded-2xl flex-col flex">
-            <Link href={{ pathname: `/product/what`, query: { product: JSON.stringify(props) } }} className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200">
+            {/* <Link href={{ pathname: `/product/${props.name}`}} className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200"> */}
+            <Link href={{ pathname: `/product/${props.name}`, query: { product: JSON.stringify(props) } }} className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200">
                 <img height={230} width={230} alt={"a picture of " + props.name} className="" src={props.image}></img>
                 <p className="font-sans font-semibold ">{props.name}</p>
             </Link>

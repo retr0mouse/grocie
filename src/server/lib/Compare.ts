@@ -54,7 +54,7 @@ export class Compare{
                     return titles[comparison.bestMatchIndex]
                 }
                 else {
-                    console.log("try: " + comparison.bestMatch.target + " needed: " + productTitle);
+                    //console.log("try: " + comparison.bestMatch.target + " needed: " + productTitle);
                     compareTitles.splice(comparison.bestMatchIndex, 1);
                 }
             }

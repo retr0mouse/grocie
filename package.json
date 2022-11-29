@@ -29,9 +29,11 @@
     "@trpc/next": "^10.0.0-proxy-beta.26",
     "@trpc/react-query": "^10.0.0-proxy-beta.26",
     "@trpc/server": "^10.0.0-proxy-beta.26",
+    "chart.js": "^4.0.1",
     "cheerio": "^1.0.0-rc.12",
     "next": "^13.0.0",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.0.1",
     "react-dom": "^18.2.0",
     "string-similarity": "^4.0.4"
   },

@@ -50,37 +50,45 @@ export class Database {
         return allCategories;
     }
 
-    static async setStat(product:ProductType){
+    static async createStatsForEverything(){
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
         mongoose.connect(process.env.DATABASE_URL);
 
-        let prices: number[] = []
-        if (typeof product.barbora_price  !== "undefined"){
-            prices.push(product.barbora_price)
+        let allProducts = await Product.find().exec();
+
+        for (let i=0; i < allProducts.length; i++){
+            // console.log("item nr. " + i);
+            let prices: number[] = []
+            if (typeof allProducts[i].barbora_price  !== "undefined"){
+                prices.push(allProducts[i].barbora_price)
+            }
+            if (typeof allProducts[i].rimi_price  !== "undefined"){
+                prices.push(allProducts[i].rimi_price)
+            }
+            if (typeof allProducts[i].selver_price  !== "undefined"){
+                prices.push(allProducts[i].selver_price)
+            }
+            if (typeof allProducts[i].coop_price  !== "undefined"){
+                prices.push(allProducts[i].coop_price)
+            }
+
+            let MinimumPrice = Math.round(Math.min.apply(null, prices) * 100)/100;
+            let averagePrice = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length * 100) / 100 ;
+            let MaximumPrice = Math.round(Math.max.apply(null, prices) * 100) / 100;
+
+            const newStat = {
+                date: new Date().toLocaleDateString('en-GB'),
+                min_price: MinimumPrice,
+                avg_price: averagePrice,
+                max_price: MaximumPrice
+            }
+            const product = await Product.findOne({name: allProducts[i].name});
+
+            //console.log(product.name);
+            product.statistics.push(newStat);
+
+            await product.save();
         }
-        else if (typeof product.rimi_price  !== "undefined"){
-            prices.push(product.rimi_price)
-        }
-        else if (typeof product.selver_price  !== "undefined"){
-            prices.push(product.selver_price)
-        }
-        else if (typeof product.coop_price  !== "undefined"){
-            prices.push(product.coop_price)
-        }
-
-
-        let MinimumPrice = Math.min.apply(null, prices);
-        let avaragePrice = prices.reduce((a, b) => a + b, 0) / prices.length;
-        let MaximumPrice = Math.max.apply(null, prices);
-
-        Product.updateOne({name: product.name}, { $push:{statistics: {
-            date: new Date().toISOString().slice(0, 10),
-            min_price: MinimumPrice,
-            avg_price: avaragePrice,
-            max_price: MaximumPrice
-        }} });
-
-
     }
     
     static async updateBarboraItems() {
@@ -138,28 +146,31 @@ export class Database {
         for (let i = 0; i < foundProduct.length; i++) {
             const item = foundProduct[i] as ProductType;
             let prices: number[] = []
+            const newItem = {
+                name: item.name,
+                category: item.category,
+                image: item.product_image
+            } as Grocery;
             if (typeof item.barbora_price  !== "undefined"){
+                newItem.barbora_price = item.barbora_price;
                 prices.push(item.barbora_price)
             }
-            else if (typeof item.rimi_price  !== "undefined"){
+            if (typeof item.rimi_price  !== "undefined"){
+                newItem.rimi_price = item.rimi_price;
                 prices.push(item.rimi_price)
             }
-            else if (typeof item.selver_price  !== "undefined"){
+            if (typeof item.selver_price  !== "undefined"){
+                newItem.selver_price = item.selver_price;
                 prices.push(item.selver_price)
             }
-            else if (typeof item.coop_price  !== "undefined"){
+            if (typeof item.coop_price  !== "undefined"){
+                newItem.coop_price = item.coop_price;
                 prices.push(item.coop_price)
             }
-            let MinimumPrice = Math.min.apply(null, prices);
-
-            itemsData.push({
-                name: item.name,
-                price: MinimumPrice,
-                image: item.product_image,
-                category: item.category
-            });
+            if (prices.length < 2) continue
+            newItem.allPrices = prices;
+            itemsData.push(newItem);
         }
         return itemsData;
     }
 }
-
