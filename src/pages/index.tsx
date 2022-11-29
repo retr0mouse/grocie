@@ -12,26 +12,29 @@ import Pagination from '../components/Pagination';
 import { Grocery } from 'groceries-component';
 import { ProductType } from '../server/models/Product';
 import { images } from '../../next-config';
+import { Database } from '../server/middleware/Database';
 
 export async function getStaticProps() {  // for ssg
   const allCategoriesBarbora = await Parser.getBarboraCategories();
   const allCategoriesRimi = await Parser.getRimiCategories();
   const allItemsBarbora = await Parser.getAllBarboraItems();
+  const allMeatItems = await Database.getProductsByCategory("Köögiviljad, puuviljad");
 
   return {
 	props: {
 	  allCategoriesBarbora,
 	  allCategoriesRimi,
-	  allItemsBarbora
+	  allItemsBarbora,
+	  allMeatItems
 	}
   }
 }
 
-export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItemsBarbora }: { allCategoriesBarbora: any[], allCategoriesRimi: any[], allItemsBarbora: any[] }) {
-	// const mutation = trpc.storeItems.useMutation();
-	// const [title, setTitle] = useState("Banaan");
-	// const [result, setResult] = useState("Banaan");
-	// const query = trpc.findItem.useQuery({ title: result });
+export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItemsBarbora, allMeatItems }: { allCategoriesBarbora: any[], allCategoriesRimi: any[], allItemsBarbora: any[], allMeatItems: any[]}) {
+	const mutation = trpc.storeItems.useMutation();
+	const [title, setTitle] = useState("Banaan");
+	const [result, setResult] = useState("Banaan");
+	const query = trpc.findItem.useQuery({ title: result });
 	const [cart, setCart] = useState(new Map());
 	const [hasChanged, setHasChanged] = useState(false);
 
@@ -47,8 +50,9 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 	const currentItems = useMemo(() => {
 		const firstPageIndex = (currentPage - 1) * pageSize;
 		const lastPageIndex = firstPageIndex + pageSize;
-		console.log("page changed");
-		if (allItemsBarbora) return allItemsBarbora.slice(firstPageIndex, lastPageIndex);
+		// console.log("page changed");
+		console.log(allMeatItems.length);
+		if (allMeatItems) return allMeatItems.slice(firstPageIndex, lastPageIndex);
 	}, [currentPage]);
 
   return (
@@ -90,9 +94,9 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 				selverPrice={12.22}
 				coopPrice={13.22}
 				barboraPrice={15.56}
-			/> */}
+			/>
 			
-			{/* <div className="flex p-10 absolute gap-10 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] border-solid border-2 border-indigo-400 rounded-2xl">
+			 <div className="flex p-10 absolute gap-10 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] border-solid border-2 border-indigo-400 rounded-2xl">
 				<div className='flex flex-col items-center gap-5'>
 				<h1 className="font-sans text-4xl font-bold">Barbora</h1>
 				<div className='flex flex-col'>
@@ -114,12 +118,12 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 				})}
 				</div>
 				</div>
-			</div>
+			</div>*/}
 			<div className={"relative left-1/2 transform -translate-x-1/2 flex flex-col w-10, "}>
 				<input type="text" className={"bg-slate-600"} defaultValue={title} onChange={(input) => setTitle(input.target.value)}/> 
 				<button className={"bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"} onClick={() => mutation.mutate()}>BREAK EVERYTHING</button>
 				<h1 className={"bg-red-600"}>RESULT: {query.data ?? "nothing"}</h1>
-			</div>  */}
+			</div>
 		</Layout>
 	</>
   )

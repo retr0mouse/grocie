@@ -9,7 +9,7 @@ export interface ProductType {
   barbora_price?: number
   selver_price?: number
   coop_price?: number
-  product_image?: string,
+  product_image: string,
   statistics?: {
     date: Date,
     min_price: number,

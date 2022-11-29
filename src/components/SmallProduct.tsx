@@ -29,10 +29,10 @@ export default function SmallProduct(props: Props) {
     const price = String(props.price).split('.');
 
     useEffect(() => {
-        console.log(counter);
+        // console.log(counter);
         if (typeof counter === 'undefined' || counter < 0) return;
         props.onChanged(counter);
-        console.log('keka');
+        // console.log('keka');
     }, [counter])
 
     return (

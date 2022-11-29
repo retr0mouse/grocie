@@ -141,15 +141,18 @@ export class Database {
             if (typeof item.barbora_price  !== "undefined"){
                 prices.push(item.barbora_price)
             }
-            else if (typeof item.rimi_price  !== "undefined"){
+            if (typeof item.rimi_price  !== "undefined"){
                 prices.push(item.rimi_price)
             }
-            else if (typeof item.selver_price  !== "undefined"){
+            if (typeof item.selver_price  !== "undefined"){
                 prices.push(item.selver_price)
             }
-            else if (typeof item.coop_price  !== "undefined"){
+            if (typeof item.coop_price  !== "undefined"){
                 prices.push(item.coop_price)
             }
+
+            if (prices.length < 2) continue
+
             let MinimumPrice = Math.min.apply(null, prices);
 
             itemsData.push({
@@ -162,4 +165,3 @@ export class Database {
         return itemsData;
     }
 }
-
