@@ -122,19 +122,22 @@ export default function NavigationBar(props: Props) {
 										leaveFrom="transform scale-100 opacity-100"
 										leaveTo="transform scale-95 opacity-0"
 									>
-										<Popover.Panel className={'absolute -left-[100px] bg-orange-400 bg-opacity-80' }>
-											<div className='p-5 rounded-xl w-96'>
+										<Popover.Panel className={'absolute -left-[100px] rounded-2xl bg-orange-500 bg-opacity-90' }>
+											<div className='p-2 rounded-2xl w-96'>
+											<button className='bg-orange-200 w-20 h-6 flex mb-5 rounded-2xl'>
+												<p className='text-xl text-slate-700 font-medium text-center'>Ostukorv</p>
+											</button>
 												{items.length > 0 ? items.map((item: Grocery, index: number) => {
 													return (
 														<div className='flex items-center bg-white rounded-xl gap-3 mb-2 p-2 '>
 															<div className={'block relative'}>
 																<img className={"w-20"} src={item.image}/>
-																<span className={'absolute bottom-0 right-0 bg-slate-500 w-8 h-8 rounded-full m-0 flex items-center text-center justify-center'}> <p className='text-white'>{values[index]}</p> </span>
+																<span className={'absolute bottom-0 right-0 bg-slate-500 w-8 h-8 bg-opacity-85 rounded-full m-0 flex items-center text-center justify-center'}> <p className='text-white'>{values[index]}</p> </span>
 															</div>
 															<p key={index}><span>{item.name.length > 15 ? item.name.substring(0,15) + '...': item.name}</span> {item.price} $</p>
 														</div>
 													)
-												}): <p>Your cart is empty!</p>}
+												}): <p className="text-xl text-slate-700 font-medium text-center">Your cart is empty!</p>}
 											</div>
 										</Popover.Panel>
 									</Transition>

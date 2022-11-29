@@ -11,7 +11,7 @@ export interface ProductType {
   coop_price?: number
   product_image: string,
   statistics?: {
-    date: Date,
+    date: string,
     min_price: number,
     avg_price: number,
     max_price: number
@@ -27,7 +27,7 @@ const ProductSchema = new Schema<ProductType>({
   coop_price:{type: Schema.Types.Number},
   product_image:{type: Schema.Types.String},
   statistics: [{
-    date: {type: Date},
+    date: {type: Schema.Types.String},
     min_price: {type: Schema.Types.Number},
     avg_price: {type: Schema.Types.Number},
     max_price: {type: Schema.Types.Number}
