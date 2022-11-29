@@ -49,7 +49,6 @@ const Search = styled('div')(({ theme }) => ({
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
 	padding: theme.spacing(2, 2),
-	height: '100%',
 	position: 'absolute',
 	pointerEvents: 'none',
 	display: 'flex',
@@ -110,7 +109,13 @@ export default function NavigationBar(props: Props) {
 							{({ open }) => (
 								<>
 									<Popover.Button className={`focus:outline-none w-16 h-16 group sticky top-0`}>
-										<ShoppingCartOutlinedIcon className={"group-hover:fill-orange-700 w-10 h-10"}/>
+										<div className='flex flex-raw text-center'>
+											<ShoppingCartOutlinedIcon className={"flex ml-5 mb-[40%] group-hover:fill-orange-700 w-10 h-10"}/>
+											{/* <span className={'absolute left-10 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}> 
+												<p className='text-white'>{}</p>
+											</span> */}
+											<p className='flex ml-3 w-auto text-2xl text-slate-700 font-medium text-center'>Cart_Sum_$</p>
+										</div>
 									</Popover.Button>
 									<Transition
 										className={`${props.triggerOpen ? "fixed right-150 top-0" : ""}`}
@@ -124,8 +129,8 @@ export default function NavigationBar(props: Props) {
 									>
 										<Popover.Panel className={'absolute -left-[100px] rounded-2xl bg-orange-500 bg-opacity-90' }>
 											<div className='p-2 rounded-2xl w-96'>
-											<button className='bg-orange-200 w-20 h-6 flex mb-5 rounded-2xl'>
-												<p className='text-xl text-slate-700 font-medium text-center'>Ostukorv</p>
+											<button className='bg-orange-100 border-2 border-orange-300 w-full h-fit mb-5 rounded-xl transition ease-in-out delay-50 hover:scale-95 duration-150 '>
+												<p className='text-2xl text-slate-700 font-medium text-center p-2'>Sinu ostukorv</p>
 											</button>
 												{items.length > 0 ? items.map((item: Grocery, index: number) => {
 													return (
@@ -137,7 +142,7 @@ export default function NavigationBar(props: Props) {
 															<p key={index}><span>{item.name.length > 15 ? item.name.substring(0,15) + '...': item.name}</span> {item.price} $</p>
 														</div>
 													)
-												}): <p className="text-xl text-slate-700 font-medium text-center">Your cart is empty!</p>}
+												}): <p className="text-xl text-slate-700 font-medium text-center">Sinu ostukorv on tühi!</p>}
 											</div>
 										</Popover.Panel>
 									</Transition>
