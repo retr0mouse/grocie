@@ -8,7 +8,11 @@ import Link from "next/link";
 interface Props {
     image: string,
     name: string,
-    price: number,
+    minPrice: number,
+    rimi_price?: number,
+    barbora_price?: number,
+    selver_price?: number,
+    coop_price?: number,
     onChanged(count: number): void
 }
 
@@ -26,7 +30,7 @@ const Color = createTheme({
 
 export default function SmallProduct(props: Props) {
     const [counter, setCounter] = useState<number>(0);
-    const price = String(props.price).split('.');
+    const price = String(props.minPrice).split('.');
 
     useEffect(() => {
         // console.log(counter);

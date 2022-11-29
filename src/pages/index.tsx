@@ -67,12 +67,18 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 			</Head>
 			<div className={"flex flex-wrap self-center space-x-3"}>
 				{currentItems?.map((item: Grocery, index: number) => {
+					if (!item.allPrices) return;
+					const minPrice = Math.min.apply(null, item.allPrices);
 					return (
 						<SmallProduct 
 							key={index}
 							image={item.image} 
 							name={item.name} 
-							price={item.price} 
+							minPrice = {minPrice}
+							rimi_price={item.rimi_price}
+							barbora_price={item.barbora_price}
+							selver_price={item.selver_price}
+							coop_price={item.coop_price}
 							onChanged={(number) => {
 								number !== 0 ? setCart(new Map(cart.set(item, number))) : setCart(new Map());
 								setHasChanged(true);

@@ -12,16 +12,16 @@ export default function BigProductPage( {}: any){
     
     const image = product.image;
     const name = product.name;
-    const rimiPrice = product.price;
-    const selverPrice = product.price;
-    const coopPrice = product.price;
-    const barboraPrice = product.price;
+    const rimiPrice = product.rimi_price;
+    const selverPrice = product.selver_price;
+    const coopPrice = product.coop_price;
+    const barboraPrice = product.barbora_price;
 
     console.log(product);
 
     return(
         <div className={'flex flex-col'}>
-            <NavigationBar/>
+            {/* <NavigationBar/> */}
             <BigProduct 
                 image={image}
                 productName={name}

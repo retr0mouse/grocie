@@ -138,29 +138,30 @@ export class Database {
         for (let i = 0; i < foundProduct.length; i++) {
             const item = foundProduct[i] as ProductType;
             let prices: number[] = []
+            const newItem = {
+                name: item.name,
+                category: item.category,
+                image: item.product_image
+            } as Grocery;
             if (typeof item.barbora_price  !== "undefined"){
+                newItem.barbora_price = item.barbora_price;
                 prices.push(item.barbora_price)
             }
             if (typeof item.rimi_price  !== "undefined"){
+                newItem.rimi_price = item.rimi_price;
                 prices.push(item.rimi_price)
             }
             if (typeof item.selver_price  !== "undefined"){
+                newItem.selver_price = item.selver_price;
                 prices.push(item.selver_price)
             }
             if (typeof item.coop_price  !== "undefined"){
+                newItem.coop_price = item.coop_price;
                 prices.push(item.coop_price)
             }
-
             if (prices.length < 2) continue
-
-            let MinimumPrice = Math.min.apply(null, prices);
-
-            itemsData.push({
-                name: item.name,
-                price: MinimumPrice,
-                image: item.product_image,
-                category: item.category
-            });
+            newItem.allPrices = prices;
+            itemsData.push(newItem);
         }
         return itemsData;
     }
