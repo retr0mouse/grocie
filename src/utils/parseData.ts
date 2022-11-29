@@ -60,13 +60,13 @@ export function convertMessure(input: string) {
 }
 
 export async function createChart(productName: string){
-  const product = Database.getProduct(productName)
+  const product = await Database.getProduct(productName)
 
   let dates:string[] = []
   let minimum:number[] = []
   let avarage:number[] = []
   let maximum:number[] = []
-  let stats = (await product).statistics
+  let stats = product.statistics
 
   if ( typeof stats !== "undefined"){
   for (let i = 0; i < stats.length; i++) {

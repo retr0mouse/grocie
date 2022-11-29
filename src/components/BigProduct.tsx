@@ -26,7 +26,6 @@ interface Props {
     selverPrice?: number;
     coopPrice?: number;
     barboraPrice?: number;
-    statistics: any[];
 }
 
 const themeColor = createTheme({
@@ -41,7 +40,7 @@ const themeColor = createTheme({
 });
 
 
-export default function BigProduct({ props }: { props: Props}) {
+export default function BigProduct( props: Props ) {
     const [counter, setCounter] = useState(0);
     return (
         <div className="mt-16 rounded-lg space-x-20 bg-white p-10 w-2/4 flex-row flex place-content-center place-items-center self-center">

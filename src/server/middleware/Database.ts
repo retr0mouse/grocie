@@ -84,7 +84,7 @@ export class Database {
             }
             const product = await Product.findOne({name: allProducts[i].name});
 
-            console.log(product.name);
+            //console.log(product.name);
             product.statistics.push(newStat);
 
             await product.save();

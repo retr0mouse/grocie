@@ -1,11 +1,16 @@
 import { Grocery } from "groceries-component";
 import { NextRouter, useRouter, withRouter } from "next/router";
+import { Line } from "react-chartjs-2";
 import BigProduct from "../../components/BigProduct";
 import NavigationBar from "../../components/NavigationBar";
 import { Parser } from "../../server/lib/Parser";
 import BreadPicture from "../../src/images/bread.svg";
+import { createChart } from "../../utils/parseData";
+import Chart, { CategoryScale } from 'chart.js/auto';
 
-export default function BigProductPage( {}: any){
+export default function BigProductPage( { data }: any){
+    Chart.register(CategoryScale);
+    console.log(data);
     const router = useRouter();
     if (typeof router.query.product !== "string") return;
     const product = JSON.parse(router.query.product) as Grocery;
@@ -17,7 +22,7 @@ export default function BigProductPage( {}: any){
     const coopPrice = product.coop_price;
     const barboraPrice = product.barbora_price;
 
-    console.log(product);
+    // console.log(product);
 
     return(
         <div className={'flex flex-col'}>
@@ -30,34 +35,31 @@ export default function BigProductPage( {}: any){
                 coopPrice={coopPrice}
                 barboraPrice={barboraPrice}
             />
+            
+            <Line data={data}/>
         </div>
     )
 }
 
-// export async function getStaticPaths() {
-//     // const products = [...await Parser.getAllBarboraItems(), ...await Parser.getAllRimiItems()];
-//     const paths = ["/product/what"] as string[];
-//     // for (let i = 0; i < products.length; i++) {
-//     //     paths.push("/product/" + products[i].name);
-//     // }
-//     return {
-//         paths,
-//         fallback: true
-//     }
-// }
+export async function getStaticPaths() {
+    // const products = [...await Parser.getAllBarboraItems(), ...await Parser.getAllRimiItems()];
+    const paths = [] as any[];
+    // for (let i = 0; i < products.length; i++) {
+    //     paths.push("/product/" + products[i].name);
+    // }
+    return {
+        paths,
+        fallback: true
+    }
+}
 
-// export async function getStaticProps() {
-//     const product = "";
-//     // const router = useRouter();
-//     // if (typeof router.query.product !== "string") return;
-//     // const product = JSON.parse(router.query.product);
-    
-//     // console.log(params);
-//     // const name = params.productName;
-//     // const image = params.image;
-//     return {
-//         props: {
-//             product: product
-//         }
-//     }
-// }
+export async function getStaticProps({ params }: any) {
+    // console.log(params);
+    const data = await createChart(params.name);
+    // const data = {};
+    return {
+        props: {
+            data
+        }
+    }
+}

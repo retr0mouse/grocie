@@ -39,7 +39,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 	const [hasChanged, setHasChanged] = useState(false);
 
 	useEffect(() => {
-		console.log(cart);
+		// console.log(cart);
 		setTimeout(() => setHasChanged(false), 1000);
 	}, [hasChanged])
 
@@ -51,7 +51,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 		const firstPageIndex = (currentPage - 1) * pageSize;
 		const lastPageIndex = firstPageIndex + pageSize;
 		// console.log("page changed");
-		console.log(allMeatItems.length);
+		//console.log(allMeatItems.length);
 		if (allMeatItems) return allMeatItems.slice(firstPageIndex, lastPageIndex);
 	}, [currentPage]);
 
