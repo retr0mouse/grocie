@@ -36,6 +36,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 	const [hasChanged, setHasChanged] = useState(false);
 
 	useEffect(() => {
+		console.log(cart);
 		setTimeout(() => setHasChanged(false), 1000);
 	}, [hasChanged])
 
@@ -69,7 +70,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 							name={item.name} 
 							price={item.price} 
 							onChanged={(number) => {
-								setCart(new Map(cart.set(item, number)));
+								number !== 0 ? setCart(new Map(cart.set(item, number))) : setCart(new Map());
 								setHasChanged(true);
 							}} 
 						/>

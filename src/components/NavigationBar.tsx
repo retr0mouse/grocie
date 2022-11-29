@@ -76,8 +76,12 @@ interface Props {
 }
 
 export default function NavigationBar(props: Props) {
-	const items = Array.from(props.items.keys());
-	const values = Array.from(props.items.values());
+	let items = [] as Grocery[];
+	let values = [] as number[];
+	if (props.items.size !== 0) {
+		items = Array.from(props.items.keys());
+		values = Array.from(props.items.values());
+	}
 
 	return (
 		<div>
@@ -109,8 +113,8 @@ export default function NavigationBar(props: Props) {
 										<ShoppingCartOutlinedIcon className={"group-hover:fill-orange-700 w-10 h-10"}/>
 									</Popover.Button>
 									<Transition
-										className={`${props.triggerOpen ? "fixed right-0 top-0" : ""}`}
-										show={props.triggerOpen}
+										className={`${props.triggerOpen ? "fixed right-150 top-0" : ""}`}
+										show={props.triggerOpen || open}
 										enter="transition duration-100 ease-out"
 										enterFrom="transform scale-95 opacity-0"
 										enterTo="transform scale-100 opacity-100"
@@ -118,7 +122,7 @@ export default function NavigationBar(props: Props) {
 										leaveFrom="transform scale-100 opacity-100"
 										leaveTo="transform scale-95 opacity-0"
 									>
-										<Popover.Panel className={'-left-[100px] bg-orange-400 bg-opacity-80' }>
+										<Popover.Panel className={'absolute -left-[100px] bg-orange-400 bg-opacity-80' }>
 											<div className='p-5 rounded-xl w-96'>
 												{items.length > 0 ? items.map((item: Grocery, index: number) => {
 													return (
@@ -127,7 +131,7 @@ export default function NavigationBar(props: Props) {
 																<img className={"w-20"} src={item.image}/>
 																<span className={'absolute bottom-0 right-0 bg-slate-500 w-8 h-8 rounded-full m-0 flex items-center text-center justify-center'}> <p className='text-white'>{values[index]}</p> </span>
 															</div>
-															<p key={index}><span>{item.name.length > 15 ? item.name.substr(0,15) + '...': item.name}</span> {item.price} $</p>
+															<p key={index}><span>{item.name.length > 15 ? item.name.substring(0,15) + '...': item.name}</span> {item.price} $</p>
 														</div>
 													)
 												}): <p>Your cart is empty!</p>}
@@ -137,52 +141,7 @@ export default function NavigationBar(props: Props) {
 								</>
 							)}
 						</Popover>
-						{/* <Popover className="relative">
-							<Popover.Button>
-								<IconButton
-									size="large"
-									edge="start"
-									color="secondary"
-									aria-label="open drawer"
-									sx={{ ml: 2, mr: 40 }}
-								>
-									<ShoppingCartOutlinedIcon />
-								</IconButton>
-							</Popover.Button>
-							<Transition
-								enter="transition ease-out duration-200"
-								enterFrom="opacity-0 translate-y-1"
-								enterTo="opacity-100 translate-y-0"
-								leave="transition ease-in duration-150"
-								leaveFrom="opacity-100 translate-y-0"
-								leaveTo="opacity-0 translate-y-1"
-							>
-								<Popover.Panel className="absolute z-10 mt-3 w-screen h-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl">
-									<div className="overflow-hidden rounded-lg shadow-xl ring-1 border border-red-900 ring-black ring-opacity-5">
-										<div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
-											<a className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-												<div className="flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-12 sm:w-12">
-												</div>
-												<div className="ml-4">
-													<p className="text-sm font-medium text-gray-900"></p>
-													<p className="text-sm text-gray-500"></p>
-												</div>
-											</a>
-										</div>
-										<div className="bg-gray-50 p-4"></div>
-									</div>
-								</Popover.Panel>
-							</Transition>
-						</Popover> */}
-						{/* <IconButton
-					size="large"
-					edge="start"
-					color="secondary"
-					aria-label="open drawer"
-					sx={{ ml: 2, mr: 40}}
-				>
-					<ShoppingCartOutlinedIcon/>
-				</IconButton> */}
+						
 					</Toolbar>
 				</AppBar>
 			</Box>

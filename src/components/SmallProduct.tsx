@@ -25,12 +25,14 @@ const Color = createTheme({
 });
 
 export default function SmallProduct(props: Props) {
-    const [counter, setCounter] = useState<number>();
+    const [counter, setCounter] = useState<number>(0);
     const price = String(props.price).split('.');
 
     useEffect(() => {
-        if (!counter || counter < 0) return;
+        console.log(counter);
+        if (typeof counter === 'undefined' || counter < 0) return;
         props.onChanged(counter);
+        console.log('keka');
     }, [counter])
 
     return (

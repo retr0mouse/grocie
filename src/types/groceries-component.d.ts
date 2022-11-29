@@ -2,7 +2,7 @@ declare module "groceries-component" {
     interface Grocery {
         name: string,
         price: number,
-        image?: string,
+        image: string,
         category: string
     }
 
