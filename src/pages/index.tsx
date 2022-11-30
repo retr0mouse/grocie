@@ -41,6 +41,11 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 	const [hasChanged, setHasChanged] = useState(false);
 
 	useEffect(() => {
+        if (localStorage.getItem('cart') !== null) setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
+        // console.log(JSON.parse(localStorage.getItem('cart')!));
+    }, []) 
+
+	useEffect(() => {
 		// console.log(cart);
 		// setTimeout(() => setHasChanged(false), 1000);
 		let currentTotal = 0;
@@ -48,6 +53,8 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 			currentTotal += count * (product.allPrices ? Math.min.apply(null, product.allPrices) : 0);
 		});
 		setTotal(Math.round(currentTotal * 100) / 100);
+		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
+		// console.log(localStorage.getItem('cart'));
 	}, [cart])
 
 	const [currentPage, setCurrentPage] = useState(1) as any;
