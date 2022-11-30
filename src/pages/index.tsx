@@ -13,6 +13,7 @@ import { Grocery } from 'groceries-component';
 import { ProductType } from '../server/models/Product';
 import { images } from '../../next-config';
 import { Database } from '../server/middleware/Database';
+import Footer from '../components/Footer';
 
 export async function getStaticProps() {  // for ssg
   const allCategoriesBarbora = await Parser.getBarboraCategories();
@@ -143,6 +144,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 				<h1 className={"bg-red-600"}>RESULT: {query.data ?? "nothing"}</h1>
 			</div> */}
 		</Layout>
+		<Footer/>
 	</>
   )
 }
