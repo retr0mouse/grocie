@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { alpha, AppBar, Box, Button, FormControl, IconButton, InputAdornment, InputBase, InputLabel, OutlinedInput, styled, Toolbar, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -70,6 +70,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 interface Props {
+	total: number;
 	items: Map<Grocery, number>,
 	triggerOpen: boolean
 }
@@ -77,6 +78,7 @@ interface Props {
 export default function NavigationBar(props: Props) {
 	let items = [] as Grocery[];
 	let values = [] as number[];
+
 	if (props.items.size !== 0) {
 		items = Array.from(props.items.keys());
 		values = Array.from(props.items.values());
@@ -105,16 +107,16 @@ export default function NavigationBar(props: Props) {
 								inputProps={{ 'aria-label': 'search' }}
 							/>
 						</Search>
-						<Popover className={'h-10 sticky top-0'}>
+						<Popover className={'h-10 sticky top-0 z-[200]'}>
 							{({ open }) => (
 								<>
-									<Popover.Button className={`focus:outline-none w-16 h-16 group sticky top-0`}>
-										<div className='flex flex-raw text-center'>
-											<ShoppingCartOutlinedIcon className={"flex ml-5 mb-[40%] group-hover:fill-orange-700 w-10 h-10"}/>
+									<Popover.Button className={`focus:outline-none sticky top-0 h-10`}>
+										<div className='group w-96 flex h-10'>
+											<ShoppingCartOutlinedIcon className={"ml-5 group-hover:fill-orange-700 w-10 h-10 duration-75"}/>
 											{/* <span className={'absolute left-10 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}> 
 												<p className='text-white'>{}</p>
 											</span> */}
-											<p className='flex ml-3 w-auto text-2xl text-slate-700 font-medium text-center'>Cart_Sum_$</p>
+											<p className='ml-3 text-2xl text-slate-700 font-medium group-hover:text-orange-700 duration-75'>{props.total} €</p>
 										</div>
 									</Popover.Button>
 									<Transition
@@ -134,12 +136,12 @@ export default function NavigationBar(props: Props) {
 											</button>
 												{items.length > 0 ? items.map((item: Grocery, index: number) => {
 													return (
-														<div className='flex items-center bg-white rounded-xl gap-3 mb-2 p-2 '>
+														<div className='flex items-center bg-white rounded-xl gap-3 mb-2 p-2' key={index}>
 															<div className={'block relative'}>
 																<img className={"w-20"} src={item.image}/>
 																<span className={'absolute bottom-0 right-0 bg-slate-500 w-8 h-8 bg-opacity-85 rounded-full m-0 flex items-center text-center justify-center'}> <p className='text-white'>{values[index]}</p> </span>
 															</div>
-															<p key={index}><span>{item.name.length > 15 ? item.name.substring(0,15) + '...': item.name}</span> {item.price} $</p>
+															<p key={index}><span>{item.name.length > 15 ? item.name.substring(0,15) + '...': item.name}</span> {item.price} €</p>
 														</div>
 													)
 												}): <p className="text-xl text-slate-700 font-medium text-center">Sinu ostukorv on tühi!</p>}

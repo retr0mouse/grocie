@@ -31,17 +31,23 @@ export async function getStaticProps() {  // for ssg
 }
 
 export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItemsBarbora, allMeatItems }: { allCategoriesBarbora: any[], allCategoriesRimi: any[], allItemsBarbora: any[], allMeatItems: any[]}) {
-	const mutation = trpc.storeItems.useMutation();
-	const [title, setTitle] = useState("Banaan");
+	// const mutation = trpc.storeItems.useMutation();
+	// const [title, setTitle] = useState("Banaan");
 	const [result, setResult] = useState("Banaan");
-	const query = trpc.findItem.useQuery({ title: result });
-	const [cart, setCart] = useState(new Map());
+	const [total, setTotal] = useState(0);
+	// const query = trpc.findItem.useQuery({ title: result });
+	const [cart, setCart] = useState<Map<Grocery, number>>(new Map());
 	const [hasChanged, setHasChanged] = useState(false);
 
 	useEffect(() => {
 		// console.log(cart);
-		setTimeout(() => setHasChanged(false), 1000);
-	}, [hasChanged])
+		// setTimeout(() => setHasChanged(false), 1000);
+		let currentTotal = 0;
+		cart.forEach((count, product) => {
+			currentTotal += count * (product.allPrices ? Math.min.apply(null, product.allPrices) : 0);
+		});
+		setTotal(Math.round(currentTotal * 100) / 100);
+	}, [cart])
 
 	const [currentPage, setCurrentPage] = useState(1) as any;
 
@@ -58,6 +64,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
   return (
 	<>
 		<NavigationBar
+			total={total}
 			triggerOpen={hasChanged}
 			items={cart} 
 		/>
@@ -74,14 +81,19 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 							key={index}
 							image={item.image} 
 							name={item.name} 
-							minPrice = {minPrice}
+							minPrice={minPrice}
 							rimi_price={item.rimi_price}
 							barbora_price={item.barbora_price}
 							selver_price={item.selver_price}
 							coop_price={item.coop_price}
 							onChanged={(number) => {
-								number !== 0 ? setCart(new Map(cart.set(item, number))) : setCart(new Map());
-								setHasChanged(true);
+								if (number !== 0) {
+									setCart(new Map(cart.set(item, number)))
+								} else {
+									cart.delete(item);
+									setCart(new Map(cart));
+								}
+								// setHasChanged(true);
 							}} 
 						/>
 					)
@@ -125,11 +137,11 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 				</div>
 				</div>
 			</div>*/}
-			<div className={"relative left-1/2 transform -translate-x-1/2 flex flex-col w-10, "}>
+			{/* <div className={"relative left-1/2 transform -translate-x-1/2 flex flex-col w-10, "}>
 				<input type="text" className={"bg-slate-600"} defaultValue={title} onChange={(input) => setTitle(input.target.value)}/> 
 				<button className={"bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"} onClick={() => mutation.mutate()}>BREAK EVERYTHING</button>
 				<h1 className={"bg-red-600"}>RESULT: {query.data ?? "nothing"}</h1>
-			</div>
+			</div> */}
 		</Layout>
 	</>
   )
