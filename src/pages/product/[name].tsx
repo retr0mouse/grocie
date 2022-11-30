@@ -1,13 +1,11 @@
+import Chart, { CategoryScale } from 'chart.js/auto';
 import { Grocery } from "groceries-component";
-import { NextRouter, useRouter, withRouter } from "next/router";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import BigProduct from "../../components/BigProduct";
 import NavigationBar from "../../components/NavigationBar";
-import { Parser } from "../../server/lib/Parser";
-import BreadPicture from "../../src/images/bread.svg";
 import { createChart } from "../../utils/parseData";
-import Chart, { CategoryScale } from 'chart.js/auto';
-import { useEffect, useState } from "react";
 
 export default function BigProductPage( { data }: any){
     const [total, setTotal] = useState(0);
