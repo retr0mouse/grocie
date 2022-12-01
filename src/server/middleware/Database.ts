@@ -6,6 +6,30 @@ import { Parser } from "../lib/Parser";
 import { Product, ProductType } from "../models/Product";
 
 export class Database {
+    private static CATEGORIES_COUNT = 15;
+
+    private static categoriesMapping = new Map([
+        ["0", "Köögiviljad, puuviljad"],
+        ["1", "Piimatooted ja munad"],
+        ["2", "Leivad, saiad, kondiitritooted"],
+        ["3", "Liha, kala, valmistoit"],
+        ["4", "Kauasäilivad toidukaubad"],
+        ["5", "Külmutatud tooted"],
+        ["6", "Joogid"],
+        ["7", "Enesehooldustooted"],
+        ["8", "Puhastustarbed ja lemmikloomatooted"],
+        ["9", "Lastekaubad"],
+        ["10", "Kodukaubad ja vaba aeg"],
+        ["11", "Muu"]
+    ])
+
+    static getCategoriesCount() {
+        return this.CATEGORIES_COUNT;
+    }
+
+    static getCategoryTitleById(id: string) {
+        return this.categoriesMapping.get(id);
+    }
 
     static async addProducts(products: ProductType[]) {
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
@@ -151,6 +175,7 @@ export class Database {
                 category: item.category,
                 image: item.product_image
             } as Grocery;
+
             if (typeof item.barbora_price  !== "undefined"){
                 newItem.barbora_price = item.barbora_price;
                 prices.push(item.barbora_price)

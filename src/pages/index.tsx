@@ -1,19 +1,13 @@
+import { Grocery } from 'groceries-component';
 import Head from 'next/head';
-import Link from 'next/link';
-import { use, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import Footer from '../components/Footer';
 import Layout from '../components/Layout';
 import NavigationBar from '../components/NavigationBar';
-import BigProduct from '../components/BigProduct';
-import { Parser } from '../server/lib/Parser';
-import { trpc } from '../utils/trpc';
-import BreadPicture from "../../src/images/bread.svg";
-import SmallProduct from '../components/SmallProduct';
 import Pagination from '../components/Pagination';
-import { Grocery } from 'groceries-component';
-import { ProductType } from '../server/models/Product';
-import { images } from '../../next-config';
+import SmallProduct from '../components/SmallProduct';
+import { Parser } from '../server/lib/Parser';
 import { Database } from '../server/middleware/Database';
-import Footer from '../components/Footer';
 
 export async function getStaticProps() {  // for ssg
   const allCategoriesBarbora = await Parser.getBarboraCategories();
@@ -41,6 +35,11 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 	const [hasChanged, setHasChanged] = useState(false);
 
 	useEffect(() => {
+        if (localStorage.getItem('cart') !== null) setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
+        // console.log(JSON.parse(localStorage.getItem('cart')!));
+    }, []) 
+
+	useEffect(() => {
 		// console.log(cart);
 		// setTimeout(() => setHasChanged(false), 1000);
 		let currentTotal = 0;
@@ -48,6 +47,8 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 			currentTotal += count * (product.allPrices ? Math.min.apply(null, product.allPrices) : 0);
 		});
 		setTotal(Math.round(currentTotal * 100) / 100);
+		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
+		// console.log(localStorage.getItem('cart'));
 	}, [cart])
 
 	const [currentPage, setCurrentPage] = useState(1) as any;
@@ -71,7 +72,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 		/>
 		<Layout>
 			<Head>
-				<title>Groceries comparing app</title>|
+				<title>Soodne</title>|
 			</Head>
 			<div className={"flex flex-wrap self-center space-x-3"}>
 				{currentItems?.map((item: Grocery, index: number) => {
@@ -106,15 +107,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 				currentPage={currentPage} 
 				pageSize={pageSize}
 			/>
-			{/* <BigProduct 
-				image={BreadPicture}
-				productName='Product Name'
-				rimiPrice={12.22}
-				selverPrice={12.22}
-				coopPrice={13.22}
-				barboraPrice={15.56}
-			/>
-			
+			{/*
 			 <div className="flex p-10 absolute gap-10 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] border-solid border-2 border-indigo-400 rounded-2xl">
 				<div className='flex flex-col items-center gap-5'>
 				<h1 className="font-sans text-4xl font-bold">Barbora</h1>

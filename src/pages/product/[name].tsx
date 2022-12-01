@@ -1,16 +1,16 @@
+import Chart, { CategoryScale } from 'chart.js/auto';
 import { Grocery } from "groceries-component";
-import { NextRouter, useRouter, withRouter } from "next/router";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import BigProduct from "../../components/BigProduct";
 import NavigationBar from "../../components/NavigationBar";
-import { Parser } from "../../server/lib/Parser";
-import BreadPicture from "../../src/images/bread.svg";
 import { createChart } from "../../utils/parseData";
-import Chart, { CategoryScale } from 'chart.js/auto';
 
 export default function BigProductPage( { data }: any){
+    const [total, setTotal] = useState(0);
+    const [cart, setCart] = useState<Map<Grocery, number>>(new Map());
     Chart.register(CategoryScale);
-    console.log(data);
     const router = useRouter();
     if (typeof router.query.product !== "string") return;
     const product = JSON.parse(router.query.product) as Grocery;
@@ -22,11 +22,31 @@ export default function BigProductPage( { data }: any){
     const coopPrice = product.coop_price;
     const barboraPrice = product.barbora_price;
 
+    useEffect(() => {
+        if (localStorage.getItem('cart') !== null) setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
+    }, []) 
+
+    useEffect(() => {
+		// console.log(cart);
+		// setTimeout(() => setHasChanged(false), 1000);
+		let currentTotal = 0;
+		cart.forEach((count, product) => {
+			currentTotal += count * (product.allPrices ? Math.min.apply(null, product.allPrices) : 0);
+		});
+		setTotal(Math.round(currentTotal * 100) / 100);
+		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
+		// console.log(localStorage.getItem('cart'));
+	}, [cart])
+
     // console.log(product);
 
     return(
         <div className={'flex flex-col'}>
-            {/* <NavigationBar/> */}
+            <NavigationBar 
+                total={total} 
+                items={cart} 
+                triggerOpen={false}
+            />
             <BigProduct 
                 image={image}
                 productName={name}
@@ -35,7 +55,6 @@ export default function BigProductPage( { data }: any){
                 coopPrice={coopPrice}
                 barboraPrice={barboraPrice}
             />
-            
             <Line data={data}/>
         </div>
     )

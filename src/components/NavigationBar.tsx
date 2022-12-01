@@ -1,25 +1,23 @@
-import React, { Component, useState } from 'react';
-import { alpha, AppBar, Box, Button, FormControl, IconButton, InputAdornment, InputBase, InputLabel, OutlinedInput, styled, Toolbar, Typography } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
+import { Popover, Transition } from '@headlessui/react';
 import SearchIcon from '@mui/icons-material/Search';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { alpha, AppBar, Box, InputBase, styled, Toolbar, Typography } from "@mui/material";
+import { deepOrange } from "@mui/material/colors";
 import red from "@mui/material/colors/red";
-import { deepOrange, green, orange, yellow } from "@mui/material/colors";
-import VegetablesPicture from '../images/vegetables.svg';
-import MilkPicture from '../images/milk.svg';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Grocery } from 'groceries-component';
+import Image from 'next/image';
 import BreadPicture from '../images/bread.svg';
-import MeatPicture from '../images/meat.svg';
-import BrushPicture from '../images/toothbrush.svg';
-import FlourPicture from '../images/flour.svg';
+import ChildrenPicture from '../images/children.svg';
 import CleaningPicture from '../images/cleaning.svg';
 import DrinksPicture from '../images/drinks.svg';
+import FlourPicture from '../images/flour.svg';
 import FrozenPicture from '../images/frozen.svg';
-import ChildrenPicture from '../images/children.svg';
 import HomePicture from '../images/home.svg';
-import Image from 'next/image';
-import { Popover, Transition } from '@headlessui/react';
-import { Grocery } from 'groceries-component';
+import MeatPicture from '../images/meat.svg';
+import MilkPicture from '../images/milk.svg';
+import BrushPicture from '../images/toothbrush.svg';
+import VegetablesPicture from '../images/vegetables.svg';
 
 
 const Soodnecolor = deepOrange[400]
@@ -161,7 +159,7 @@ export default function NavigationBar(props: Props) {
 						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
 						<Image className="w-24 h-24 flex" src={VegetablesPicture} alt="" />
 					</button>
-					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal transition
+					<a href="/category/0" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal transition
 					flex place-content-center place-items-center'>Köögiviljad, puuviljad</a>
 				</div>
 
@@ -170,7 +168,7 @@ export default function NavigationBar(props: Props) {
 					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
 						<Image className="w-24 h-24 flex" src={MilkPicture} alt="" />
 					</button>
-					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+					<a href="/category/1" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 					flex place-content-center place-items-center'>Piimatooted ja munad
 					</a>
 				</div>
@@ -180,7 +178,7 @@ export default function NavigationBar(props: Props) {
 					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
 						<Image className="w-24 h-24 flex" src={BreadPicture} alt="" />
 					</button>
-					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+					<a href="/category/2" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 					flex place-content-center place-items-center'>Leivad, saiad, kondiitritooted
 					</a>
 				</div>
@@ -190,7 +188,7 @@ export default function NavigationBar(props: Props) {
 					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
 						<Image className="w-24 h-24 flex" src={MeatPicture} alt="" />
 					</button>
-					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+					<a href="/category/3" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 					flex place-content-center place-items-center'>Liha, kala, valmistoit
 					</a>
 				</div>
@@ -200,7 +198,7 @@ export default function NavigationBar(props: Props) {
 					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
 						<Image className="w-24 h-24 flex" src={FlourPicture} alt="" />
 					</button>
-					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+					<a href="/category/4" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 					flex place-content-center place-items-center'>Kauasäilivad toidukaubad
 					</a>
 				</div>
@@ -210,7 +208,7 @@ export default function NavigationBar(props: Props) {
 					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
 						<Image className="w-24 h-24 flex" src={FrozenPicture} alt="" />
 					</button>
-					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+					<a href="/category/5" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 					flex place-content-center place-items-center'>Külmutatud tooted
 					</a>
 				</div>
@@ -220,7 +218,7 @@ export default function NavigationBar(props: Props) {
 					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
 						<Image className="w-24 h-24 flex" src={DrinksPicture} alt="" />
 					</button>
-					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+					<a href="/category/6" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 					flex place-content-center place-items-center'>Joogid
 					</a>
 				</div>
@@ -230,7 +228,7 @@ export default function NavigationBar(props: Props) {
 					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
 						<Image className="w-24 h-24 flex" src={BrushPicture} alt="" />
 					</button>
-					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+					<a href="/category/7" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 					flex place-content-center place-items-center'>Enesehooldus tooted
 					</a>
 				</div>
@@ -240,7 +238,7 @@ export default function NavigationBar(props: Props) {
 					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
 						<Image className="w-24 h-24 flex" src={CleaningPicture} alt="" />
 					</button>
-					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+					<a href="/category/8" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 					flex place-content-center place-items-center'>Puhastustarbed ja loomatooted
 					</a>
 				</div>
@@ -250,7 +248,7 @@ export default function NavigationBar(props: Props) {
 					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
 						<Image className="w-24 h-24 flex" src={ChildrenPicture} alt="" />
 					</button>
-					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+					<a href="/category/9" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 					flex place-content-center place-items-center'>Lastekaubad
 					</a>
 				</div>
@@ -260,7 +258,7 @@ export default function NavigationBar(props: Props) {
 					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
 						<Image className="w-24 h-24 flex" src={HomePicture} alt="" />
 					</button>
-					<a href="" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+					<a href="/category/10" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 					flex place-content-center place-items-center'>Kodukaubad ja vaba aeg
 					</a>
 				</div>
