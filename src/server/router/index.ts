@@ -36,9 +36,9 @@ export const appRouter = router({
         }),
     storeItems: publicProcedure
         .mutation(async () => {
-            // await Database.updateBarboraItems();
-            // await Database.updateRimiItems();
-            await Database.createStatsForEverything();
+            await Database.updateBarboraItems();
+            await Database.updateRimiItems();
+            // await Database.createStatsForEverything();
         }),
     findItem: publicProcedure    
         .input(z.object({ title: z.string() }))

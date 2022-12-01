@@ -8,25 +8,26 @@ import Pagination from '../components/Pagination';
 import SmallProduct from '../components/SmallProduct';
 import { Parser } from '../server/lib/Parser';
 import { Database } from '../server/middleware/Database';
+import { trpc } from '../utils/trpc';
 
 export async function getStaticProps() {  // for ssg
-  const allCategoriesBarbora = await Parser.getBarboraCategories();
-  const allCategoriesRimi = await Parser.getRimiCategories();
-  const allItemsBarbora = await Parser.getAllBarboraItems();
-  const allMeatItems = await Database.getProductsByCategory("Köögiviljad, puuviljad");
+//   const allCategoriesBarbora = await Parser.getBarboraCategories();
+//   const allCategoriesRimi = await Parser.getRimiCategories();
+//   const allItemsBarbora = await Parser.getAllBarboraItems();
+//   const allMeatItems = await Database.getProductsByCategory("Köögiviljad, puuviljad");
 
   return {
 	props: {
-	  allCategoriesBarbora,
-	  allCategoriesRimi,
-	  allItemsBarbora,
-	  allMeatItems
+	//   allCategoriesBarbora,
+	//   allCategoriesRimi,
+	//   allItemsBarbora,
+	//   allMeatItems
 	}
   }
 }
 
 export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItemsBarbora, allMeatItems }: { allCategoriesBarbora: any[], allCategoriesRimi: any[], allItemsBarbora: any[], allMeatItems: any[]}) {
-	// const mutation = trpc.storeItems.useMutation();
+	const mutation = trpc.storeItems.useMutation();
 	// const [title, setTitle] = useState("Banaan");
 	const [result, setResult] = useState("Banaan");
 	const [total, setTotal] = useState(0);
@@ -131,11 +132,11 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 				</div>
 				</div>
 			</div>*/}
-			{/* <div className={"relative left-1/2 transform -translate-x-1/2 flex flex-col w-10, "}>
-				<input type="text" className={"bg-slate-600"} defaultValue={title} onChange={(input) => setTitle(input.target.value)}/> 
+			<div className={"relative left-1/2 transform -translate-x-1/2 flex flex-col w-10, "}>
+				{/* <input type="text" className={"bg-slate-600"} defaultValue={title} onChange={(input) => setTitle(input.target.value)}/>  */}
 				<button className={"bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"} onClick={() => mutation.mutate()}>BREAK EVERYTHING</button>
-				<h1 className={"bg-red-600"}>RESULT: {query.data ?? "nothing"}</h1>
-			</div> */}
+				{/* <h1 className={"bg-red-600"}>RESULT: {query.data ?? "nothing"}</h1> */}
+			</div>
 		</Layout>
 		<Footer/>
 	</>
