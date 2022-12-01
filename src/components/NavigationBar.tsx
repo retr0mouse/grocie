@@ -113,9 +113,9 @@ export default function NavigationBar(props: Props) {
 									<Popover.Button className={`focus:outline-none sticky top-0 h-10`}>
 										<div className='group w-96 flex h-10'>
 											<ShoppingCartOutlinedIcon className={"ml-5 group-hover:fill-orange-700 w-10 h-10 duration-75"}/>
-											{/* <span className={'absolute left-10 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}> 
-												<p className='text-white'>{}</p>
-											</span> */}
+											{values.length > 0 ? <span className={'absolute left-10 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}> 
+                      <p className='text-white'>{values.length > 0  ? values.reduce((result, current) => result + current) : null}</p>
+											</span>: null} 
 											<p className='ml-3 text-2xl text-slate-700 font-medium group-hover:text-orange-700 duration-75'>{props.total} €</p>
 										</div>
 									</Popover.Button>
