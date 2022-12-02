@@ -7,6 +7,7 @@ import red from "@mui/material/colors/red";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Grocery } from 'groceries-component';
 import Image from 'next/image';
+import Link from 'next/link';
 import BreadPicture from '../images/bread.svg';
 import ChildrenPicture from '../images/children.svg';
 import CleaningPicture from '../images/cleaning.svg';
@@ -129,9 +130,11 @@ export default function NavigationBar(props: Props) {
 									>
 										<Popover.Panel className={'absolute -left-[100px] rounded-2xl bg-orange-500 bg-opacity-90' }>
 											<div className='p-2 rounded-2xl w-96'>
-											<button className='bg-orange-100 border-2 border-orange-300 w-full h-fit mb-5 rounded-xl transition ease-in-out delay-50 hover:scale-95 duration-150 '>
-												<p className='text-2xl text-slate-700 font-medium text-center p-2'>Sinu ostukorv</p>
-											</button>
+											<Link href={'/basket'}>
+												<div className='bg-orange-100 border-2 border-orange-300 w-full h-fit mb-5 rounded-xl transition ease-in-out delay-50 hover:scale-95 duration-150 '>
+													<p className='text-2xl text-slate-700 font-medium text-center p-2'>Sinu ostukorv</p>
+												</div>
+											</Link>
 												{items.length > 0 ? items.map((item: Grocery, index: number) => {
 													return (
 														<div className='flex items-center bg-white rounded-xl gap-3 mb-2 p-2' key={index}>
@@ -154,114 +157,136 @@ export default function NavigationBar(props: Props) {
 				</AppBar>
 			</Box>
 			<div className="p-7 bg-white flex place-content-center space-x-5">
-				<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-					<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+				<Link href={'/category/0'}>
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+							bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={VegetablesPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal transition
+						flex place-content-center place-items-center'>Köögiviljad, puuviljad</p>
+					</div>
+				</Link>
+
+				<Link href={'/category/1'}>				
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
 						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-						<Image className="w-24 h-24 flex" src={VegetablesPicture} alt="" />
-					</button>
-					<a href="/category/0" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal transition
-					flex place-content-center place-items-center'>Köögiviljad, puuviljad</a>
-				</div>
+							<Image className="w-24 h-24 flex" src={MilkPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Piimatooted ja munad
+						</p>
+					</div>
+				</Link>
 
-				<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-					<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
-					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-						<Image className="w-24 h-24 flex" src={MilkPicture} alt="" />
-					</button>
-					<a href="/category/1" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Piimatooted ja munad
-					</a>
-				</div>
+				<Link href={'/category/2'}>	
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={BreadPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Leivad, saiad, kondiitritooted
+						</p>
+					</div>
+				</Link>
 
-				<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-					<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
-					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-						<Image className="w-24 h-24 flex" src={BreadPicture} alt="" />
-					</button>
-					<a href="/category/2" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Leivad, saiad, kondiitritooted
-					</a>
-				</div>
+				<Link href={'/category/3'}>	
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={MeatPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Liha, kala, valmistoit
+						</p>
+					</div>
+				</Link>
+				
+				<Link href={'/category/4'}>	
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={FlourPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Kauasäilivad toidukaubad
+						</p>
+					</div>
+				</Link>
 
-				<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-					<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
-					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-						<Image className="w-24 h-24 flex" src={MeatPicture} alt="" />
-					</button>
-					<a href="/category/3" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Liha, kala, valmistoit
-					</a>
-				</div>
+				<Link href={'/category/5'}>	
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={FrozenPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Külmutatud tooted
+						</p>
+					</div>
+				</Link>
+				
+				<Link href={'/category/6'}>	
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={DrinksPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Joogid
+						</p>
+					</div>
+				</Link>
 
-				<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-					<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
-					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-						<Image className="w-24 h-24 flex" src={FlourPicture} alt="" />
-					</button>
-					<a href="/category/4" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Kauasäilivad toidukaubad
-					</a>
-				</div>
-
-				<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-					<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
-					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-						<Image className="w-24 h-24 flex" src={FrozenPicture} alt="" />
-					</button>
-					<a href="/category/5" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Külmutatud tooted
-					</a>
-				</div>
-
-				<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-					<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
-					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-						<Image className="w-24 h-24 flex" src={DrinksPicture} alt="" />
-					</button>
-					<a href="/category/6" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Joogid
-					</a>
-				</div>
-
-				<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-					<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
-					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-						<Image className="w-24 h-24 flex" src={BrushPicture} alt="" />
-					</button>
-					<a href="/category/7" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Enesehooldus tooted
-					</a>
-				</div>
-
-				<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-					<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
-					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-						<Image className="w-24 h-24 flex" src={CleaningPicture} alt="" />
-					</button>
-					<a href="/category/8" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Puhastustarbed ja loomatooted
-					</a>
-				</div>
-
-				<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-					<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
-					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-						<Image className="w-24 h-24 flex" src={ChildrenPicture} alt="" />
-					</button>
-					<a href="/category/9" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Lastekaubad
-					</a>
-				</div>
-
-				<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-					<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
-					bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
-						<Image className="w-24 h-24 flex" src={HomePicture} alt="" />
-					</button>
-					<a href="/category/10" className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
-					flex place-content-center place-items-center'>Kodukaubad ja vaba aeg
-					</a>
-				</div>
+				<Link href={'/category/7'}>	
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={BrushPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Enesehooldus tooted
+						</p>
+					</div>
+				</Link>
+				
+				<Link href={'/category/8'}>	
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={CleaningPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Puhastustarbed ja loomatooted
+						</p>
+					</div>
+				</Link>
+				
+				<Link href={'/category/9'}>	
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={ChildrenPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Lastekaubad
+						</p>
+					</div>
+				</Link>
+				
+				<Link href={'/category/10'}>	
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={HomePicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Kodukaubad ja vaba aeg
+						</p>
+					</div>
+				</Link>
 			</div>
 		</ThemeProvider>
 

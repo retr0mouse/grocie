@@ -22,8 +22,8 @@ export class Parser {
 
     static async getAllBarboraItems(): Promise<Grocery[]> {
         let itemsData = [] as Grocery[];
-        // for (let categoryIndex = 0; categoryIndex < 2; categoryIndex++) {
-        for (let categoryIndex = 0; categoryIndex < await this.getBarboraCategoriesCount(); categoryIndex++) {
+        for (let categoryIndex = 0; categoryIndex < 2; categoryIndex++) {
+        // for (let categoryIndex = 0; categoryIndex < await this.getBarboraCategoriesCount(); categoryIndex++) {
             const category = await Parser.getBarboraCategoryById(categoryIndex);
             console.log(categoryIndex + " - barbora");
             if (!category.link) break;
@@ -126,9 +126,9 @@ export class Parser {
 
     static async getAllRimiItems(): Promise<Grocery[]> {
         let itemsData = [] as Grocery[];
-        // for (let categoryIndex = 0; categoryIndex < 2; categoryIndex++) {
+        for (let categoryIndex = 0; categoryIndex < 2; categoryIndex++) {
         
-        for (let categoryIndex = 0; categoryIndex < await this.getRimiCategoriesCount(); categoryIndex++) {
+        // for (let categoryIndex = 0; categoryIndex < await this.getRimiCategoriesCount(); categoryIndex++) {
             console.log(categoryIndex + " - rimi");
             const category = await Parser.getRimiCategoryById(categoryIndex);
             if (!category.link) break;
