@@ -1,4 +1,5 @@
 import { Grocery } from "groceries-component";
+import React from "react";
 import { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import NavigationBar from "../../components/NavigationBar";
