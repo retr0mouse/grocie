@@ -104,8 +104,7 @@ export async function getStaticProps({ params }: any) {
     console.log("title: " + categoryTitle);
     const itemsData = await Database.getProductsByCategory(categoryTitle!);
     if (!itemsData) return {
-		props: {
-		}
+		notFound: true
 	}
     return {
         props: {
