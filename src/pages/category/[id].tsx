@@ -1,4 +1,5 @@
 import { Grocery } from "groceries-component";
+import React from "react";
 import { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import NavigationBar from "../../components/NavigationBar";
@@ -99,10 +100,14 @@ export async function getStaticPaths() {
     
 export async function getStaticProps({ params }: any) {
     const categoryTitle = Database.getCategoryTitleById(params.id);
-    if (!categoryTitle) return;
+    if (!categoryTitle) return {
+		notFound: true
+	};
     console.log("title: " + categoryTitle);
     const itemsData = await Database.getProductsByCategory(categoryTitle!);
-    console.log(itemsData.length);
+    if (!itemsData) return {
+		notFound: true
+	}
     return {
         props: {
             itemsData,
