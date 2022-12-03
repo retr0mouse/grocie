@@ -154,14 +154,15 @@ export class Parser {
                 coopData.forEach((item) => {
                     items.push({
                         name: item.name,
-                        price: Number(item.base_price) ,
+                        price: Number(item.price) ,
                         image: item.image ?? "",
                         category: parseCoopCategory(titles[i]) ?? ""
                     });
-                    console.log(parseCoopCategory(titles[i]));
+                    //console.log(parseCoopCategory(titles[i]));
                 });
                 page++;
             }
+        console.log("Coop - " + i)
         }
         return items;
     }
