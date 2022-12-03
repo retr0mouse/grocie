@@ -1,8 +1,11 @@
 import * as cheerio from "cheerio";
 import { Category, Grocery } from "groceries-component";
 import { BarboraGrocery, RimiGrocery } from "groceries-result";
+import { parseCategory, parseCoopCategory } from "../../utils/parseData";
 
 export class Parser {
+    
+
     static async getBarboraItemsByCategory(category: Category): Promise<Grocery[]> {
         const resultProducts = [] as Grocery[];
         const resp = await fetch(`https://barbora.ee/${category.link}?page=0`);
@@ -137,4 +140,80 @@ export class Parser {
         //console.log(itemsData.length);
         return itemsData; 
     }
+    
+    static async getAllCoopItems() {
+        let titles = ["1","6","20","30","39","47","53","69","78","81","93","109","113","10768","19014"] as string[];
+        const items: Grocery[] = [];
+        for (let i = 0; i < titles.length; i++) {
+            let page = 1;
+            while(true) {
+                const response = await fetch(`https://api.vandra.ecoop.ee/supermarket/products?limit=100&category=${titles[i]}&language=et&page=${page}&orderby=popularity`);
+                // const response = await fetch("https://api.vandra.ecoop.ee/supermarket/products");
+                const coopData = (await response.json() as CoopData).data;
+                if (coopData.length < 1) break;
+                coopData.forEach((item) => {
+                    items.push({
+                        name: item.name,
+                        price: Number(item.base_price) ,
+                        image: item.image ?? "",
+                        category: parseCoopCategory(titles[i]) ?? ""
+                    });
+                    console.log(parseCoopCategory(titles[i]));
+                });
+                page++;
+            }
+        }
+        return items;
+    }
+}
+
+interface CoopData {
+  data: Product[];
+  metadata: Metadata;
+}
+
+interface Metadata {
+  category_name: string;
+  category_description?: any;
+  count: string;
+  pages: number;
+  characteristics: string[];
+}
+
+interface Product {
+  id: number;
+  id2: number;
+  business?: any;
+  business_name: string;
+  ean?: any;
+  name: string;
+  slug: string;
+  producer: string;
+  image: string;
+  thumbnail: string;
+  vat_rate?: any;
+  price: number;
+  base_price: number;
+  price_sale?: any;
+  base_price_sale?: any;
+  price_sale_mbr?: any;
+  base_price_sale_mbr?: any;
+  price_sale_mbr_plus?: any;
+  base_price_sale_mbr_plus?: any;
+  campaign_start?: any;
+  campaign_end?: any;
+  measurement_step: number;
+  minimum_measurement_step?: any;
+  quantity?: any;
+  base_quantity: number;
+  unit: string;
+  base_unit: string;
+  deleted_at?: any;
+  deposit_count?: any;
+  deposit_price?: any;
+  favourited?: any;
+  replaceable: boolean;
+  can_call?: any;
+  alcohol?: any;
+  avg_weight: string;
 }

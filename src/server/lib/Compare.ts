@@ -3,7 +3,7 @@ import { Database } from '../middleware/Database';
 import { ProductType } from '../models/Product';
 
 
-// find all items that have a match in db : {rimi_price: { $not: { $eq: null } }, rimi_price: { $not: { $eq: null } }}
+// find all items that have a match in db : {rimi_price: { $not: { $eq: null } }, barbora_price: { $not: { $eq: null } }}
 export class Compare{
     //      return a string with title if found similar item
     // VVVV return nothing, if the title has never appeared before VVVV

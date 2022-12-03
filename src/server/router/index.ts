@@ -1,6 +1,7 @@
 import { initTRPC } from '@trpc/server';
 import * as z from 'zod';
 import { Compare } from '../lib/Compare';
+import { Parser } from '../lib/Parser';
 import { Database } from '../middleware/Database';
 
 const t = initTRPC.create();
@@ -36,9 +37,11 @@ export const appRouter = router({
         }),
     storeItems: publicProcedure
         .mutation(async () => {
+            // console.log((await Parser.getAllCoopItems()).length);
             await Database.updateBarboraItems();
             await Database.updateRimiItems();
-            // await Database.createStatsForEverything();
+            await Database.updateCoopItems();
+            await Database.createStatsForEverything();
         }),
     findItem: publicProcedure    
         .input(z.object({ title: z.string() }))

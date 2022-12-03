@@ -55,7 +55,7 @@ export default function BigProductPage( { data }: any){
                 coopPrice={coopPrice}
                 barboraPrice={barboraPrice}
             />
-            <Line data={data}/>
+            {data.length > 0 ? <Line data={data}/> : null}
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import { Database } from "../server/middleware/Database";
 
 export function parseCategory(categoryName: string) {
-	let newName = categoryName.split("-") as string | string[]
-	newName = newName[0] + "-" + newName[1]
+	let newName = categoryName.split("-") as string | string[];
+	newName = newName[0] + "-" + newName[1];
 	const categoryHash = new Map([
 		["SH-12", "Köögiviljad, puuviljad"],
 		["SH-11", "Piimatooted ja munad"],
@@ -26,6 +26,29 @@ export function parseCategory(categoryName: string) {
 		return "Muu";
 	}
 
+
+}
+
+export function parseCoopCategory(categoryName: string) {
+	const categoryHash = new Map([
+		["1", "Köögiviljad, puuviljad"],
+		["20", "Piimatooted ja munad"],
+		["47", "Leivad, saiad, kondiitritooted"],
+		["6", "Liha, kala, valmistoit"],
+		["30", "Kauasäilivad toidukaubad"],
+		["69", "Kauasäilivad toidukaubad"],
+		["53", "Joogid"],
+		["78", "Lastekaubad"],
+		["81", "Enesehooldustooted"],
+		["93", "Kodukaubad ja vaba aeg"],
+		["109", "Puhastustarbed ja lemmikloomatooted"]
+	]);
+	if (typeof categoryHash.get(categoryName) == "string") {
+		return categoryHash.get(categoryName);
+	}
+	else {
+		return "Muu";
+	}
 
 }
 
