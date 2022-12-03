@@ -100,7 +100,9 @@ export async function getStaticPaths() {
     
 export async function getStaticProps({ params }: any) {
     const categoryTitle = Database.getCategoryTitleById(params.id);
-    if (!categoryTitle) return;
+    if (!categoryTitle) return {
+		notFound: true
+	};
     console.log("title: " + categoryTitle);
     const itemsData = await Database.getProductsByCategory(categoryTitle!);
     if (!itemsData) return {
