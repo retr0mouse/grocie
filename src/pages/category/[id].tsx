@@ -102,7 +102,7 @@ export async function getStaticProps({ params }: any) {
     const categoryTitle = Database.getCategoryTitleById(params.id);
     if (!categoryTitle) return;
     console.log("title: " + categoryTitle);
-    const itemsData = (await Database.getProductsByCategory(categoryTitle!)) ?? {};
+    const itemsData = (await Database.getProductsByCategory(categoryTitle!)).length > 0 ?? {};
     console.log(itemsData.length);
     return {
         props: {
