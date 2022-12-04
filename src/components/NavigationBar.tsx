@@ -152,7 +152,6 @@ export default function NavigationBar(props: Props) {
 								</>
 							)}
 						</Popover>
-						
 					</Toolbar>
 				</AppBar>
 			</Box>

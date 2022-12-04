@@ -65,6 +65,11 @@ export class Database {
         mongoose.connect(process.env.DATABASE_URL);
         Product.updateOne({name: newProduct.name}, {coop_price: newProduct.coop_price}).exec();
     }
+    static async updateSelverProduct(newProduct: ProductType) {
+        if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
+        mongoose.connect(process.env.DATABASE_URL);
+        Product.updateOne({name: newProduct.name}, {selver_price: newProduct.selver_price}).exec();
+    }
 
     static async updateBarboraProduct(newProduct: ProductType) {
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
@@ -181,6 +186,27 @@ export class Database {
                 newItem.name = commonTitle
                 //console.log(newItem.name)
                 await this.updateCoopProduct(newItem);
+            }
+            else {
+                await this.addProducts([newItem]);
+            }
+        });
+    }
+
+    static async updateSelverItems() {
+        const items = await Parser.getAllSelverItems();
+        items.forEach(async (item: Grocery) => {
+            const commonTitle = await Compare.compareCommonItem(item.name);
+            const newItem = {
+                category: item.category,
+                name: item.name,
+                selver_price: item.price,
+                product_image: item.image
+            } as ProductType;
+
+            if (typeof commonTitle == 'string' && commonTitle.length > 1) {
+                newItem.name = commonTitle
+                await this.updateSelverProduct(newItem);
             }
             else {
                 await this.addProducts([newItem]);
