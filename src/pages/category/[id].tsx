@@ -100,9 +100,9 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: any) {
     const categoryTitle = Database.getCategoryTitleById(params.id);
     if (!categoryTitle) return;
-    console.log("title: " + categoryTitle);
+    //console.log("title: " + categoryTitle);
     const itemsData = await Database.getProductsByCategory(categoryTitle!) ?? {};
-    console.log(itemsData.length);
+    //console.log(itemsData.length);
     return {
         props: {
             itemsData,
