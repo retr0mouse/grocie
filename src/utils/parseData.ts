@@ -51,33 +51,6 @@ export function parseCoopCategory(categoryName: string) {
 	}
 }
 
-// export function parseSelverCategory(categoryId: number): string {
-// 	switch (categoryId) { //valmistoit [,,,,]
-// 		case 218:
-// 		case 219:
-// 		case 220: 
-// 		case 221: 
-// 		case 222: 
-// 		case 223: 
-// 		case 224: 
-// 		case 225: 
-// 		case 226: 
-// 		case 227: 
-// 		case 228: 
-// 		case 229: 
-// 		case 230: 
-// 		case 231: 
-// 		case 256: 
-// 		case 257: 
-// 		case 258: 
-// 		case 260: 
-// 		case 261: 
-// 			return "Liha, kala, valmistoit";
-// 		default: 
-// 			alert('Default case');
-// }
-
-
 export function parseSelverCategory(categoryId: number): string {
 	const puuJaKoog = [209, 210, 212, 213, 214, 215, 216, 217, 369]
 	const lihaJaKala = [218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231]
