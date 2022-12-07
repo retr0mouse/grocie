@@ -19,6 +19,7 @@ import MeatPicture from '../images/meat.svg';
 import MilkPicture from '../images/milk.svg';
 import BrushPicture from '../images/toothbrush.svg';
 import VegetablesPicture from '../images/vegetables.svg';
+import OtherPicture from '../images/other.svg'
 
 
 const Soodnecolor = deepOrange[400]
@@ -155,7 +156,7 @@ export default function NavigationBar(props: Props) {
 					</Toolbar>
 				</AppBar>
 			</Box>
-			<div className="p-7 bg-white flex place-content-center space-x-5">
+			<div className="p-7 bg-white flex flex-wrap place-content-center space-x-5">
 				<Link href={'/category/0'}>
 					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
 						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
@@ -283,6 +284,18 @@ export default function NavigationBar(props: Props) {
 						</button>
 						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 						flex place-content-center place-items-center'>Kodukaubad ja vaba aeg
+						</p>
+					</div>
+				</Link>
+
+				<Link href={'/category/11'}>	
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={OtherPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Muu
 						</p>
 					</div>
 				</Link>
