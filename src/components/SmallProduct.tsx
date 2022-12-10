@@ -56,7 +56,7 @@ export default function SmallProduct(props: Props) {
                 </div>
                 
                 {counter && counter > 0 ? 
-                    <div className="mb-4 mt-10 h-8 border-orange-500 border-2 rounded-full space-x-16 flex flex-row place-content-center place-items-center">
+                    <div className="mb-4 mt-10 h-8 border-orange-500 border-2 rounded-full justify-between flex flex-row place-content-center place-items-center">
                         <IconButton
                             color="primary"
                             disabled={counter == 0}

@@ -50,18 +50,19 @@ export default function Basket() {
                 items={cart}
             />
             <div className="flex justify-center">
-                <div className="flex justify-center flex-col">  
-                    <h1>Cart</h1>
+                <div className="flex items-center flex-col space-y-5">  
+                    <h1 className="text-4xl text-orange-400 mb-10">Cart</h1>
                     {items.map((item, index) => {
                         return (
-                            <div className="pr-5 pl-5 bg-white text-center flex-[1_0_15%] w-60 h-[400px] mt-16 rounded-2xl flex-row flex">
-                                <img height={230} width={230} alt={"a picture of " + item.name} className="" src={item.image}></img>
-                                <p className="font-sans font-semibold ">{item.name}</p>
-
-                                <div className="mt-auto self-center place-content-center w-3/4">
-                                <div className="pr-10 flex-col space-y-10 w-[20rem]">
+                        <div className=" bg-white text-center w-auto h-auto rounded-2xl flex-row flex justify-between">
+                            <div className="flex flex-col p-1">
+                                <p className="font-sans font-semibold text-xl">{item.name}</p>
+                                <img height={100} width={100} alt={"a picture of " + item.name} className="w-64 h-60" src={item.image}></img>
+                            </div>
+                            <div className="self-center place-content-center items-center">
+                                <div className="flex-col space-y-10 w-auto">
                                     {item.barbora_price ? <div className="flex flex-raw items-center">
-                                        <Image alt="barbora logo" className="w-16 h-6 mr-16 flex" src={Barbora}></Image>
+                                        <Image alt="barbora logo" className="w-20 h-8 mr-16 flex" src={Barbora}></Image>
                                         <p className="text-2xl text-orange-500 font-medium">{item.barbora_price}</p>
                                     </div>: null}
                                     {item.rimi_price ? <div className="flex flex-raw items-center">
@@ -73,12 +74,12 @@ export default function Basket() {
                                         <p className="text-2xl text-orange-500 font-medium">{item.selver_price}</p>
                                     </div>: null}
                                     {item.coop_price ? <div className="flex flex-raw items-center">
-                                        <Image alt="rimi logo" className="w-16 h-6 mr-16 flex" src={Coop}></Image>
+                                        <Image alt="rimi logo" className="-ml-2 w-auto h-8 mr-14 flex" src={Coop}></Image>
                                         <p className="text-2xl text-orange-500 font-medium">{item.coop_price}</p>
                                     </div>: null}
                                 </div>
 
-                                    <div className="mb-4 mt-10 h-8 border-orange-500 border-2 rounded-full space-x-16 flex flex-row place-content-center place-items-center">
+                                    <div className="mb-4 mt-10 h-auto w-auto border-orange-500 border-2 rounded-full flex flex-row justify-between items-center">
                                         <IconButton
                                             color="primary"
                                             disabled={values[index] == 0}

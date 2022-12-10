@@ -43,9 +43,9 @@ const themeColor = createTheme({
 export default function BigProduct( props: Props ) {
     const [counter, setCounter] = useState(0);
     return (
-        <div className="mt-16 rounded-lg space-x-20 bg-white p-10 w-2/4 flex-row flex place-content-center place-items-center self-center">
-            <div className="felx-col ">
-                <p>{props.productName}</p>
+        <div className="items-center mt-16 rounded-lg space-x-20 bg-white p-10 w-auto flex-row flex place-content-center place-items-center self-center">
+            <div className="flex-col items-center flex">
+                <p className="text-2xl text-center">{props.productName}</p>
                 <img
                     alt={"a picture of " + props.productName}
                     className=""
@@ -73,13 +73,13 @@ export default function BigProduct( props: Props ) {
                         <AddIcon />
                     </IconButton>
                 </div>
-                <div className="transition ease-in-out delay-50  hover:scale-110 duration-200 mt-10 mb-10 flex bg-orange-400 place-content-center place-items-center border-2 border-orange-500 rounded">
-                    <button className="text-2xl">Add to Cart</button>
+                <div className="p-1 transition ease-in-out delay-50  hover:scale-110 duration-200 mt-10 mb-10 flex bg-orange-400 place-content-center place-items-center border-2 border-orange-500 rounded">
+                    <button className="text-2xl">Lisa ostukorvi</button>
                 </div>
             </div>
             <div className="pr-10 flex-col space-y-10 w-[20rem]">
                 {props.barboraPrice ? <div className="flex flex-raw items-center">
-                    <Image alt="barbora logo" className="w-16 h-6 mr-16 flex" src={Barbora}></Image>
+                    <Image alt="barbora logo" className="w-20 h-8 mr-16 flex" src={Barbora}></Image>
                     <p className="text-2xl text-orange-500 font-medium">{props.barboraPrice}</p>
                 </div>: null}
                 {props.rimiPrice ? <div className="flex flex-raw items-center">
@@ -87,11 +87,11 @@ export default function BigProduct( props: Props ) {
                     <p className="text-2xl text-orange-500 font-medium">{props.rimiPrice}</p>
                 </div>: null}
                 {props.selverPrice ? <div className="flex flex-raw items-center">
-                    <Image alt="rimi logo" className="w-auto h-6 mr-16 flex" src={Selver}></Image>
+                    <Image alt="selver logo" className="w-auto h-6 mr-16 flex" src={Selver}></Image>
                     <p className="text-2xl text-orange-500 font-medium">{props.selverPrice}</p>
                 </div>: null}
                 {props.coopPrice ? <div className="flex flex-raw items-center">
-                    <Image alt="rimi logo" className="w-16 h-6 mr-16 flex" src={Coop}></Image>
+                    <Image alt="coop logo" className="-ml-2 w-auto h-8 mr-14 flex" src={Coop}></Image>
                     <p className="text-2xl text-orange-500 font-medium">{props.coopPrice}</p>
                 </div>: null}
             </div>
