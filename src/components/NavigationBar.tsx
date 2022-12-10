@@ -19,6 +19,7 @@ import MeatPicture from '../images/meat.svg';
 import MilkPicture from '../images/milk.svg';
 import BrushPicture from '../images/toothbrush.svg';
 import VegetablesPicture from '../images/vegetables.svg';
+import OtherPicture from '../images/other.svg'
 
 
 const Soodnecolor = deepOrange[400]
@@ -40,7 +41,8 @@ const Search = styled('div')(({ theme }) => ({
 	'&:hover': {
 		backgroundColor: alpha(theme.palette.common.black, 0.25),
 	},
-	width: '60%',
+	width: 'auto',
+	display: 'flex',
 	[theme.breakpoints.up('sm')]: {
 		width: 'center',
 	},
@@ -57,7 +59,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	color: 'inerit',
-	marginRight: theme.spacing(20),
+	width: 'full',
 	'& .MuiInputBase-input': {
 		padding: theme.spacing(2, 2, 2),
 		paddingLeft: theme.spacing(7),
@@ -87,18 +89,18 @@ export default function NavigationBar(props: Props) {
 	return (
 		<div>
 			<ThemeProvider theme={themeColor}>
-			<Box sx={{ flexGrow: 1 }}>
-				<AppBar position="relative" className={"shadow-none"}>
-					<Toolbar>
+				<AppBar position="relative" className={"flex shadow-none items-center pr-10 pl-10"}>
+					<div className='flex w-full gap-12'>
+
 						<Typography
 							color={Soodnecolor}
 							variant="h2"
 							component="div"
-							sx={{ mr: 3 }}
 						>
-							<a className="ml-40" href="/" >Soodne</a>
+							<a className="" href="/">Soodne</a>
+
 						</Typography>
-						<Search sx={{ zIndex: 'tooltip' }}>
+						<Search sx={{ zIndex: 'tooltip' }} className="grow self-center">
 							<SearchIconWrapper>
 								<SearchIcon />
 							</SearchIconWrapper>
@@ -107,16 +109,17 @@ export default function NavigationBar(props: Props) {
 								inputProps={{ 'aria-label': 'search' }}
 							/>
 						</Search>
-						<Popover className={'h-10 sticky top-0 z-[200]'}>
+						<Popover className={'flex items-center z-[200]'}>
 							{({ open }) => (
 								<>
-									<Popover.Button className={`focus:outline-none sticky top-0 h-10`}>
-										<div className='group w-96 flex h-10'>
-											<ShoppingCartOutlinedIcon className={"ml-5 group-hover:fill-orange-700 w-10 h-10 duration-75"}/>
-											{values.length > 0 ? <span className={'absolute left-10 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}> 
-                      						<p className='text-white'>{values.length > 0  ? values.reduce((result, current) => result + current) : null}</p>
+									<Popover.Button className={`focus:outline-none sticky top-4 h-10`}>
+										<div className='group w-auto flex h-10'>
+											<ShoppingCartOutlinedIcon className={" group-hover:fill-orange-700 w-10 h-10 duration-75 mr-4"}/>
+											{values.length > 0 ? 
+											<span className={'absolute left-6 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}> 
+                      							<p className='text-white'>{values.length > 0  ? values.reduce((result, current) => result + current) : null}</p>
 											</span>: null} 
-											<p className='ml-3 text-2xl text-slate-700 font-medium group-hover:text-orange-700 duration-75'>{props.total} €</p>
+											<p className='text-2xl text-slate-700 font-medium group-hover:text-orange-700 duration-75'>{props.total} €</p>
 										</div>
 									</Popover.Button>
 									<Transition
@@ -153,10 +156,9 @@ export default function NavigationBar(props: Props) {
 								</>
 							)}
 						</Popover>
-					</Toolbar>
+					</div>
 				</AppBar>
-			</Box>
-			<div className="p-7 bg-white flex place-content-center space-x-5">
+			<div className="p-7 bg-white flex flex-wrap place-content-center space-x-5">
 				<Link href={'/category/0'}>
 					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
 						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
@@ -284,6 +286,18 @@ export default function NavigationBar(props: Props) {
 						</button>
 						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
 						flex place-content-center place-items-center'>Kodukaubad ja vaba aeg
+						</p>
+					</div>
+				</Link>
+
+				<Link href={'/category/11'}>	
+					<div className='flex-column w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+						<button className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200
+						bg-orange-50 rounded-full w-32 h-32 flex place-content-center place-items-center border-2 border-orange-100'>
+							<Image className="w-24 h-24 flex" src={OtherPicture} alt="" />
+						</button>
+						<p className='mt-3 text-xl text-slate-700 font-medium text-center break-normal 
+						flex place-content-center place-items-center'>Muu
 						</p>
 					</div>
 				</Link>
