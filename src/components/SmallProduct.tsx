@@ -32,7 +32,6 @@ const Color = createTheme({
 export default function SmallProduct(props: Props) {
     const [counter, setCounter] = useState<number>(0);
     const price = String(props.minPrice).split('.');
-
     useEffect(() => {
         if (typeof counter === 'undefined' || counter < 0) return;
         props.onChanged(counter);

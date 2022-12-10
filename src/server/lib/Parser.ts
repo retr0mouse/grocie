@@ -15,7 +15,7 @@ export class Parser {
             const item = JSON.parse($(items[i]).attr("data-b-for-cart") ?? "") as BarboraGrocery;
             resultProducts.push({
                 name: item.title,
-                price: item.price,
+                price: Math.round(item.price * 100) / 100,
                 image: item.image,
                 category: category.title
             });
@@ -83,7 +83,7 @@ export class Parser {
                 const cents = $(items[i]).children("div").children('div [class="card__details"]').children("div").children("div").children("div").children("div").children("sup").text();
                 resultProducts.push({
                     name: item.name,
-                    price: Number(euros + "." + cents) ,
+                    price: Math.round(Number(euros + "." + cents) * 100) / 100 ,
                     image: image ?? "",
                     category: item.category
                 });
@@ -154,7 +154,7 @@ export class Parser {
                 coopData.forEach((item) => {
                     items.push({
                         name: item.name,
-                        price: Number(item.price) ,
+                        price: Math.round(Number(item.price) * 100) / 100,
                         image: item.image ?? "",
                         category: parseCoopCategory(titles[i]) ?? ""
                     });
@@ -178,7 +178,7 @@ export class Parser {
             selverItems.forEach(item => {
                 items.push({
                     name: item._source.name,
-                    price: item._source.final_price,
+                    price: Math.round(item._source.final_price * 100) / 100,
                     image: "https://www.selver.ee/img/800/800/resize/" + item._source.image,
                     category: parseSelverCategory(item._source.category[0].category_id)
                 })

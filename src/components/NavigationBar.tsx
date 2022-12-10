@@ -70,6 +70,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
+
 interface Props {
 	total: number;
 	items: Map<Grocery, number>,
@@ -97,6 +98,7 @@ export default function NavigationBar(props: Props) {
 							component="div"
 						>
 							<a className="" href="/">Soodne</a>
+
 						</Typography>
 						<Search sx={{ zIndex: 'tooltip' }} className="grow self-center">
 							<SearchIconWrapper>

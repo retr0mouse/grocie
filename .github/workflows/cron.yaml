@@ -1,0 +1,12 @@
+name: daily-cron
+on:
+  schedule:
+    - cron: '0 5 * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update DB
+        run: |
+          curl --request POST \
+          --url 'https://soodne.vercel.app/api/updateDatabase'
