@@ -164,6 +164,7 @@ export function convertMeasure(input: string): string | null {
 
 export async function createChart(productName: string) {
 	const product = await Database.getProduct(productName)
+	if (!product) return;
 
 	let dates: string[] = []
 	let minimum: number[] = []

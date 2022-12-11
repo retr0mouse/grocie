@@ -74,6 +74,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: any) {
     // console.log(params);
+    
     const data = await createChart(params.name);
     // const data = {};
     return {
