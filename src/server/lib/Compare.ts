@@ -1,4 +1,4 @@
-import { findMeasure, convertMeasure } from '../../utils/parseData';
+import { findMeasures } from '../../utils/parseData';
 import { Database } from '../middleware/Database';
 import { ProductType } from '../models/Product';
 
@@ -13,44 +13,27 @@ export class Compare{
         let productsToCompare: string[] | ProductType[] = (await Database.getProductsContainingTitle(title));
         let titles = productsToCompare.map(x => x.name);
         productsToCompare = productsToCompare.map(x => x.name.toLowerCase());
-        let initialMeasure = findMeasure(productTitle);
-        if (initialMeasure === null) {
-            if (productsToCompare.length > 0) {
-                const similarItems = stringSimilarity.findBestMatch(productTitle.toLowerCase(), productsToCompare);
-                if (similarItems.bestMatch.rating > 0.71) {
-                    return titles[similarItems.bestMatchIndex];
-                } else {
-                    return;
-                }
-            }
-        } else {
-            initialMeasure = convertMeasure(initialMeasure) ?? initialMeasure;
-        }
+        let initialMeasure = findMeasures(productTitle);
 
-		// case when item has a measure
+
         for (let i = 0; i < productsToCompare.length; i++) {
             const similarItems = stringSimilarity.findBestMatch(productTitle.toLowerCase(), productsToCompare);
             if (similarItems.bestMatch.rating > 0.71) {
                 const bestMatch = similarItems.bestMatch.target;
-                let measureToCompare = findMeasure(bestMatch);
-                if (measureToCompare === null) {
-                    console.log("ALLEGEDLY NO MEASURE: " + similarItems.bestMatch.target);
-					continue;
-                } else {
-					console.log("NON CONVERTED MEASURE: " + measureToCompare + " " + bestMatch);
-                    measureToCompare = convertMeasure(measureToCompare) ?? measureToCompare;
-					console.log("CONVERTED MEASURE: " + measureToCompare + " " + bestMatch);
+                let measureToCompare = findMeasures(bestMatch);
+                if (measureToCompare == null && initialMeasure == null) {
+                    return titles[similarItems.bestMatchIndex];
+                } 
+                else{
+                    productsToCompare.splice(similarItems.bestMatchIndex, 1);
+                }
+                if (measureToCompare !== null && initialMeasure !== null)
                     if (initialMeasure === measureToCompare) {
                         return titles[similarItems.bestMatchIndex];
                     } else {
-                        // console.log(`
-						// 	huinya: ${similarItems.bestMatch.target} nuzno bili naiti ${productTitle}
-						// 			${measureToCompare} 								  ${initialMeasure}
-						// `);
                         productsToCompare.splice(similarItems.bestMatchIndex, 1);
                     }
                 }
-            }
             else{
                 return;
             }

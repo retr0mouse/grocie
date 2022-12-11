@@ -37,12 +37,10 @@ export const appRouter = router({
         }),
     storeItems: publicProcedure
         .mutation(async () => {
-            // console.log((await Parser.getAllCoopItems()).length);
             await Database.updateBarboraItems();
             await Database.updateRimiItems();
             await Database.updateCoopItems();
             await Database.createStatsForEverything();
-            // console.log(await Parser.getAllSelverItems());
         }),
     findItem: publicProcedure    
         .input(z.object({ title: z.string() }))
