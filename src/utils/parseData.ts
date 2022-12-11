@@ -120,46 +120,32 @@ export function parseSelverCategory(categoryId: number): string {
 	return "Muu";
 }
 
-export function isMeasure(input: string) {
-	// const regex = /[0-9](l|ml|kg|g|mg)/i;
-	input = input.toLowerCase()
-	const regex = new RegExp('[0-9]l|ml|kg|g|mg|tk');
-	return regex.test(input);
+export function reverse(s: string){
+    return s.split("").reverse().join("");
 }
 
-export function findMeasure(input: string): string | null {
-	const testString = input.replace(/ /g, '').replace(",", ".");    // remove whitespaces and replace commas with dots
-	const regex = new RegExp('(\d+(?:\.\d+)?)\s?(millilitre|milliliter|ml|litre|liter|l|kilogram|kg|gram|g)\b');
-	if (regex.test(testString)) return testString.match(regex)?.at(0) ?? null;
-	return null;
-}
-
-export function convertMeasure(input: string): string | null {
-	const measures = new Map([								// we transform kg into g and l into ml
-		["l", "ml"],
-		["kg", "g"]
-	]);
-	const regex = new RegExp('(\d+(?:\.\d+)?)\s?(millilitre|milliliter|ml|litre|liter|l|kilogram|kg|gram|g)\b');
-	let stringToConvert = input.replace(/ /g, '').replace('.', ',');   		// 100 g ==> 100g ; 1,5 kg ==> 1.5kg ==> 1500g
-	let matchedPart: string;
-	if (regex.test(stringToConvert)) {
-		matchedPart = stringToConvert.match(regex)?.at(0) ?? "";
-	} else {
-		return null;
+export function findMeasures(input: string): string | null {
+	input = reverse(input.toLowerCase())
+	let newword = ""
+	let inputs = input.replace(",","_").replace(".","_").split(" ")
+	const regex = new RegExp('[0-9]|g|k|l|m|_');
+	const kilo = new RegExp('[0-9]kg');
+	const litr = new RegExp('[0-9]l');
+	for(let i=0; i <= inputs[0].length; i++){
+		if(regex.test(inputs[0][i])){
+			newword = newword + inputs[0][i]
+		}
 	}
-	const parts = [matchedPart.match(/\d+/)?.at(0) ?? "", matchedPart.replace(/[0-9]/g, '')];
-	let numericPart = "";
-	let stringPart = "";
-	if (parts[0].length > 0) {
-		numericPart = (-parts[0] * 1000).toString();
-	} else {
-		numericPart = "1";
+	if(litr.test(reverse(newword))){
+		return String(Number(reverse(newword).replace("_",".").slice(0, -1))*1000) + "ml" 
 	}
-	if (parts[1].length > 0) {
-		stringPart = measures.get(parts[1]) ?? "";
+	if(kilo.test(reverse(newword))){
+		return String(Number(reverse(newword).replace("_",".").slice(0, -2))*1000) + "g" 
 	}
-	if (numericPart.length > 0 && stringPart.length > 0) return numericPart + stringPart;
-	else return null
+	if (reverse(newword)?.replace("_",".").length == 0){
+		return null
+	}
+	return reverse(newword)?.replace("_",".")
 }
 
 export async function createChart(productName: string) {
