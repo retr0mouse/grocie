@@ -100,7 +100,7 @@ export default function NavigationBar(props: Props) {
 							<a className="" href="/">Soodne</a>
 
 						</Typography>
-						<Search sx={{ zIndex: 'tooltip' }} className="grow self-center">
+						<Search className="grow self-center">
 							<SearchIconWrapper>
 								<SearchIcon />
 							</SearchIconWrapper>
@@ -132,7 +132,7 @@ export default function NavigationBar(props: Props) {
 										leaveFrom="transform scale-100 opacity-100"
 										leaveTo="transform scale-95 opacity-0"
 									>
-										<Popover.Panel className={'absolute -left-[100px] rounded-2xl bg-orange-500 bg-opacity-90' }>
+										<Popover.Panel className={'absolute -left-[425px] rounded-2xl bg-orange-500 bg-opacity-90 z-50' }>
 											<div className='p-2 rounded-2xl w-96'>
 											<Link href={'/basket'}>
 												<div className='bg-orange-100 border-2 border-orange-300 w-full h-fit mb-5 rounded-xl transition ease-in-out delay-50 hover:scale-95 duration-150 '>
@@ -141,13 +141,15 @@ export default function NavigationBar(props: Props) {
 											</Link>
 												{items.length > 0 ? items.map((item: Grocery, index: number) => {
 													return (
-														<div className='flex items-center bg-white rounded-xl gap-3 mb-2 p-2' key={index}>
-															<div className={'block relative'}>
-																<img className={"w-20"} src={item.image}/>
-																<span className={'absolute bottom-0 right-0 bg-slate-500 w-8 h-8 bg-opacity-85 rounded-full m-0 flex items-center text-center justify-center'}> <p className='text-white'>{values[index]}</p> </span>
+														<Link href={{ pathname: `/product/${item.name}`, query: { product: JSON.stringify(item) }}} as={`/product/${item.name}`}>
+															<div className='flex items-center bg-white rounded-xl gap-3 mb-2 p-2' key={index}>
+																<div className={'block relative'}>
+																	<img className={"w-20"} src={item.image}/>
+																	<span className={'absolute bottom-0 right-0 bg-slate-500 w-8 h-8 bg-opacity-85 rounded-full m-0 flex items-center text-center justify-center'}> <p className='text-white'>{values[index]}</p> </span>
+																</div>
+																<p key={index}><span>{item.name.length > 25 ? item.name.substring(0,25) + '...': item.name}</span> <span className='flex text-orange-600 font-bold'>{Math.min.apply(null, typeof item.allPrices !== 'undefined' ? item?.allPrices : [0])} €</span></p>
 															</div>
-															<p key={index}><span>{item.name.length > 15 ? item.name.substring(0,15) + '...': item.name}</span> {item.price} €</p>
-														</div>
+														</Link>
 													)
 												}): <p className="text-xl text-slate-700 font-medium text-center">Sinu ostukorv on tühi!</p>}
 											</div>
