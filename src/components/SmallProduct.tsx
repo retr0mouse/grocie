@@ -2,19 +2,22 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { createTheme, IconButton } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { Grocery } from "groceries-component";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Category from "../pages/category/[id]";
 
 interface Props {
-    image: string,
-    name: string,
-    minPrice: number,
-    rimi_price?: number,
-    barbora_price?: number,
-    selver_price?: number,
-    coop_price?: number,
-    onChanged(count: number): void
+    name: string;
+    image: string;
+    minPrice: number;
+    rimi_price?: number;
+    barbora_price?: number;
+    selver_price?: number;
+    coop_price?: number;
+    category: string;
+    onChanged(count: number): void;
 }
 
 
@@ -37,10 +40,22 @@ export default function SmallProduct(props: Props) {
         props.onChanged(counter);
     }, [counter])
 
+    const thisProduct = {
+        name: props.name,
+        price: props.minPrice,
+        barbora_price: props.barbora_price,
+        rimi_price: props.rimi_price,
+        selver_price: props.selver_price,
+        coop_price: props.selver_price,
+        image: props.image,
+        category: props.category,
+        allPrices: [props.rimi_price, props.barbora_price, props.selver_price, props.coop_price]
+    } as Grocery;
+
     return (
         <div className="pr-5 pl-5 bg-white text-center flex-[1_0_15%] w-60 h-[400px] mt-16 rounded-2xl flex-col flex">
             {/* <Link href={{ pathname: `/product/${props.name}`}} className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200"> */}
-            <Link href={{ pathname: `/product/${props.name}`, query: { product: JSON.stringify(props) }}} as={`/product/${props.name}`} className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200">
+            <Link href={{ pathname: `/product/${props.name}`, query: { product: JSON.stringify(thisProduct), count: JSON.stringify(counter) }}} as={`/product/${props.name}`} className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200">
                 <img height={230} width={230} alt={"a picture of " + props.name} className="" src={props.image}></img>
                 <p className="font-sans font-semibold ">{props.name}</p>
             </Link>

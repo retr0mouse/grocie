@@ -73,17 +73,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 interface Props {
 	total: number;
-	items: Map<Grocery, number>,
+	items: Map<string, [Grocery, number]>,
 	triggerOpen: boolean
 }
 
-export default function NavigationBar(props: Props) {
-	let items = [] as Grocery[];
-	let values = [] as number[];
+export default function NavigationBar(props: Props) { 
+	let titles: string[];
+	let values: [Grocery, number][];
 
 	if (props.items.size !== 0) {
-		items = Array.from(props.items.keys());
+		titles = Array.from(props.items.keys());
 		values = Array.from(props.items.values());
+		{console.log(values.length)}
 	}
 
 	return (
@@ -91,7 +92,6 @@ export default function NavigationBar(props: Props) {
 			<ThemeProvider theme={themeColor}>
 				<AppBar position="relative" className={"flex shadow-none items-center pr-10 pl-10"}>
 					<div className='flex w-full gap-12'>
-
 						<Typography
 							color={Soodnecolor}
 							variant="h2"
@@ -107,6 +107,7 @@ export default function NavigationBar(props: Props) {
 							<StyledInputBase
 								placeholder="Search…"
 								inputProps={{ 'aria-label': 'search' }}
+								onChange={(text) => console.log(text?.target.value)}
 							/>
 						</Search>
 						<Popover className={'flex items-center z-[200]'}>
@@ -115,9 +116,10 @@ export default function NavigationBar(props: Props) {
 									<Popover.Button className={`focus:outline-none sticky top-4 h-10`}>
 										<div className='group w-auto flex h-10'>
 											<ShoppingCartOutlinedIcon className={" group-hover:fill-orange-700 w-10 h-10 duration-75 mr-4"}/>
-											{values.length > 0 ? 
+											{values?.length > 0 ? 
 											<span className={'absolute left-6 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}> 
-                      							<p className='text-white'>{values.length > 0  ? values.reduce((result, current) => result + current) : null}</p>
+                      							<p>kek</p>
+												{/* <p className='text-white'>{values.length > 0 ? values.reduce((resultItem, currentItem) => resultItem[1] + currentItem[1]) : 0}</p> */}
 											</span>: null} 
 											<p className='text-2xl text-slate-700 font-medium group-hover:text-orange-700 duration-75'>{props.total} €</p>
 										</div>
@@ -139,15 +141,15 @@ export default function NavigationBar(props: Props) {
 													<p className='text-2xl text-slate-700 font-medium text-center p-2'>Sinu ostukorv</p>
 												</div>
 											</Link>
-												{items.length > 0 ? items.map((item: Grocery, index: number) => {
+												{titles?.length > 0 ? values.map((item, index: number) => {
 													return (
-														<Link href={{ pathname: `/product/${item.name}`, query: { product: JSON.stringify(item) }}} as={`/product/${item.name}`}>
+														<Link key={index} href={{ pathname: `/product/${item[0]?.name}`, query: { product: JSON.stringify(item[0]) }}} as={`/product/${item[0].name}`}>
 															<div className='flex items-center bg-white rounded-xl gap-3 mb-2 p-2' key={index}>
 																<div className={'block relative'}>
-																	<img className={"w-20"} src={item.image}/>
-																	<span className={'absolute bottom-0 right-0 bg-slate-500 w-8 h-8 bg-opacity-85 rounded-full m-0 flex items-center text-center justify-center'}> <p className='text-white'>{values[index]}</p> </span>
+																	<img className={"w-20"} src={item[0].image}/>
+																	<span className={'absolute bottom-0 right-0 bg-slate-500 w-8 h-8 bg-opacity-85 rounded-full m-0 flex items-center text-center justify-center'}> <p className='text-white'>{item[1]}</p> </span>
 																</div>
-																<p key={index}><span>{item.name.length > 25 ? item.name.substring(0,25) + '...': item.name}</span> <span className='flex text-orange-600 font-bold'>{Math.min.apply(null, typeof item.allPrices !== 'undefined' ? item?.allPrices : [0])} €</span></p>
+																<p key={index}><span>{item[0].name.length > 25 ? item[0].name.substring(0,25) + '...': item[0].name}</span> <span className='flex text-orange-600 font-bold'>{Math.min.apply(null, typeof item[0].allPrices !== 'undefined' ? item[0]?.allPrices : [0])} €</span></p>
 															</div>
 														</Link>
 													)

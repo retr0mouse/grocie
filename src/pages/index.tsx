@@ -32,7 +32,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 	const [result, setResult] = useState("Banaan");
 	const [total, setTotal] = useState(0);
 	// const query = trpc.findItem.useQuery({ title: result });
-	const [cart, setCart] = useState<Map<Grocery, number>>(new Map());
+	const [cart, setCart] = useState<Map<string, [Grocery, number]>>(new Map());
 	const [hasChanged, setHasChanged] = useState(false);
 
 	useEffect(() => {
@@ -44,8 +44,8 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 		// console.log(cart);
 		// setTimeout(() => setHasChanged(false), 1000);
 		let currentTotal = 0;
-		cart.forEach((count, product) => {
-			currentTotal += count * (product.allPrices ? Math.min.apply(null, product.allPrices) : 0);
+		cart.forEach((item, title) => {
+			currentTotal += item[1] * (item[0].allPrices ? Math.min.apply(null, item[0].allPrices) : 0);
 		});
 		setTotal(Math.round(currentTotal * 100) / 100);
 		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
@@ -89,11 +89,12 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 								barbora_price={item.barbora_price}
 								selver_price={item.selver_price}
 								coop_price={item.coop_price}
+								category={item.category}
 								onChanged={(number) => {
 									if (number !== 0) {
-										setCart(new Map(cart.set(item, number)))
+										setCart(new Map(cart.set(item.name, [item, number])))
 									} else {
-										cart.delete(item);
+										cart.delete(item.name);
 										setCart(new Map(cart));
 									}
 									// setHasChanged(true);

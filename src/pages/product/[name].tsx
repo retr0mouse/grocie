@@ -1,4 +1,5 @@
 import Chart, { CategoryScale } from 'chart.js/auto';
+import { K } from 'chart.js/dist/chunks/helpers.core';
 import { Grocery } from "groceries-component";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -7,31 +8,38 @@ import BigProduct from "../../components/BigProduct";
 import NavigationBar from "../../components/NavigationBar";
 import { createChart } from "../../utils/parseData";
 
-export default function BigProductPage( { data }: any){
+export default function BigProductPage( { data }: any) {
     const [total, setTotal] = useState(0);
-    const [cart, setCart] = useState<Map<Grocery, number>>(new Map());
+    const [cart, setCart] = useState<Map<string, [Grocery, number]>>(new Map());
     Chart.register(CategoryScale);
     const router = useRouter();
     if (typeof router.query.product !== "string") return;
-    const product = JSON.parse(router.query.product) as Grocery;
+    const counter = typeof router.query.count === 'string' ? Number(router.query.count) : 0;
+    const item = JSON.parse(router.query.product) as Grocery;
     
-    const image = product.image;
-    const name = product.name;
-    const rimiPrice = product.rimi_price;
-    const selverPrice = product.selver_price;
-    const coopPrice = product.coop_price;
-    const barboraPrice = product.barbora_price;
+    const image = item.image;
+    const name = item.name;
+    const rimiPrice = item.rimi_price;
+    const selverPrice = item.selver_price;
+    const coopPrice = item.coop_price;
+    const barboraPrice = item.barbora_price;
+    let count: number | undefined | Grocery;
 
     useEffect(() => {
-        if (localStorage.getItem('cart') !== null) setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
+        if (localStorage.getItem('cart') !== null) {
+            setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
+            count = typeof cart.get(item.name) !== 'undefined' ? cart.get(item.name)?.at(1) : 0;
+            // console.log(product);
+            // console.log(cart);
+        }
     }, []) 
 
     useEffect(() => {
 		// console.log(cart);
 		// setTimeout(() => setHasChanged(false), 1000);
 		let currentTotal = 0;
-		cart.forEach((count, product) => {
-			currentTotal += count * (product.allPrices ? Math.min.apply(null, product.allPrices) : 0);
+		cart.forEach((product, title) => {
+			currentTotal += product[1] * (product[0].allPrices ? Math.min.apply(null, product[0].allPrices) : 0);
 		});
 		setTotal(Math.round(currentTotal * 100) / 100);
 		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
@@ -48,12 +56,25 @@ export default function BigProductPage( { data }: any){
                 triggerOpen={false}
             />
             <BigProduct 
+                count={counter}
                 image={image}
                 productName={name}
                 rimiPrice={rimiPrice}
                 selverPrice={selverPrice}
                 coopPrice={coopPrice}
                 barboraPrice={barboraPrice}
+                onChanged={(number) => {
+                    if (number !== 0) {
+                        console.log(JSON.stringify(Array.from(cart.entries()).pop()?.[0]));
+                        console.log(cart);
+                        
+                        setCart(new Map(cart.set(item.name, [item, number])));
+                    } else {
+                        cart.delete(item.name);
+                        setCart(new Map(cart));
+                    }
+                    // setHasChanged(true);
+                }}
             />
             {data.length > 0 ? <Line data={data}/> : null}
         </div>
