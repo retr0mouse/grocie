@@ -9,6 +9,7 @@ import Barbora from "../images/barbore.png";
 import Coop from "../images/cope.png";
 import Rimi from "../images/rime.png";
 import Selver from "../images/selve.png";
+import Footer from "../components/Footer";
 
 export default function Basket() {
     const [total, setTotal] = useState(0);
@@ -48,59 +49,76 @@ export default function Basket() {
             />
             <div className="flex justify-center">
                 <div className="flex items-center flex-col space-y-5">
-                    <h1 className="text-4xl text-orange-400 mb-10">Cart</h1>
+                    <h1 className="self-start text-4xl text-orange-400 mb-6 mt-10">Ostukorv</h1>
                     {values?.map((item, index) => {
                         return (
-                            <div className=" bg-white text-center w-auto h-auto rounded-2xl flex-row flex justify-between" key={index}>
-                                <div className="flex flex-col p-1">
+                            <div className=" bg-white text-center h-auto rounded-2xl flex-row flex justify-between w-fit p-10 items-center gap-24" key={index}>
+                                <div className="flex flex-col">
                                     <p className="font-sans font-semibold text-xl">{item[0].name}</p>
-                                    <img height={100} width={100} alt={"a picture of " + item[0].name} className="w-64 h-60" src={item[0].image}></img>
+                                    <img width={300} alt={"a picture of " + item[0].name} className="" src={item[0].image}></img>
                                 </div>
-                                <div className="self-center place-content-center items-center">
-                                    <div className="flex-col space-y-10 w-auto">
-                                        {item[0].barbora_price ? <div className="flex flex-raw items-center">
-                                            <Image alt="barbora logo" className="w-20 h-8 mr-16 flex" src={Barbora}></Image>
-                                            <p className="text-2xl text-orange-500 font-medium">{item[0].barbora_price}</p>
-                                        </div> : null}
-                                        {item[0].rimi_price ? <div className="flex flex-raw items-center">
-                                            <Image alt="rimi logo" className="w-auto h-6 mr-16 flex" src={Rimi}></Image>
-                                            <p className="text-2xl text-orange-500 font-medium">{item[0].rimi_price}</p>
-                                        </div> : null}
-                                        {item[0].selver_price ? <div className="flex flex-raw items-center">
-                                            <Image alt="rimi logo" className="w-auto h-6 mr-16 flex" src={Selver}></Image>
-                                            <p className="text-2xl text-orange-500 font-medium">{item[0].selver_price}</p>
-                                        </div> : null}
-                                        {item[0].coop_price ? <div className="flex flex-raw items-center">
-                                            <Image alt="rimi logo" className="-ml-2 w-auto h-8 mr-14 flex" src={Coop}></Image>
-                                            <p className="text-2xl text-orange-500 font-medium">{item[0].coop_price}</p>
-                                        </div> : null}
-                                    </div>
-                                    <div className="mb-4 mt-10 h-auto w-auto border-orange-500 border-2 rounded-full flex flex-row justify-between items-center">
-                                        <IconButton
-                                            color="primary"
-                                            disabled={item[1] == 0}
-                                            aria-label="upload picture"
-                                            component="label"
-                                            onClick={() => item[1] = (item[1] - 1)}
-                                            className="ml-0"
-                                        >
-                                            <RemoveIcon />
-                                        </IconButton>
-                                        <p className="">{item[1]}</p>
-                                        <IconButton
-                                            color="primary"
-                                            aria-label="upload picture"
-                                            component="label"
-                                            onClick={() => item[1] = (item[1] + 1)}
-                                            className=""
-                                        >
-                                            <AddIcon />
-                                        </IconButton>
-                                    </div>
+                                <div className="flex-col space-y-10 w-auto">
+                                    {item[0].barbora_price ? <div className="flex flex-raw items-center">
+                                        <Image alt="barbora logo" className="w-24 mr-16 flex aspect-[3/2] object-contain" src={Barbora}></Image>
+                                        <p className="text-2xl text-orange-500 font-medium">{item[0].barbora_price}</p>
+                                    </div> : null}
+                                    {item[0].rimi_price ? <div className="flex flex-raw items-center">
+                                        <Image alt="rimi logo" className="w-24 mr-16 flex aspect-[3/2] object-contain" src={Rimi}></Image>
+                                        <p className="text-2xl text-orange-500 font-medium">{item[0].rimi_price}</p>
+                                    </div> : null}
+                                    {item[0].selver_price ? <div className="flex flex-raw items-center">
+                                        <Image alt="rimi logo" className="w-24 mr-16 flex aspect-[3/2] object-contain" src={Selver}></Image>
+                                        <p className="text-2xl text-orange-500 font-medium">{item[0].selver_price}</p>
+                                    </div> : null}
+                                    {item[0].coop_price ? <div className="flex flex-raw items-center">
+                                        <Image alt="rimi logo" className="w-24 mr-16 flex aspect-[3/2] object-contain" src={Coop}></Image>
+                                        <p className="text-2xl text-orange-500 font-medium">{item[0].coop_price}</p>
+                                    </div> : null}
+                                </div>
+                                <div className="w-[150px] border-orange-500 border-2 rounded-full flex flex-row justify-between items-center">
+                                    <IconButton
+                                        color="primary"
+                                        disabled={item[1] == 0}
+                                        aria-label="upload picture"
+                                        component="label"
+                                        onClick={() => item[1] = (item[1] - 1)}
+                                        className="ml-0"
+                                    >
+                                        <RemoveIcon />
+                                    </IconButton>
+                                    <p className="">{item[1]}</p>
+                                    <IconButton
+                                        color="primary"
+                                        aria-label="upload picture"
+                                        component="label"
+                                        onClick={() => item[1] = (item[1] + 1)}
+                                        className=""
+                                    >
+                                        <AddIcon />
+                                    </IconButton>
                                 </div>
                             </div>
                         )
                     })}
+                    <h1 className="self-start text-4xl text-orange-400 mb-6 mt-10">Sinu ostukorvi hind</h1>
+                    <div className="w-[500px]">
+                        <div className="flex justify-between">
+                            <p className="text-2xl">Rimi</p>
+                            <p className="text-2xl">5$</p>
+                        </div>
+                        <div className="flex justify-between">
+                            <p className="text-2xl">Barbora</p>
+                            <p className="text-2xl">5$</p>
+                        </div>
+                        <div className="flex justify-between">
+                            <p className="text-2xl">Coop</p>
+                            <p className="text-2xl">5$</p>
+                        </div>
+                        <div className="flex justify-between">
+                            <p className="text-2xl">Selve</p>
+                            <p className="text-2xl">5$</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

@@ -81,7 +81,6 @@ export default function Category({ itemsData, title }: any) {
 				currentPage={currentPage} 
 				pageSize={pageSize}
 			/>
-            <Footer/>
         </>
     );
 }
@@ -103,7 +102,7 @@ export async function getStaticProps({ params }: any) {
     if (!categoryTitle) return {
 		notFound: true
 	};
-    console.log("title: " + categoryTitle);
+    // console.log("title: " + categoryTitle);
     const itemsData = await Database.getProductsByCategory(categoryTitle!);
     if (!itemsData) return {
 		notFound: true

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import BigProduct from "../../components/BigProduct";
+import Footer from '../../components/Footer';
 import NavigationBar from "../../components/NavigationBar";
 import { createChart } from "../../utils/parseData";
 
@@ -59,8 +60,8 @@ export default function BigProductPage( { data }: any) {
                 barboraPrice={barboraPrice}
                 onChanged={(number) => {
                     if (number !== 0) {
-                        console.log(JSON.stringify(Array.from(cart.entries()).pop()?.[0]));
-                        console.log(cart);
+                        // console.log(JSON.stringify(Array.from(cart.entries()).pop()?.[0]));
+                        // console.log(cart);
                         
                         setCart(new Map(cart.set(item.name, [item, number])));
                     } else {
