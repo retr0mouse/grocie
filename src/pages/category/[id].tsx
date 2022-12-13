@@ -10,7 +10,7 @@ import { Database } from "../../server/middleware/Database";
 
 export default function Category({ itemsData, title }: any) {
     const [total, setTotal] = useState(0);
-    const [cart, setCart] = useState<Map<Grocery, number>>(new Map());
+    const [cart, setCart] = useState<Map<string, [Grocery, number]>>(new Map());
 
     useEffect(() => {
         if (localStorage.getItem('cart') !== null) setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
@@ -20,8 +20,8 @@ export default function Category({ itemsData, title }: any) {
 		// console.log(cart);
 		// setTimeout(() => setHasChanged(false), 1000);
 		let currentTotal = 0;
-		cart.forEach((count, product) => {
-			currentTotal += count * (product.allPrices ? Math.min.apply(null, product.allPrices) : 0);
+		cart.forEach((item, title) => {
+			currentTotal += item[1] * (item[0].allPrices ? Math.min.apply(null, item[0].allPrices) : 0);
 		});
 		setTotal(Math.round(currentTotal * 100) / 100);
 		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
@@ -55,8 +55,8 @@ export default function Category({ itemsData, title }: any) {
 					return (
 						<SmallProduct 
 							key={index}
-							image={item.image} 
-							name={item.name} 
+							image={item.image}
+							name={item.name}
 							minPrice={minPrice}
 							rimi_price={item.rimi_price}
 							barbora_price={item.barbora_price}
@@ -64,13 +64,13 @@ export default function Category({ itemsData, title }: any) {
 							coop_price={item.coop_price}
 							onChanged={(number) => {
 								if (number !== 0) {
-									setCart(new Map(cart.set(item, number)))
+									setCart(new Map(cart.set(item.name, [item, number])));
 								} else {
-									cart.delete(item);
+									cart.delete(item.name);
 									setCart(new Map(cart));
 								}
 								// setHasChanged(true);
-							}} 
+							} } category={item.category}						
 						/>
 					)
 				})}

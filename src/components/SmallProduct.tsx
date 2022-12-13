@@ -6,6 +6,7 @@ import { Grocery } from "groceries-component";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { object } from "zod";
 import Category from "../pages/category/[id]";
 
 interface Props {
@@ -35,10 +36,20 @@ const Color = createTheme({
 export default function SmallProduct(props: Props) {
     const [counter, setCounter] = useState<number>(0);
     const price = String(props.minPrice).split('.');
+
     useEffect(() => {
         if (typeof counter === 'undefined' || counter < 0) return;
         props.onChanged(counter);
     }, [counter])
+
+    useEffect(() => {
+        if (localStorage.getItem('cart') !== null) {
+            const result = new Map(JSON.parse(localStorage.getItem('cart')!)) as Map<string, [Grocery, number]>;
+            if (result) {
+                setCounter(result.get(props.name) ? result.get(props.name)![1] : 0);
+            }
+        }
+    }, [])
 
     const thisProduct = {
         name: props.name,
