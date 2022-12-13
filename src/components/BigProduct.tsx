@@ -82,9 +82,6 @@ export default function BigProduct( props: Props ) {
                         <AddIcon />
                     </IconButton>
                 </div>
-                <div className="p-1 transition ease-in-out delay-50  hover:scale-110 duration-200 mt-10 mb-10 flex bg-orange-400 place-content-center place-items-center border-2 border-orange-500 rounded">
-                    <button className="text-2xl">Lisa ostukorvi</button>
-                </div>
             </div>
             <div className="pr-10 flex-col space-y-10 w-[20rem]">
                 {props.barboraPrice ? <div className="flex flex-raw items-center">

@@ -49,8 +49,13 @@ export default function SmallProduct(props: Props) {
         coop_price: props.selver_price,
         image: props.image,
         category: props.category,
-        allPrices: [props.rimi_price, props.barbora_price, props.selver_price, props.coop_price]
+        allPrices: []
     } as Grocery;
+
+    if (props.rimi_price && thisProduct.allPrices) thisProduct.allPrices.push(props.rimi_price);
+    if (props.barbora_price && thisProduct.allPrices) thisProduct.allPrices.push(props.barbora_price);
+    if (props.coop_price && thisProduct.allPrices) thisProduct.allPrices.push(props.coop_price);
+    if (props.selver_price && thisProduct.allPrices) thisProduct.allPrices.push(props.selver_price);
 
     return (
         <div className="pr-5 pl-5 bg-white text-center flex-[1_0_15%] w-60 h-[400px] mt-16 rounded-2xl flex-col flex">
