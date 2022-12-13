@@ -140,9 +140,9 @@ export default function NavigationBar(props: Props) {
 													<p className='text-2xl text-slate-700 font-medium text-center p-2'>Sinu ostukorv</p>
 												</div>
 											</Link>
-												{titles?.length > 0 ? values.map((item, index: number) => {
+												{values?.length > 0 ? values.map((item, index: number) => {
 													return (
-														<Link key={index} href={{ pathname: `/product/${item[0]?.name}`, query: { product: JSON.stringify(item[0]) }}} as={`/product/${item[0].name}`}>
+														<Link key={index} href={{ pathname: `/product/${item[0]?.name}`, query: { product: JSON.stringify(item[0]) , count: item[1]}}} as={`/product/${item[0].name}`}>
 															<div className='flex items-center bg-white rounded-xl gap-3 mb-2 p-2' key={index}>
 																<div className={'block relative'}>
 																	<img className={"w-20"} src={item[0].image}/>

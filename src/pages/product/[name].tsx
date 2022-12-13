@@ -23,17 +23,11 @@ export default function BigProductPage( { data }: any) {
     const selverPrice = item.selver_price;
     const coopPrice = item.coop_price;
     const barboraPrice = item.barbora_price;
-    let count: number | undefined | Grocery;
-
     useEffect(() => {
         if (localStorage.getItem('cart') !== null) {
             setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
-            count = typeof cart.get(item.name) !== 'undefined' ? cart.get(item.name)?.at(1) : 0;
-            // console.log(product);
-            // console.log(cart);
         }
     }, []) 
-
     useEffect(() => {
 		// console.log(cart);
 		// setTimeout(() => setHasChanged(false), 1000);
