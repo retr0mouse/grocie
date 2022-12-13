@@ -18,6 +18,7 @@ import Selver from "../images/selve.png"
 import { promise } from "zod";
 import { Chart } from "chart.js";
 import { createChart } from "../utils/parseData";
+import { useEffect } from "react";
 
 interface Props {
     image: string;
@@ -26,6 +27,8 @@ interface Props {
     selverPrice?: number;
     coopPrice?: number;
     barboraPrice?: number;
+    onChanged(count: number): void;
+    count: number;
 }
 
 const themeColor = createTheme({
@@ -41,7 +44,13 @@ const themeColor = createTheme({
 
 
 export default function BigProduct( props: Props ) {
-    const [counter, setCounter] = useState(0);
+    const [counter, setCounter] = useState<number>(props.count);
+    
+    useEffect(() => {
+        if (typeof counter === 'undefined' || counter < 0) return;
+        props.onChanged(counter);
+    }, [counter])
+
     return (
         <div className="items-center mt-16 rounded-lg space-x-20 bg-white p-10 w-auto flex-row flex place-content-center place-items-center self-center">
             <div className="flex-col items-center flex">
@@ -72,9 +81,6 @@ export default function BigProduct( props: Props ) {
                     >
                         <AddIcon />
                     </IconButton>
-                </div>
-                <div className="p-1 transition ease-in-out delay-50  hover:scale-110 duration-200 mt-10 mb-10 flex bg-orange-400 place-content-center place-items-center border-2 border-orange-500 rounded">
-                    <button className="text-2xl">Lisa ostukorvi</button>
                 </div>
             </div>
             <div className="pr-10 flex-col space-y-10 w-[20rem]">
