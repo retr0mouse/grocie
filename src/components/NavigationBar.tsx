@@ -84,7 +84,6 @@ export default function NavigationBar(props: Props) {
 	if (props.items.size !== 0) {
 		titles = Array.from(props.items.keys());
 		values = Array.from(props.items.values());
-		{console.log(values.length)}
 	}
 
 	return (
