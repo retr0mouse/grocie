@@ -3,13 +3,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { resourceLimits } from "worker_threads";
 import { Database } from "../../server/middleware/Database";
 
-async function updateDatabase(req: NextApiRequest, res: NextApiResponse) {
+const updateDatabase = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         Promise.all([
-            Database.updateBarboraItems(), 
-            Database.updateRimiItems(),
-            Database.updateCoopItems(),
-            Database.createStatsForEverything()
+            await Database.updateBarboraItems(), 
+            await Database.updateRimiItems(),
+            await Database.updateCoopItems(),
+            await Database.createStatsForEverything()
         ]).then(() => {
             res.status(200).end();
         });
