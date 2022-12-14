@@ -11,11 +11,15 @@ const updateDatabase = async (req: NextApiRequest, res: NextApiResponse) => {
             await Database.updateCoopItems(),
             await Database.createStatsForEverything()
         ]).then(() => {
-            res.status(200).end();
+            res.status(200);
+            res.send("OK");
+            return;
         });
     } catch (error) {
-        console.log("error: " + error);
-        res.status(500).end();
+        console.error((error as Error).message)
+        res.status(500).json({ error: (error as Error).message })
+    } finally {
+        res.end();
     }
 }
 
