@@ -109,7 +109,7 @@ export default function Basket() {
                         <div className="flex justify-between">
                             <p className="text-2xl">Barbora</p>
                             <p className="text-2xl">5$</p>
-                        </div>resultValue
+                        </div>
                         <div className="flex justify-between">
                             <p className="text-2xl">Coop</p>
                             <p className="text-2xl">5$</p>

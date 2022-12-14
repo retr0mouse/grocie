@@ -4,14 +4,14 @@ import { Database } from "../../server/middleware/Database";
 
 async function updateDatabase(req: NextApiRequest, res: NextApiResponse) {
 
-    Promise.allSettled([
+    await Promise.allSettled([
         await Database.updateBarboraItems(),
         await Database.updateRimiItems(),
         await Database.updateCoopItems(),
         await Database.createStatsForEverything(),
     ]);
     
-    return res.status(200);
+    res.status(200).end();
 }
 
 export default verifySignature(updateDatabase);
