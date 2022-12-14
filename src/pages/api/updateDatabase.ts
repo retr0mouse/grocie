@@ -6,15 +6,17 @@ import { Database } from "../../server/middleware/Database";
 async function updateDatabase(req: NextApiRequest, res: NextApiResponse) {
     try {
         Promise.all([
-            // await Database.updateBarboraItems(), 
-            await Database.updateRimiItems(),
-            await Database.updateCoopItems(),
-            await Database.createStatsForEverything()
-        ]);
+            Database.updateBarboraItems(), 
+            Database.updateRimiItems(),
+            Database.updateCoopItems(),
+            Database.createStatsForEverything()
+        ]).then(() => {
+            res.status(200).end();
+        });
     } catch (error) {
         console.log("error: " + error);
+        res.status(500).end();
     }
-    res.status(200).end();
 }
 
 export default verifySignature(updateDatabase);
