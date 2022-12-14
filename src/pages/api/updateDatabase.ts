@@ -5,10 +5,10 @@ import { Database } from "../../server/middleware/Database";
 
 const updateDatabase = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        await Database.updateBarboraItems(), 
-        await Database.updateRimiItems(),
-        await Database.updateCoopItems(),
-        await Database.createStatsForEverything()
+        // await Database.updateBarboraItems(), 
+        // await Database.updateRimiItems(),
+        // await Database.updateCoopItems(),
+        // await Database.createStatsForEverything()
         res.status(200);
         res.send("OK");
         return;
