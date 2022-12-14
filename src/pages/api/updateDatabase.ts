@@ -5,16 +5,13 @@ import { Database } from "../../server/middleware/Database";
 
 const updateDatabase = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        Promise.all([
-            await Database.updateBarboraItems(), 
-            await Database.updateRimiItems(),
-            await Database.updateCoopItems(),
-            await Database.createStatsForEverything()
-        ]).then(() => {
-            res.status(200);
-            res.send("OK");
-            return;
-        });
+        await Database.updateBarboraItems(), 
+        await Database.updateRimiItems(),
+        await Database.updateCoopItems(),
+        await Database.createStatsForEverything()
+        res.status(200);
+        res.send("OK");
+        return;
     } catch (error) {
         console.error((error as Error).message)
         res.status(500).json({ error: (error as Error).message })
