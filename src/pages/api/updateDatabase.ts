@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Database } from "../../server/middleware/Database";
 
 async function updateDatabase(req: NextApiRequest, res: NextApiResponse) {
-    await Database.updateBarboraItems();
+    // await Database.updateBarboraItems();
     // await Database.updateRimiItems(),
     // await Database.updateCoopItems(),
     // await Database.createStatsForEverything(),
