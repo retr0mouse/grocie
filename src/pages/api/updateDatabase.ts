@@ -6,7 +6,7 @@ async function updateDatabase(req: NextApiRequest, res: NextApiResponse) {
 
     await Promise.allSettled([
         await Database.updateBarboraItems(),
-        await Database.updateRimiItems(),
+        // await Database.updateRimiItems(),
         await Database.updateCoopItems(),
         await Database.createStatsForEverything(),
     ]);

@@ -39,7 +39,7 @@ export class Database {
         } catch (error) {
             console.log("error: " + error);
             return;
-        }    
+        }
     }
 
     static async getProduct(productTitle: string): Promise<ProductType> {
