@@ -3,12 +3,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Database } from "../../server/middleware/Database";
 
 async function updateDatabase(req: NextApiRequest, res: NextApiResponse) {
-    await Database.updateBarboraItems(),
+    await Database.updateBarboraItems();
     // await Database.updateRimiItems(),
     // await Database.updateCoopItems(),
     // await Database.createStatsForEverything(),
     
-    res.status(200).end();
+    return res.status(200);
 }
 
 export default verifySignature(updateDatabase);
