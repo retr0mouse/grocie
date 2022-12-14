@@ -7,14 +7,14 @@ async function updateDatabase(req: NextApiRequest, res: NextApiResponse) {
     try {
         Promise.all([
             // await Database.updateBarboraItems(), 
-            // await Database.updateRimiItems(),
+            await Database.updateRimiItems(),
             await Database.updateCoopItems(),
             await Database.createStatsForEverything()
         ]);
     } catch (error) {
         console.log("error: " + error);
     }
-    return res.status(200).json({});
+    res.status(200).end();
 }
 
 export default verifySignature(updateDatabase);
