@@ -104,12 +104,12 @@ export default function Basket() {
                     <div className="w-[500px]">
                         <div className="flex justify-between">
                             <p className="text-2xl">Rimi</p>
-                            <p className="text-2xl">5$</p>
+                            <p className="text-2xl">{values.filter(item => item[0].rimi_price)?.reduce((resultValue, currentValue) => [currentValue[0], currentValue[1] + resultValue[1]])[1]}</p>
                         </div>
                         <div className="flex justify-between">
                             <p className="text-2xl">Barbora</p>
                             <p className="text-2xl">5$</p>
-                        </div>
+                        </div>resultValue
                         <div className="flex justify-between">
                             <p className="text-2xl">Coop</p>
                             <p className="text-2xl">5$</p>
