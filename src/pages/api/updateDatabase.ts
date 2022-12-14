@@ -6,10 +6,10 @@ import { Database } from "../../server/middleware/Database";
 async function updateDatabase(req: NextApiRequest, res: NextApiResponse) {
     try {
         Promise.all([
-            await Database.updateBarboraItems(), 
+            // await Database.updateBarboraItems(), 
             // await Database.updateRimiItems(),
             // await Database.updateCoopItems(),
-            // await Database.createStatsForEverything()
+            await Database.createStatsForEverything()
         ]);
     } catch (error) {
         console.log("error: " + error);
