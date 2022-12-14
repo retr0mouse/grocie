@@ -38,6 +38,7 @@ export class Database {
             Product.create(products);
         } catch (error) {
             console.log("error: " + error);
+            return;
         }    
     }
 
