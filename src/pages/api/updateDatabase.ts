@@ -8,7 +8,7 @@ async function updateDatabase(req: NextApiRequest, res: NextApiResponse) {
         Promise.all([
             // await Database.updateBarboraItems(), 
             // await Database.updateRimiItems(),
-            // await Database.updateCoopItems(),
+            await Database.updateCoopItems(),
             await Database.createStatsForEverything()
         ]);
     } catch (error) {
