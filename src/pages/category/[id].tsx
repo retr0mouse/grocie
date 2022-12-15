@@ -8,7 +8,7 @@ import SmallProduct from "../../components/SmallProduct";
 import { Parser } from "../../server/lib/Parser";
 import { Database } from "../../server/middleware/Database";
 
-export default function Category({ itemsData, title }: any) {
+export default function Category({ itemsData, categoryTitle }: any) {
     const [total, setTotal] = useState(0);
     const [cart, setCart] = useState<Map<string, [Grocery, number]>>(new Map());
 
@@ -47,7 +47,7 @@ export default function Category({ itemsData, title }: any) {
                 items={cart}
                 triggerOpen={false}
             />
-            <h1 className="w-fit relative left-[50%] translate-x-[-50%] mt-5 font-sans text-5xl font-bold">{title}</h1>
+            <p className="ml-5 mt-5 text-5xl">{categoryTitle}</p>
             <div className={"flex flex-wrap self-center space-x-3"}>
 				{currentItems?.map((item: Grocery, index: number) => {
 					if (!item.allPrices) return;
@@ -110,7 +110,8 @@ export async function getStaticProps({ params }: any) {
     return {
         props: {
             itemsData,
-            categoryTitle
-        }
+            categoryTitle,
+        },
+		revalidate: 1
     };
 }
