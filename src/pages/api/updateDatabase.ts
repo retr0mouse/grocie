@@ -5,10 +5,10 @@ import { Database } from "../../server/middleware/Database";
 
 const updateDatabase = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        // await Database.updateBarboraItems(), 
-        // await Database.updateRimiItems(),
-        // await Database.updateCoopItems(),
-        // await Database.createStatsForEverything()
+        await Database.updateBarboraItems(), 
+        await Database.updateRimiItems(),
+        await Database.updateCoopItems(),
+        await Database.createStatsForEverything()
         res.status(200);
         res.send("OK");
         return;
@@ -20,10 +20,11 @@ const updateDatabase = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 }
 
-export default verifySignature(updateDatabase);
+// export default verifySignature(updateDatabase);
+export default updateDatabase;
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
