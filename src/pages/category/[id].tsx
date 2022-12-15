@@ -1,11 +1,8 @@
 import { Grocery } from "groceries-component";
-import React from "react";
 import { useEffect, useMemo, useState } from "react";
-import Footer from "../../components/Footer";
 import NavigationBar from "../../components/NavigationBar";
 import Pagination from "../../components/Pagination";
 import SmallProduct from "../../components/SmallProduct";
-import { Parser } from "../../server/lib/Parser";
 import { Database } from "../../server/middleware/Database";
 
 export default function Category({ itemsData, categoryTitle }: any) {
@@ -38,7 +35,7 @@ export default function Category({ itemsData, categoryTitle }: any) {
 		// console.log("page changed");
 		//console.log(allMeatItems.length);
 		if (itemsData) return itemsData.slice(firstPageIndex, lastPageIndex);
-	}, [currentPage]);
+	}, [[currentPage], []]);
     
     return (
         <>
@@ -97,7 +94,7 @@ export async function getStaticPaths() {
     };
 }
     
-export async function getStaticProps({ params }: any) {
+export async function getStatticProps({ params }: any) {
     const categoryTitle = Database.getCategoryTitleById(params.id);
     if (!categoryTitle) return {
 		notFound: true
@@ -112,6 +109,6 @@ export async function getStaticProps({ params }: any) {
             itemsData,
             categoryTitle,
         },
-		revalidate: 1
+		revalidate: 10
     };
 }
