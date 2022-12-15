@@ -94,7 +94,7 @@ export async function getStaticPaths() {
     };
 }
     
-export async function getStatticProps({ params }: any) {
+export async function getStaticProps({ params }: any) {
     const categoryTitle = Database.getCategoryTitleById(params.id);
     if (!categoryTitle) return {
 		notFound: true
