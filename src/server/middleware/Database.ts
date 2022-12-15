@@ -34,9 +34,12 @@ export class Database {
     static async addProducts(products: ProductType[]) {
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
         mongoose.connect(process.env.DATABASE_URL);
-        Product.create(products, function(err: Error) {
-            if (err) throw new Error("Error: " + err);
-        });
+        try {
+            Product.create(products);
+        } catch (error) {
+            console.log("error: " + error);
+            return;
+        }
     }
 
     static async getProduct(productTitle: string): Promise<ProductType> {
@@ -150,15 +153,14 @@ export class Database {
     static async updateRimiItems() {
         const items = await Parser.getAllRimiItems();
         items.forEach(async (item: Grocery) => {
-            const newCategory = parseCategory(item.category.trim());
+            const newCategory = parseCategory(item.category.trim()) ?? "";
             const commonTitle = await Compare.compareCommonItem(item.name);
-
             const newItem = {
                 category: newCategory,
                 name: item.name,
                 rimi_price: item.price,
                 product_image: item.image
-            } as ProductType;
+            }; 
 
             if (typeof commonTitle == 'string' && commonTitle.length > 1) {
                 newItem.name = commonTitle
@@ -245,7 +247,7 @@ export class Database {
                 newItem.coop_price = item.coop_price;
                 prices.push(item.coop_price)
             }
-            if (prices.length < 2) continue
+            // if (prices.length < 2) continue
             newItem.allPrices = prices;
             itemsData.push(newItem);
         }
