@@ -57,7 +57,7 @@ export default function SmallProduct(props: Props) {
         barbora_price: props.barbora_price,
         rimi_price: props.rimi_price,
         selver_price: props.selver_price,
-        coop_price: props.selver_price,
+        coop_price: props.coop_price,
         image: props.image,
         category: props.category,
         allPrices: []

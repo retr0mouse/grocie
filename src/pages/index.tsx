@@ -135,11 +135,10 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 			</div>*/}
 				{/* <div className={"relative left-1/2 transform -translate-x-1/2 flex flex-col w-10, "}> */}
 				{/* <input type="text" className={"bg-slate-600"} defaultValue={title} onChange={(input) => setTitle(input.target.value)}/> */}
-				{/* <button className={"bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"} onClick={() => mutation.mutate()}>BREAK EVERYTHING</button>  */}
+				<button className={"bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"} onClick={() => mutation.mutate()}>BREAK EVERYTHING</button> 
 				{/* <h1 className={"bg-red-600"}>RESULT: {query.data ?? "nothing"}</h1> */}
 				{/* </div> */}
 			</Layout>
-			<Footer />
 		</>
 	)
 }

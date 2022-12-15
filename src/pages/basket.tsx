@@ -101,22 +101,58 @@ export default function Basket() {
                         )
                     })}
                     <h1 className="self-start text-4xl text-orange-400 mb-6 mt-10">Sinu ostukorvi hind</h1>
-                    <div className="w-[500px]">
+                    <div className="w-[700px]">
                         <div className="flex justify-between">
-                            <p className="text-2xl">Rimi</p>
-                            {/* <p className="text-2xl">{values.filter(item => item[0].rimi_price)?.reduce((resultValue, currentValue) => [currentValue[0], currentValue[1] + resultValue[1]])[1]}</p> */}
+                            <p className="text-3xl">Rimi</p>
+                            <p className="text-2xl">
+                                €
+                                {
+                                    values
+                                    .filter(item => item[0].rimi_price)
+                                    .map(item => item[1] * item[0].rimi_price!)
+                                    .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
+                                    .toFixed(2)
+                                }
+                            </p>
                         </div>
                         <div className="flex justify-between">
-                            <p className="text-2xl">Barbora</p>
-                            <p className="text-2xl">5$</p>
+                            <p className="text-3xl">Barbora</p>
+                            <p className="text-2xl">
+                                €
+                                {
+                                    values
+                                    .filter(item => item[0].barbora_price)
+                                    .map(item => item[1] * item[0].barbora_price!)
+                                    .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
+                                    .toFixed(2)
+                                }
+                            </p>
                         </div>
                         <div className="flex justify-between">
-                            <p className="text-2xl">Coop</p>
-                            <p className="text-2xl">5$</p>
+                            <p className="text-3xl">Coop</p>
+                            <p className="text-2xl">
+                                €
+                                {
+                                    values
+                                    .filter(item => item[0].coop_price)
+                                    .map(item => item[1] * item[0].coop_price!)
+                                    .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
+                                    .toFixed(2)
+                                }
+                            </p>
                         </div>
                         <div className="flex justify-between">
-                            <p className="text-2xl">Selve</p>
-                            <p className="text-2xl">5$</p>
+                            <p className="text-3xl">Selve</p>
+                            <p className="text-2xl">
+                                €
+                                {
+                                    values
+                                    .filter(item => item[0].selver_price)
+                                    .map(item => item[1] * item[0].selver_price!)
+                                    .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
+                                    .toFixed(2)
+                                }
+                            </p>
                         </div>
                     </div>
                 </div>

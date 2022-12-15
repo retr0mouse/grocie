@@ -28,7 +28,8 @@ export default function BigProductPage( { data }: any) {
         if (localStorage.getItem('cart') !== null) {
             setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
         }
-    }, []) 
+    }, [])
+ 
     useEffect(() => {
 		// console.log(cart);
 		// setTimeout(() => setHasChanged(false), 1000);
