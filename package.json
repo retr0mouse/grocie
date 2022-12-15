@@ -33,6 +33,7 @@
     "chart.js": "^4.0.1",
     "cheerio": "^1.0.0-rc.12",
     "next": "latest",
+    "patch-package": "^6.5.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.0.1",
     "react-dom": "^18.2.0",
