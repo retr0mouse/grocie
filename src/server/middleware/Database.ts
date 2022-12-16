@@ -285,7 +285,7 @@ export class Database {
                 newItem.coop_price = item.coop_price;
                 prices.push(item.coop_price)
             }
-            // if (prices.length < 2) continue
+            if (prices.length < 2) continue
             newItem.allPrices = prices;
             itemsData.push(newItem);
         }
