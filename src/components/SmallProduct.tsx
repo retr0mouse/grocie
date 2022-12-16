@@ -3,11 +3,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { createTheme, IconButton } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Grocery } from "groceries-component";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { object } from "zod";
-import Category from "../pages/category/[id]";
 
 interface Props {
     name: string;
@@ -19,6 +16,7 @@ interface Props {
     coop_price?: number;
     category: string;
     onChanged(count: number): void;
+    // count: number;
 }
 
 
@@ -50,6 +48,10 @@ export default function SmallProduct(props: Props) {
             }
         }
     }, [])
+
+    // useEffect(() => {
+    //     if (props.count) setCounter(props.count);
+    // }, [props.count]) 
 
     const thisProduct = {
         name: props.name,
