@@ -45,8 +45,11 @@ export const appRouter = router({
     findItem: publicProcedure    
         .input(z.object({ title: z.string() }))
         .query(async ({ input }) => {
-            const findItems = await Compare.compareCommonItem(input.title);
-            return findItems;
+            if (input.title.length > 0 ) {
+                const findItems = await Database.findTenSimilarItemsByTitle(input.title);
+                return findItems;
+            }
+            return null;
         })
 });
 

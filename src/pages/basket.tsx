@@ -35,7 +35,7 @@ export default function Basket() {
         cart.forEach((item, title) => {
             currentTotal += item[1] * (item[0].allPrices ? Math.min.apply(null, item[0].allPrices) : 0);
         });
-        setTotal(Math.round(currentTotal * 100) / 100);
+        setTotal(Number(currentTotal.toFixed(2)));
         localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
         // console.log(localStorage.getItem('cart'));
     }, [cart])
@@ -46,6 +46,14 @@ export default function Basket() {
                 total={total}
                 triggerOpen={hasChanged}
                 items={cart}
+                onChanged={(item, counter) => {
+                    if (counter !== 0) {
+                        setCart(new Map(cart.set(item.name, [item, counter])))
+                    } else {
+                        cart.delete(item.name);
+                        setCart(new Map(cart));
+                    }
+                }}
             />
             <div className="flex justify-center">
                 <div className="flex items-center flex-col space-y-5">
@@ -101,59 +109,85 @@ export default function Basket() {
                         )
                     })}
                     <h1 className="self-start text-4xl text-orange-400 mb-6 mt-10">Sinu ostukorvi hind</h1>
-                    <div className="w-[700px]">
-                        <div className="flex justify-between">
-                            <p className="text-3xl">Rimi</p>
-                            <p className="text-2xl">
-                                €
-                                {
-                                    values
-                                    .filter(item => item[0].rimi_price)
-                                    .map(item => item[1] * item[0].rimi_price!)
-                                    .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
-                                    .toFixed(2)
-                                }
-                            </p>
+                    <div className="w-[700px] flex flex-col gap-5">
+                        <div className="bg-white rounded-lg p-5">
+                            <div className="flex justify-between my-5 ">
+                                <p className="text-3xl">Rimi</p>
+                                <p className="text-2xl">
+                                    €
+                                    {
+                                        values
+                                            .filter(item => item[0].rimi_price)
+                                            .map(item => item[1] * item[0].rimi_price!)
+                                            .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
+                                            .toFixed(2)
+                                    }
+                                </p>
+
+                            </div>{values.filter(item => !item[0].rimi_price).map(item => {
+                                return (<p className="text-red-500">{item[0].name}</p>)
+                            })}
                         </div>
-                        <div className="flex justify-between">
-                            <p className="text-3xl">Barbora</p>
-                            <p className="text-2xl">
-                                €
-                                {
-                                    values
-                                    .filter(item => item[0].barbora_price)
-                                    .map(item => item[1] * item[0].barbora_price!)
-                                    .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
-                                    .toFixed(2)
-                                }
-                            </p>
+
+                        <div className="bg-white rounded-lg p-5">
+                            <div className="flex justify-between my-5">
+                                <p className="text-3xl">Barbora</p>
+                                <p className="text-2xl">
+                                    €
+                                    {
+                                        values
+                                            .filter(item => item[0].barbora_price)
+                                            .map(item => item[1] * item[0].barbora_price!)
+                                            .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
+                                            .toFixed(2)
+                                    }
+                                </p>
+
+                            </div>
+                            {values.filter(item => !item[0].barbora_price).map(item => {
+                                return (<p className="text-red-500">{item[0].name}</p>)
+                            })}
                         </div>
-                        <div className="flex justify-between">
-                            <p className="text-3xl">Coop</p>
-                            <p className="text-2xl">
-                                €
-                                {
-                                    values
-                                    .filter(item => item[0].coop_price)
-                                    .map(item => item[1] * item[0].coop_price!)
-                                    .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
-                                    .toFixed(2)
-                                }
-                            </p>
+
+                        <div className="bg-white rounded-lg p-5">
+                            <div className="flex justify-between my-5">
+                                <p className="text-3xl">Coop</p>
+                                <p className="text-2xl">
+                                    €
+                                    {
+                                        values
+                                            .filter(item => item[0].coop_price)
+                                            .map(item => item[1] * item[0].coop_price!)
+                                            .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
+                                            .toFixed(2)
+                                    }
+
+                                </p>
+
+                            </div>{values.filter(item => !item[0].coop_price).map(item => {
+                                return (<p className="text-red-500">{item[0].name}</p>)
+                            })}
                         </div>
-                        <div className="flex justify-between">
-                            <p className="text-3xl">Selve</p>
-                            <p className="text-2xl">
-                                €
-                                {
-                                    values
-                                    .filter(item => item[0].selver_price)
-                                    .map(item => item[1] * item[0].selver_price!)
-                                    .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
-                                    .toFixed(2)
-                                }
-                            </p>
+
+                        <div className="bg-white rounded-lg p-5">
+                            <div className="flex justify-between my-5">
+                                <p className="text-3xl">Selve</p>
+                                <p className="text-2xl">
+                                    €
+                                    {
+                                        values
+                                            .filter(item => item[0].selver_price)
+                                            .map(item => item[1] * item[0].selver_price!)
+                                            .reduce((resultItem, currentItem) => resultItem + currentItem, 0)
+                                            .toFixed(2)
+                                    }
+                                </p>
+                            </div>
+                            {values.filter(item => !item[0].selver_price).map(item => {
+                                return (<p className="text-red-500">{item[0].name}</p>)
+                            })}
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -58,6 +58,44 @@ export class Database {
         return foundProduct;
     }
 
+    static async findTenSimilarItemsByTitle(title: string): Promise<Grocery[]> {
+        let foundProduct = {} as ProductType [];
+        if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
+        mongoose.connect(process.env.DATABASE_URL);
+        let itemsData: Grocery[] = [];
+        foundProduct = await Product.find({name: { "$regex": `${title}`}}).limit(10).exec();
+        for (let i = 0; i < foundProduct.length; i++) {
+            const item = foundProduct[i] as ProductType;
+            let prices: number[] = []
+            const newItem = {
+                name: item.name,
+                category: item.category,
+                image: item.product_image
+            } as Grocery;
+
+            if (typeof item.barbora_price  !== "undefined"){
+                newItem.barbora_price = item.barbora_price;
+                prices.push(item.barbora_price)
+            }
+            if (typeof item.rimi_price  !== "undefined"){
+                newItem.rimi_price = item.rimi_price;
+                prices.push(item.rimi_price)
+            }
+            if (typeof item.selver_price  !== "undefined"){
+                newItem.selver_price = item.selver_price;
+                prices.push(item.selver_price)
+            }
+            if (typeof item.coop_price  !== "undefined"){
+                newItem.coop_price = item.coop_price;
+                prices.push(item.coop_price)
+            }
+            // if (prices.length < 2) continue
+            newItem.allPrices = prices;
+            itemsData.push(newItem);
+        }
+        return itemsData;
+    }
+
     static async updateRimiProduct(newProduct: ProductType) {
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
         mongoose.connect(process.env.DATABASE_URL);

@@ -43,18 +43,22 @@ const themeColor = createTheme({
 });
 
 
-export default function BigProduct( props: Props ) {
+export default function BigProduct(props: Props) {
     const [counter, setCounter] = useState<number>(props.count);
-    
+
     useEffect(() => {
         if (typeof counter === 'undefined' || counter < 0) return;
         props.onChanged(counter);
     }, [counter])
 
+    useEffect(() => {
+        if (props.count) setCounter(props.count);
+    }, [props.count])
+
     return (
         <div className="items-center mt-16 rounded-lg space-x-20 bg-white p-10 w-auto flex-row flex place-content-center place-items-center self-center">
             <div className="flex-col items-center flex">
-                <p className="text-2xl text-center">{props.productName}</p>
+                <h1 className="self-start text-2xl text-slate-800 mb-5 font-bold">{props.productName}</h1>
                 <img
                     alt={"a picture of " + props.productName}
                     className=""
@@ -62,44 +66,52 @@ export default function BigProduct( props: Props ) {
                     width={200}
                     height={200}
                 ></img>
-                <div className="h-10 border-orange-500 border-2 rounded-full space-x-20 flex flex-row place-content-center place-items-center">
-                    <IconButton
-                        color="primary"
-                        disabled={counter == 0}
-                        aria-label="upload picture"
-                        component="label"
-                        onClick={() => setCounter(counter - 1)}
-                    >
-                        <RemoveIcon />
-                    </IconButton>
-                    <p className="">{counter}</p>
-                    <IconButton
-                        color="primary"
-                        aria-label="upload picture"
-                        component="label"
-                        onClick={() => setCounter(counter + 1)}
-                    >
-                        <AddIcon />
-                    </IconButton>
-                </div>
+
+                {counter && counter > 0 ?
+                    <div className="h-10 border-orange-500 border-2 rounded-full space-x-20 flex flex-row place-content-center place-items-center">
+                        <IconButton
+                            color="primary"
+                            disabled={counter == 0}
+                            aria-label="upload picture"
+                            component="label"
+                            onClick={() => setCounter(counter - 1)}
+                        >
+                            <RemoveIcon />
+                        </IconButton>
+                        <p className="">{counter}</p>
+                        <IconButton
+                            color="primary"
+                            aria-label="upload picture"
+                            component="label"
+                            onClick={() => setCounter(counter + 1)}
+                        >
+                            <AddIcon />
+                        </IconButton>
+                    </div>
+                    :
+                    <div className="flex mb-4 mt-10 place-content-center transition ease-in-out delay-50 hover:bg-orange-400 duration-200 bg-orange-200 border-2 border-orange-500 rounded">
+                        <button onClick={() => setCounter(1)} className="text-gray-800 font-bold flex text-xl">Lisa ostukorvi</button>
+                    </div>
+                }
+
             </div>
             <div className="pr-10 flex-col space-y-10 w-[20rem]">
                 {props.barboraPrice ? <div className="flex flex-raw items-center">
                     <Image alt="barbora logo" className="w-20 h-8 mr-16 flex" src={Barbora}></Image>
                     <p className="text-2xl text-orange-500 font-medium">{props.barboraPrice}</p>
-                </div>: null}
+                </div> : null}
                 {props.rimiPrice ? <div className="flex flex-raw items-center">
                     <Image alt="rimi logo" className="w-auto h-6 mr-16 flex" src={Rimi}></Image>
                     <p className="text-2xl text-orange-500 font-medium">{props.rimiPrice}</p>
-                </div>: null}
+                </div> : null}
                 {props.selverPrice ? <div className="flex flex-raw items-center">
                     <Image alt="selver logo" className="w-auto h-6 mr-16 flex" src={Selver}></Image>
                     <p className="text-2xl text-orange-500 font-medium">{props.selverPrice}</p>
-                </div>: null}
+                </div> : null}
                 {props.coopPrice ? <div className="flex flex-raw items-center">
                     <Image alt="coop logo" className="-ml-2 w-auto h-8 mr-14 flex" src={Coop}></Image>
                     <p className="text-2xl text-orange-500 font-medium">{props.coopPrice}</p>
-                </div>: null}
+                </div> : null}
             </div>
             <div></div>
             {/* {new Chart(
@@ -120,5 +132,6 @@ export default function BigProduct( props: Props ) {
                 }
             )}; */}
         </div>
-)}
+    )
+}
 

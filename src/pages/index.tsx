@@ -47,7 +47,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 		cart.forEach((item, title) => {
 			currentTotal += item[1] * (item[0].allPrices ? Math.min.apply(null, item[0].allPrices) : 0);
 		});
-		setTotal(Math.round(currentTotal * 100) / 100);
+		setTotal(Number(currentTotal.toFixed(2)));
 		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
 		// console.log(localStorage.getItem('cart'));
 	}, [cart])
@@ -70,6 +70,14 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 				total={total}
 				triggerOpen={hasChanged}
 				items={cart}
+				onChanged={(item, counter) => {
+					if (counter !== 0) {
+						setCart(new Map(cart.set(item.name, [item, counter])))
+					} else {
+						cart.delete(item.name);
+						setCart(new Map(cart));
+					}
+				}}
 			/>
 			<Layout>
 				<Head>
@@ -81,6 +89,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 						const minPrice = Math.min.apply(null, item.allPrices);
 						return (
 							<SmallProduct
+								count={cart.get(item.name)?.[1] ?? 0}
 								key={index}
 								image={item.image}
 								name={item.name}
@@ -135,7 +144,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 			</div>*/}
 				{/* <div className={"relative left-1/2 transform -translate-x-1/2 flex flex-col w-10, "}> */}
 				{/* <input type="text" className={"bg-slate-600"} defaultValue={title} onChange={(input) => setTitle(input.target.value)}/> */}
-				{/* <button className={"bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"} onClick={() => mutation.mutate()}>BREAK EVERYTHING</button>  */}
+				<button className={"bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"} onClick={() => mutation.mutate()}>BREAK EVERYTHING</button>
 				{/* <h1 className={"bg-red-600"}>RESULT: {query.data ?? "nothing"}</h1> */}
 				{/* </div> */}
 			</Layout>
