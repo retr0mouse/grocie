@@ -37,7 +37,7 @@ export default function BigProductPage( { data }: any) {
 		cart.forEach((product, title) => {
 			currentTotal += product[1] * (product[0].allPrices ? Math.min.apply(null, product[0].allPrices) : 0);
 		});
-		setTotal(Math.round(currentTotal * 100) / 100);
+		setTotal(String(Number(currentTotal).toFixed(2)));
 		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
 		// console.log(localStorage.getItem('cart'));
 	}, [cart])

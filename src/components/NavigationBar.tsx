@@ -117,7 +117,6 @@ export default function NavigationBar(props: Props) {
 											<ShoppingCartOutlinedIcon className={" group-hover:fill-orange-700 w-10 h-10 duration-75 mr-4"}/>
 											{values?.length > 0 ? 
 											<span className={'absolute left-6 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}> 
-                      							{/* <p>kek</p> */}
 												<p className='text-white'>{values.length > 0 ? values.reduce((resultItem, currentItem) => [resultItem[0], resultItem[1] + currentItem[1]])[1] : 0}</p>
 											</span>: null} 
 											<p className='text-2xl text-slate-700 font-medium group-hover:text-orange-700 duration-75'>{props.total} €</p>
