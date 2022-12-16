@@ -59,7 +59,7 @@ export default function Category({ itemsData, categoryTitle }: any) {
 					const minPrice = Math.min.apply(null, item.allPrices);
 					return (
 						<SmallProduct 
-							// count={cart.get(item.name)?.[1] ?? 0}
+							count={cart.get(item.name)?.[1] ?? 0}
 							key={item.name + index}
 							image={item.image}
 							name={item.name}

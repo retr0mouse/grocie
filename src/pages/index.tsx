@@ -89,7 +89,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 						const minPrice = Math.min.apply(null, item.allPrices);
 						return (
 							<SmallProduct
-								// count={cart.get(item.name)?.[1] ?? 0}
+								count={cart.get(item.name)?.[1] ?? 0}
 								key={index}
 								image={item.image}
 								name={item.name}

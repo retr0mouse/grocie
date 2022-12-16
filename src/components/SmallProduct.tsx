@@ -16,7 +16,7 @@ interface Props {
     coop_price?: number;
     category: string;
     onChanged(count: number): void;
-    // count: number;
+    count: number;
 }
 
 
@@ -49,9 +49,9 @@ export default function SmallProduct(props: Props) {
         }
     }, [])
 
-    // useEffect(() => {
-    //     if (props.count) setCounter(props.count);
-    // }, [props.count]) 
+    useEffect(() => {
+        if (props.count) setCounter(props.count);
+    }, [props.count]) 
 
     const thisProduct = {
         name: props.name,
