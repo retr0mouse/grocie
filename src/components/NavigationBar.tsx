@@ -22,6 +22,9 @@ import BrushPicture from '../images/toothbrush.svg';
 import VegetablesPicture from '../images/vegetables.svg';
 import BasketPopupItem from './BasketPopupItem';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import { useEffect, useState } from 'react';
+import { trpc } from '../utils/trpc';
+import SearchBarItem from './SearchBarItem';
 
 
 const Soodnecolor = deepOrange[400]
@@ -81,6 +84,9 @@ interface Props {
 }
 
 export default function NavigationBar(props: Props) {
+	const [query, setQuery] = useState<string>("");
+	const [openSearchBar, setOpenSearchBar] = useState(false);
+	const findItem = trpc.findItem.useQuery({ title: query?.length > 0 ? query : "" });
 	let titles: string[];
 	let values: [Grocery, number][];
 
@@ -88,6 +94,10 @@ export default function NavigationBar(props: Props) {
 		titles = Array.from(props.items.keys());
 		values = Array.from(props.items.values());
 	}
+
+	useEffect(() => {
+		if (findItem?.data && findItem?.data?.length > 0) setOpenSearchBar(true); 
+	}, [query])
 
 	return (
 		<div>
@@ -100,7 +110,6 @@ export default function NavigationBar(props: Props) {
 							component="div"
 						>
 							<a className="" href="/">Soodne</a>
-
 						</Typography>
 						<Search className="grow self-center">
 							<SearchIconWrapper>
@@ -109,9 +118,37 @@ export default function NavigationBar(props: Props) {
 							<StyledInputBase
 								placeholder="Search…"
 								inputProps={{ 'aria-label': 'search' }}
-								onChange={(text) => console.log(text?.target.value)}
+								onChange={(text) => setQuery(text?.target.value)}
+								className='w-full'
 							/>
+							<Popover className={'flex absolute mt-12'} >
+								{({ open }) => (
+									<>
+										<Transition
+											className={`${openSearchBar ? "fixed right-150 top-0" : ""}`}
+											show={openSearchBar || open}
+											enter="transition duration-100 ease-out"
+											enterFrom="transform scale-95 opacity-0"
+											enterTo="transform scale-100 opacity-100"
+											leave="transition duration-75 ease-out"
+											leaveFrom="transform scale-100 opacity-100"
+											leaveTo="transform scale-95 opacity-0"
+										>
+											<Popover.Panel className={'bg-white mt-46'}>
+												{findItem.data ? findItem.data?.map(item => {
+													return (
+														<SearchBarItem
+															item={item}
+														/>
+													)
+												}) : null}
+											</Popover.Panel>
+										</Transition>
+									</>
+								)}
+							</Popover>
 						</Search>
+						
 						<Popover className={'flex items-center z-[200]'}>
 							{({ open }) => (
 								<>
