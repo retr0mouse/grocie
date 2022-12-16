@@ -54,7 +54,7 @@ export default function BigProduct( props: Props ) {
     return (
         <div className="items-center mt-16 rounded-lg space-x-20 bg-white p-10 w-auto flex-row flex place-content-center place-items-center self-center">
             <div className="flex-col items-center flex">
-                <p className="text-2xl text-center">{props.productName}</p>
+                <h1 className="self-start text-2xl text-slate-800 mb-5 font-bold">{props.productName}</h1>
                 <img
                     alt={"a picture of " + props.productName}
                     className=""
