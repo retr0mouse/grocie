@@ -20,7 +20,7 @@ export default function Category({ itemsData, categoryTitle }: any) {
 		cart.forEach((item, title) => {
 			currentTotal += item[1] * (item[0].allPrices ? Math.min.apply(null, item[0].allPrices) : 0);
 		});
-		setTotal(Math.round(currentTotal * 100) / 100);
+		setTotal(Number(currentTotal.toFixed(2)));
 		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
 		// console.log(localStorage.getItem('cart'));
 	}, [cart])
@@ -43,6 +43,14 @@ export default function Category({ itemsData, categoryTitle }: any) {
                 total={total}
                 items={cart}
                 triggerOpen={false}
+				onChanged={(item, counter) => {
+					if (counter !== 0) {
+						setCart(new Map(cart.set(item.name, [item, counter])))
+					} else {
+						cart.delete(item.name);
+						setCart(new Map(cart));
+					}
+				}}
             />
             <p className="ml-5 mt-5 text-5xl">{categoryTitle}</p>
             <div className={"flex flex-wrap self-center space-x-3"}>
@@ -51,7 +59,8 @@ export default function Category({ itemsData, categoryTitle }: any) {
 					const minPrice = Math.min.apply(null, item.allPrices);
 					return (
 						<SmallProduct 
-							key={index}
+							// count={cart.get(item.name)?.[1] ?? 0}
+							key={item.name + index}
 							image={item.image}
 							name={item.name}
 							minPrice={minPrice}
@@ -67,7 +76,8 @@ export default function Category({ itemsData, categoryTitle }: any) {
 									setCart(new Map(cart));
 								}
 								// setHasChanged(true);
-							} } category={item.category}						
+							} } 
+							category={item.category}						
 						/>
 					)
 				})}

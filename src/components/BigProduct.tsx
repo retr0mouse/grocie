@@ -51,6 +51,10 @@ export default function BigProduct(props: Props) {
         props.onChanged(counter);
     }, [counter])
 
+    useEffect(() => {
+        if (props.count) setCounter(props.count);
+    }, [props.count])
+
     return (
         <div className="items-center mt-16 rounded-lg space-x-20 bg-white p-10 w-auto flex-row flex place-content-center place-items-center self-center">
             <div className="flex-col items-center flex">

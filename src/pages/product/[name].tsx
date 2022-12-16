@@ -15,7 +15,7 @@ export default function BigProductPage( { data }: any) {
     Chart.register(CategoryScale);
     const router = useRouter();
     if (typeof router.query.product !== "string") return;
-    const counter = typeof router.query.count === 'string' ? Number(router.query.count) : 0;
+    const [counter, setCounter] = useState(typeof router.query.count === 'string' ? Number(router.query.count) : 0);
     const item = JSON.parse(router.query.product) as Grocery;
     
     const image = item.image;
@@ -33,11 +33,12 @@ export default function BigProductPage( { data }: any) {
     useEffect(() => {
 		// console.log(cart);
 		// setTimeout(() => setHasChanged(false), 1000);
+        console.log('kek');
 		let currentTotal = 0;
 		cart.forEach((product, title) => {
 			currentTotal += product[1] * (product[0].allPrices ? Math.min.apply(null, product[0].allPrices) : 0);
 		});
-		setTotal(String(Number(currentTotal).toFixed(2)));
+		setTotal(Number(currentTotal.toFixed(2)));
 		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
 		// console.log(localStorage.getItem('cart'));
 	}, [cart])
@@ -50,6 +51,15 @@ export default function BigProductPage( { data }: any) {
                 total={total} 
                 items={cart} 
                 triggerOpen={false}
+                onChanged={(product, count) => {
+                    setCounter(count);
+                    if (counter !== 0) {
+						setCart(new Map(cart.set(product.name, [product, count])))
+					} else {
+						cart.delete(product.name);
+						setCart(new Map(cart));
+					}
+                }}
             />
             <BigProduct 
                 count={counter}
@@ -59,12 +69,13 @@ export default function BigProductPage( { data }: any) {
                 selverPrice={selverPrice}
                 coopPrice={coopPrice}
                 barboraPrice={barboraPrice}
-                onChanged={(number) => {
-                    if (number !== 0) {
+                onChanged={(count) => {
+
+                    if (count !== 0) {
                         // console.log(JSON.stringify(Array.from(cart.entries()).pop()?.[0]));
                         // console.log(cart);
                         
-                        setCart(new Map(cart.set(item.name, [item, number])));
+                        setCart(new Map(cart.set(item.name, [item, count])));
                     } else {
                         cart.delete(item.name);
                         setCart(new Map(cart));
