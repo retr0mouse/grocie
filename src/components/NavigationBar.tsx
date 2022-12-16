@@ -121,11 +121,11 @@ export default function NavigationBar(props: Props) {
 								onChange={(text) => setQuery(text?.target.value)}
 								className='w-full'
 							/>
-							<Popover className={'flex absolute mt-12'} >
+							<Popover className={'flex absolute mt-56'} >
 								{({ open }) => (
 									<>
 										<Transition
-											className={`${openSearchBar ? "fixed right-150 top-0" : ""}`}
+											className={`${openSearchBar ? "fixed right-150 top-16 rounded border-2 border-black " : ""}`}
 											show={openSearchBar || open}
 											enter="transition duration-100 ease-out"
 											enterFrom="transform scale-95 opacity-0"
