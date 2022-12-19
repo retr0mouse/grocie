@@ -27,7 +27,7 @@ import { trpc } from '../utils/trpc';
 import SearchBarItem from './SearchBarItem';
 import styledCon from 'styled-components';
 
-const Soodnecolor = deepOrange[400]
+const SoodneColor = deepOrange[400]
 
 const themeColor = createTheme({
 	palette: {
@@ -96,7 +96,7 @@ const categories = [
 	[ChildrenPicture, "Lastekaubad"],
 	[HomePicture, "Kodukaubad ja vaba aeg"],
 	[OtherPicture, "Muu"]
-]
+];
 
 // const CategoryContainer = styledCon.div`
 // 	// w-32 h-auto transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200
@@ -128,7 +128,7 @@ export default function NavigationBar(props: Props) {
 				<AppBar position="relative" className={"flex flex-col shadow-none items-center"}>
 					<div className='flex w-full place-content-evenly'>
 						<Typography
-							color={Soodnecolor}
+							color={SoodneColor}
 							variant="h2"
 							component="div"
 						>
@@ -172,7 +172,7 @@ export default function NavigationBar(props: Props) {
 							</Popover>
 						</Search>
 
-						<Popover className={'flex items-center z-[200]'}>
+						<Popover className={'flex items-center'}>
 							{({ open }) => (
 								<>
 									<Popover.Button className={`focus:outline-none sticky top-4 h-10`}>
@@ -195,7 +195,7 @@ export default function NavigationBar(props: Props) {
 										leaveFrom="transform scale-100 opacity-100"
 										leaveTo="transform scale-95 opacity-0"
 									>
-										<Popover.Panel className={'absolute -left-[425px] rounded-2xl bg-orange-500 bg-opacity-90 z-50'}>
+										<Popover.Panel className={'absolute -left-[425px] rounded-2xl bg-orange-500'}>
 											<div className='p-2 rounded-2xl w-96'>
 												<Link href={'/basket'}>
 													<div className='bg-orange-100 border-2 border-orange-300 w-full h-fit mb-5 rounded-xl transition ease-in-out delay-50 hover:scale-95 duration-150 '>
@@ -221,7 +221,7 @@ export default function NavigationBar(props: Props) {
 					</div>
 					<Search className="block sm:hidden w-full self-center mx-5">
 						<SearchIconWrapper>
-							<SearchIcon />
+							<SearchIcon/>
 						</SearchIconWrapper>
 						<StyledInputBase
 							placeholder="Search…"
@@ -257,15 +257,15 @@ export default function NavigationBar(props: Props) {
 						</Popover>
 					</Search>
 				</AppBar>
-				<div className="p-[2vw] bg-white flex place-content-center gap-[1vw]">
+				<div className="hidden p-[2vw] bg-white sm:flex place-content-center gap-[1vw]">
 					{categories.map((category, index) => {
 						return (
 							<Link href={`/category/${index}`}>
-								<div className='flex flex-col max-w-[150px] max-h-[200px] items-center text-center transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
-									<div className='transition ease-in-out delay-50  hover:scale-110 hover:bg-orange-200 duration-200 bg-orange-50 rounded-full border-2 border-orange-100'>
+								<div className=' flex flex-col max-w-[150px] max-h-[200px] items-center text-center transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+									<div className='transition ease-in-out delay-50 hover:scale-110 hover:bg-orange-200 duration-200 bg-orange-50 rounded-full border-2 border-orange-100'>
 										<Image className='w-full h-full p-[1vw]' src={category[0]} alt="" />
 									</div>
-									<p className='hidden mt-3 lg:block text-[1vw] text-slate-700 font-medium break-word'>
+									<p className='mt-3 text-[1vw] text-slate-700 font-medium  break-word'>
 										{category[1]}
 									</p>
 								</div>
