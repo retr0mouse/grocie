@@ -125,8 +125,8 @@ export default function NavigationBar(props: Props) {
 	return (
 		<div>
 			<ThemeProvider theme={themeColor}>
-				<AppBar position="relative" className={"flex shadow-none items-center pr-10 pl-10"}>
-					<div className='flex w-full gap-12'>
+				<AppBar position="relative" className={"flex flex-col shadow-none items-center"}>
+					<div className='flex w-full place-content-evenly'>
 						<Typography
 							color={Soodnecolor}
 							variant="h2"
@@ -134,7 +134,7 @@ export default function NavigationBar(props: Props) {
 						>
 							<a className="" href="/">Soodne</a>
 						</Typography>
-						<Search className="grow self-center">
+						<Search className="hidden sm:block self-center w-[60%]">
 							<SearchIconWrapper>
 								<SearchIcon />
 							</SearchIconWrapper>
@@ -182,7 +182,7 @@ export default function NavigationBar(props: Props) {
 												<span className={'absolute left-6 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}>
 													<p className='text-white'>{values.length > 0 ? values.reduce((resultItem, currentItem) => [resultItem[0], resultItem[1] + currentItem[1]])[1] : 0}</p>
 												</span> : null}
-											<p className='text-2xl text-slate-700 font-medium group-hover:text-orange-700 duration-75'>{props.total} €</p>
+											<p className='text-2xl text-slate-700 font-medium group-hover:text-orange-700 duration-75 whitespace-nowrap'>{props.total} €</p>
 										</div>
 									</Popover.Button>
 									<Transition
@@ -219,6 +219,43 @@ export default function NavigationBar(props: Props) {
 							)}
 						</Popover>
 					</div>
+					<Search className="block sm:hidden w-full self-center mx-5">
+						<SearchIconWrapper>
+							<SearchIcon />
+						</SearchIconWrapper>
+						<StyledInputBase
+							placeholder="Search…"
+							inputProps={{ 'aria-label': 'search' }}
+							onChange={(text) => setQuery(text?.target.value)}
+							className='w-full'
+						/>
+						<Popover className={'flex absolute mt-56'} >
+							{({ open }) => (
+								<>
+									<Transition
+										className={`${openSearchBar ? "fixed right-150 top-16 rounded border-2 border-black " : ""}`}
+										show={openSearchBar || open}
+										enter="transition duration-100 ease-out"
+										enterFrom="transform scale-95 opacity-0"
+										enterTo="transform scale-100 opacity-100"
+										leave="transition duration-75 ease-out"
+										leaveFrom="transform scale-100 opacity-100"
+										leaveTo="transform scale-95 opacity-0"
+									>
+										<Popover.Panel className={'bg-white mt-46'}>
+											{findItem.data ? findItem.data?.map(item => {
+												return (
+													<SearchBarItem
+														item={item}
+													/>
+												)
+											}) : null}
+										</Popover.Panel>
+									</Transition>
+								</>
+							)}
+						</Popover>
+					</Search>
 				</AppBar>
 				<div className="p-[2vw] bg-white flex place-content-center gap-[1vw]">
 					{categories.map((category, index) => {
