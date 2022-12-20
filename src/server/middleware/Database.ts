@@ -63,7 +63,7 @@ export class Database {
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
         mongoose.connect(process.env.DATABASE_URL);
         let itemsData: Grocery[] = [];
-        foundProduct = await Product.find({name: { "$regex": `${title}`}}).limit(10).exec();
+        foundProduct = await Product.find({name: { "$regex": `${title.toLowerCase()}`, '$options' : 'i'}}).limit(10).exec();
         for (let i = 0; i < foundProduct.length; i++) {
             const item = foundProduct[i] as ProductType;
             let prices: number[] = []
@@ -89,7 +89,7 @@ export class Database {
                 newItem.coop_price = item.coop_price;
                 prices.push(item.coop_price)
             }
-            // if (prices.length < 2) continue
+            // if (prices.length < 1) continue
             newItem.allPrices = prices;
             itemsData.push(newItem);
         }

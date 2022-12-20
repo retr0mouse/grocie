@@ -43,7 +43,10 @@ export default function Pagination(props: Props): ReactElement {
 					<button 
 						key={index}
 						className={`${pageNumber === props.currentPage ? 'text-2xl text-orange-400' : null} m-2 border-2 border-amber-500 rounded-md w-10 h-10`} 
-						onClick={() => props.onPageChange(pageNumber)}
+						onClick={() => {
+							props.onPageChange(pageNumber);
+							window.scrollTo(0, 0);
+						}}
 					>
 						{pageNumber}
 					</button>
