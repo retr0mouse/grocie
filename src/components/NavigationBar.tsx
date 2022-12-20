@@ -219,7 +219,7 @@ export default function NavigationBar(props: Props) {
 							)}
 						</Popover>
 					</div>
-					<Search className="block sm:hidden w-full self-center mx-5">
+					<Search className="block sm:hidden w-[90%] self-center my-5">
 						<SearchIconWrapper>
 							<SearchIcon/>
 						</SearchIconWrapper>
@@ -261,7 +261,7 @@ export default function NavigationBar(props: Props) {
 					{categories.map((category, index) => {
 						return (
 							<Link href={`/category/${index}`}>
-								<div className=' flex flex-col max-w-[150px] max-h-[200px] items-center text-center transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
+								<div className='flex flex-col max-w-[150px] max-h-[200px] items-center text-center transition ease-in-out delay-50  hover:scale-110 hover:text-orange-400 duration-200'>
 									<div className='transition ease-in-out delay-50 hover:scale-110 hover:bg-orange-200 duration-200 bg-orange-50 rounded-full border-2 border-orange-100'>
 										<Image className='w-full h-full p-[1vw]' src={category[0]} alt="" />
 									</div>

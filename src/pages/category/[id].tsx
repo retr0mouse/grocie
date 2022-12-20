@@ -52,8 +52,8 @@ export default function Category({ itemsData, categoryTitle }: any) {
 					}
 				}}
             />
-            <p className="ml-5 mt-5 text-5xl">{categoryTitle}</p>
-            <div className={"flex flex-wrap self-center space-x-3"}>
+            <h1 className="ml-5 mt-5 text-5xl font-sans font-semibold text-slate-800">{categoryTitle}</h1>
+            <div className={"flex flex-wrap self-center gap-3"}>
 				{currentItems?.map((item: Grocery, index: number) => {
 					if (!item.allPrices) return;
 					const minPrice = Math.min.apply(null, item.allPrices);

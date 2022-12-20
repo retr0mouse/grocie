@@ -5,6 +5,7 @@ import { grey } from "@mui/material/colors";
 import { Grocery } from "groceries-component";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import AddToCartButton from "./AddToCartButton";
 
 interface Props {
     name: string;
@@ -51,7 +52,7 @@ export default function SmallProduct(props: Props) {
 
     useEffect(() => {
         if (props.count) setCounter(props.count);
-    }, [props.count]) 
+    }, [props.count])
 
     const thisProduct = {
         name: props.name,
@@ -71,50 +72,28 @@ export default function SmallProduct(props: Props) {
     if (props.selver_price && thisProduct.allPrices) thisProduct.allPrices.push(props.selver_price);
 
     return (
-        <div className="pr-5 pl-5 bg-white text-center flex-[1_0_15%] w-60 h-[400px] mt-16 rounded-2xl flex-col flex">
-            {/* <Link href={{ pathname: `/product/${props.name}`}} className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200"> */}
-            <Link href={{ pathname: '/product/[name]', query: { name: thisProduct.name, product: JSON.stringify(thisProduct), count: String(counter) }}} as='/product/[name]' className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200">
-                <img height={230} width={230} alt={"a picture of " + props.name} className="" src={props.image}></img>
-                <p className="font-sans font-semibold ">{props.name}</p>
+        <div className="pr-5 pl-5 bg-white text-center flex-[1_0_15%] w-60 h-100 min-h-fit mt-16 rounded-2xl flex-col flex">
+            <Link href={{ pathname: '/product/[name]', query: { name: thisProduct.name, product: JSON.stringify(thisProduct), count: String(counter) } }} as='/product/[name]' className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200">
+                <img alt={"a picture of " + props.name} className="p-5" src={props.image}></img>
+                <div className="w-32 h-[78px] overflow-hidden text-ellipsis">
+                    <p className="text-slate-700 font-sans text-md">{props.name} asdflkjasdf asdflkjasdf asdflkjasdf asdflkjasdf lkjasdf lkajsdf alskdjf </p>
+                </div>
             </Link>
 
-            <div className="mt-auto self-center place-content-center w-3/4">
-                <div className="flex flex-raw place-content-center items-center">
-                    <span className="text-orange-700 self-center mb-auto text-5xl font-bold mt-auto">{price[0]}</span>
+            <div className="m-3 self-center place-content-center w-4/5 h-full">
+                <div className="flex flex-raw place-content-start items-center">
+                    <span className="text-slate-800 self-center mb-auto text-5xl font-bold mt-auto">{price[0]}</span>
                     <div>
-                        <sup className="text-orange-700 text-2xl block ">{price[1]}</sup>
-                        <sub className="text-orange-700 block text-2xl -mt-6">€</sub>
+                        <sup className="text-slate-800 text-2xl block ">{price[1]}</sup>
+                        <sub className="text-slate-800 block text-2xl -mt-6">€</sub>
                     </div>
                 </div>
-                
-                {counter && counter > 0 ? 
-                    <div className="mb-4 mt-10 h-8 border-orange-500 border-2 rounded-full justify-between flex flex-row place-content-center place-items-center">
-                        <IconButton
-                            color="primary"
-                            disabled={counter == 0}
-                            aria-label="upload picture"
-                            component="label"
-                            onClick={() => setCounter(counter - 1)}
-                            className="ml-0"
-                        >
-                            <RemoveIcon />
-                        </IconButton>
-                        <p className="">{counter}</p>
-                        <IconButton
-                            color="primary"
-                            aria-label="upload picture"
-                            component="label"
-                            onClick={() => setCounter(counter + 1)}
-                            className=""
-                        >
-                            <AddIcon />
-                        </IconButton>
-                    </div> 
-                    : 
-                    <div className="flex mb-4 mt-10 place-content-center transition ease-in-out delay-50 hover:bg-orange-400 duration-200 bg-orange-200 border-2 border-orange-500 rounded">
-                        <button onClick={() => setCounter(1)} className="text-gray-800 font-bold flex text-xl">Lisa ostukorvi</button>
-                    </div>
-                }
+                <div className="mb-4 h-[70%] w-full flex flex-col place-content-center">
+                    <AddToCartButton
+                        counter={counter}
+                        onClicked={(counter) => setCounter(counter)}
+                    />
+                </div>
             </div>
         </div>
     )
