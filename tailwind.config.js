@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/Components/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    // "./src/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     fontFamily: {
@@ -13,5 +13,11 @@ module.exports = {
       'body': ['"Open Sans"'],
     }
   },
-  plugins: [],
+  plugins: [
+    // Additional first-party plugins
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/typography'),
+  ],
 }
