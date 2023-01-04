@@ -14,14 +14,14 @@ export async function getStaticProps() {  // for ssg
 	// const allCategoriesBarbora = await Parser.getBarboraCategories();
 	// const allCategoriesRimi = await Parser.getRimiCategories();
 	// const allItemsBarbora = await Parser.getAllBarboraItems();
-	const allMeatItems = await Database.getProductsByCategory("Köögiviljad, puuviljad");
+	// const allMeatItems = await Database.getProductsByCategory("Köögiviljad, puuviljad");
 
 	return {
 		props: {
 			// allCategoriesBarbora,
 			// allCategoriesRimi,
 			// allItemsBarbora,
-			allMeatItems
+			// allMeatItems
 		}
 	}
 }
