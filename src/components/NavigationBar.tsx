@@ -134,7 +134,7 @@ export default function NavigationBar(props: Props) {
 						>
 							<a className="" href="/">Soodne</a>
 						</Typography>
-						<Search className="hidden sm:block self-center w-[60%]" key={1}>
+						<Search className="hidden sm:block self-center w-[60%]">
 							<SearchIconWrapper>
 								<SearchIcon />
 							</SearchIconWrapper>
@@ -219,7 +219,7 @@ export default function NavigationBar(props: Props) {
 							)}
 						</Popover>
 					</div>
-					<Search className="block sm:hidden w-[90%] self-center my-5" key={2}>
+					<Search className="block sm:hidden w-[90%] self-center my-5">
 						<SearchIconWrapper>
 							<SearchIcon/>
 						</SearchIconWrapper>
