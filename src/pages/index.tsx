@@ -1,14 +1,10 @@
 import { Grocery } from 'groceries-component';
 import Head from 'next/head';
 import { useEffect, useMemo, useState } from 'react';
-import Footer from '../components/Footer';
 import Layout from '../components/Layout';
 import NavigationBar from '../components/NavigationBar';
 import Pagination from '../components/Pagination';
 import SmallProduct from '../components/SmallProduct';
-import { Parser } from '../server/lib/Parser';
-import { Database } from '../server/middleware/Database';
-import { trpc } from '../utils/trpc';
 
 export async function getStaticProps() {  // for ssg
 	// const allCategoriesBarbora = await Parser.getBarboraCategories();

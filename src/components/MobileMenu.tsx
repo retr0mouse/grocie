@@ -1,12 +1,12 @@
 import { Dialog } from "@headlessui/react";
-import { useState } from "react";
-import BurgerButton from '../images/hamburger-menu.svg';
-import CategoryButton from '../images/category-menu.svg';
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import BreadPicture from '../images/bread.svg';
+import CategoryButton from '../images/category-menu.svg';
 import ChildrenPicture from '../images/children.svg';
 import CleaningPicture from '../images/cleaning.svg';
+import CrossPicture from '../images/cross.svg';
 import DrinksPicture from '../images/drinks.svg';
 import FlourPicture from '../images/flour.svg';
 import FrozenPicture from '../images/frozen.svg';
@@ -16,7 +16,6 @@ import MilkPicture from '../images/milk.svg';
 import OtherPicture from '../images/other.svg';
 import BrushPicture from '../images/toothbrush.svg';
 import VegetablesPicture from '../images/vegetables.svg';
-import CrossPicture from '../images/cross.svg';
 
 const categories = [
     [VegetablesPicture, "Köögiviljad, puuviljad"],
@@ -70,7 +69,7 @@ export default function MobileMenu() {
                             <div className="p-5 bg-white flex flex-col place-content-center">
                                 {categories.map((category, index) => {
                                     return (
-                                        <Link href={`/category/${index}`} onClick={() => setIsOpen(false)}>
+                                        <Link key={index} href={`/category/${index}`} onClick={() => setIsOpen(false)}>
                                             <div className='border-b-2 border-slate-100 flex items-center'>
                                                 <p className='mt-3 text-2xl text-slate-700 font-medium break-word'>
                                                     {category[1]}

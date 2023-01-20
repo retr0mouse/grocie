@@ -1,10 +1,6 @@
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { IconButton } from "@mui/material";
 import { Grocery } from "groceries-component";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 
 interface Props {
     item: Grocery;
@@ -31,26 +27,18 @@ export default function BasketPopupItem(props: Props) {
                 </div>
             </Link>
             <div className="mb-4 mt-10 h-8 border-orange-500 border-2 rounded-full justify-between flex flex-row place-content-center place-items-center">
-                <IconButton
-                    color="primary"
-                    disabled={counter == 0}
-                    aria-label="upload picture"
-                    component="label"
+                <button
                     onClick={() => setCounter(counter - 1)}
                     className="ml-0"
                 >
-                    <RemoveIcon />
-                </IconButton>
+                    
+                </button>
                 <p className="">{counter}</p>
-                <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="label"
+                <button
                     onClick={() => setCounter(counter + 1)}
                     className=""
                 >
-                    <AddIcon />
-                </IconButton>
+                </button>
             </div>
         </div>
     );

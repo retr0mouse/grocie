@@ -1,9 +1,5 @@
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { IconButton } from "@mui/material";
 import { Grocery } from "groceries-component";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 
 interface Props {

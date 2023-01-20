@@ -23,8 +23,6 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@headlessui/react": "^1.7.4",
-    "@mui/icons-material": "^5.10.9",
-    "@mui/material": "^5.10.13",
     "@tanstack/react-query": "^4.13.4",
     "@trpc/client": "^10.0.0-proxy-beta.26",
     "@trpc/next": "^10.0.0-proxy-beta.26",
