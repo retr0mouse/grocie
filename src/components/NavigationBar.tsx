@@ -27,7 +27,7 @@ import { trpc } from '../utils/trpc';
 import SearchBarItem from './SearchBarItem';
 import styledCon from 'styled-components';
 
-const SoodneColor = deepOrange[400]
+const GrocieColor = deepOrange[400]
 
 const themeColor = createTheme({
 	palette: {
@@ -128,11 +128,11 @@ export default function NavigationBar(props: Props) {
 				<AppBar position="relative" className={"flex flex-col shadow-none items-center"}>
 					<div className='flex w-full place-content-evenly'>
 						<Typography
-							color={SoodneColor}
+							color={GrocieColor}
 							variant="h2"
 							component="div"
 						>
-							<a className="" href="/">Soodne</a>
+							<a className="" href="/">Grocie</a>
 						</Typography>
 						<div className='hidden sm:block'>
 							<Search className=" self-center w-[60%]">

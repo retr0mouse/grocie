@@ -81,7 +81,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 			/>
 			<Layout>
 				<Head>
-					<title>Soodne</title>|
+					<title>Grocie</title>|
 				</Head>
 				<div className={"flex flex-wrap self-center space-x-3"}>
 					{currentItems?.map((item: Grocery, index: number) => {
