@@ -1,6 +1,3 @@
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { IconButton } from "@mui/material";
 import { Grocery } from "groceries-component";
 import Image from 'next/image';
 import { useEffect, useState } from "react";
@@ -84,26 +81,20 @@ export default function Basket() {
                                     </div> : null}
                                 </div>
                                 <div className="w-[150px] border-orange-500 border-2 rounded-full flex flex-row justify-between items-center">
-                                    <IconButton
-                                        color="primary"
+                                    <button
                                         disabled={item[1] == 0}
-                                        aria-label="upload picture"
-                                        component="label"
                                         onClick={() => item[1] = (item[1] - 1)}
                                         className="ml-0"
                                     >
-                                        <RemoveIcon />
-                                    </IconButton>
+
+                                    </button>
                                     <p className="">{item[1]}</p>
-                                    <IconButton
-                                        color="primary"
-                                        aria-label="upload picture"
-                                        component="label"
+                                    <button
                                         onClick={() => item[1] = (item[1] + 1)}
                                         className=""
                                     >
-                                        <AddIcon />
-                                    </IconButton>
+                                        
+                                    </button>
                                 </div>
                             </div>
                         )

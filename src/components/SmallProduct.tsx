@@ -1,7 +1,3 @@
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { createTheme, IconButton } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { Grocery } from "groceries-component";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -19,18 +15,6 @@ interface Props {
     onChanged(count: number): void;
     count: number;
 }
-
-
-const Color = createTheme({
-    palette: {
-        primary: {
-            main: grey[900],
-        },
-        secondary: {
-            main: '#ff5722',
-        },
-    }
-});
 
 export default function SmallProduct(props: Props) {
     const [counter, setCounter] = useState<number>(0);

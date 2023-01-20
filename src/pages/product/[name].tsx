@@ -1,11 +1,9 @@
 import Chart, { CategoryScale } from 'chart.js/auto';
-import { K } from 'chart.js/dist/chunks/helpers.core';
 import { Grocery } from "groceries-component";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import BigProduct from "../../components/BigProduct";
-import Footer from '../../components/Footer';
 import NavigationBar from "../../components/NavigationBar";
 import { createChart } from "../../utils/parseData";
 
