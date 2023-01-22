@@ -19,6 +19,7 @@ import { trpc } from '../utils/trpc';
 import BasketPopupItem from './BasketPopupItem';
 import SearchBarItem from './SearchBarItem';
 import CartIcon from './../images/cart.svg';
+import SearchBar from './SearchBar';
 
 interface Props {
 	total: number;
@@ -44,8 +45,10 @@ const categories = [
 
 export default function NavigationBar(props: Props) {
 	const [query, setQuery] = useState<string>("");
-	const [openSearchBar, setOpenSearchBar] = useState(false);
 	const findItem = trpc.findItem.useQuery({ title: query?.length > 0 ? query : "" });
+	const [openSearchBar, setOpenSearchBar] = useState(false);
+	{console.log(openSearchBar)}
+	// setOpenSearchBar(findItem.data ? true : false);
 	let titles: string[];
 	let values: [Grocery, number][];
 
@@ -55,7 +58,11 @@ export default function NavigationBar(props: Props) {
 	}
 
 	useEffect(() => {
-		if (findItem?.data && findItem?.data?.length > 0) setOpenSearchBar(true);
+		if (findItem?.data && findItem?.data?.length > 0) {
+			setOpenSearchBar(true);
+		} else {
+			setOpenSearchBar(false);
+		}
 	}, [query])
 
 	return (
@@ -68,10 +75,9 @@ export default function NavigationBar(props: Props) {
 						</h1>
 					</a>
 					<div className='hidden sm:block self-center w-[60%] h-12'>
-						<input
+						<SearchBar
 							placeholder="Search…"
-							onChange={(text) => setQuery(text?.target.value)}
-							className='w-full h-full p-2'
+							onChanged={(text) => setQuery(text)}
 						/>
 						<Popover className={'flex absolute mt-56'} >
 							{({ open }) => (
@@ -109,10 +115,9 @@ export default function NavigationBar(props: Props) {
 								<Popover.Button className={`focus:outline-none sticky top-4 h-10`}>
 									<div className='group w-auto flex h-10'>
 										<div className={" group-hover:fill-orange-700 w-10 h-10 duration-75 mr-4"} >
-											<Image className='w-min' src={CartIcon} alt={'shopping cart icon'}/>
+											<Image className='w-min' src={CartIcon} alt={'shopping cart icon'} />
 										</div>
 										{values?.length > 0 ?
-										
 											<span className={'absolute left-6 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}>
 												<p className='text-white'>{values.length > 0 ? values.reduce((resultItem, currentItem) => [resultItem[0], resultItem[1] + currentItem[1]])[1] : 0}</p>
 											</span> : null}
@@ -154,36 +159,33 @@ export default function NavigationBar(props: Props) {
 					</Popover>
 				</div>
 				<div className="block sm:hidden w-[90%] self-center h-12 my-5">
-					<input
+					<SearchBar
 						placeholder="Search…"
-						onChange={(text) => setQuery(text?.target.value)}
-						className='w-full h-full p-2'
+						onChanged={(text) => setQuery(text)}
 					/>
 					<Popover className={'flex absolute mt-56'} >
 						{({ open }) => (
-							<>
-								<Transition
-									className={`${openSearchBar ? "fixed right-150 top-16 rounded border-2 border-black " : ""}`}
-									show={openSearchBar || open}
-									enter="transition duration-100 ease-out"
-									enterFrom="transform scale-95 opacity-0"
-									enterTo="transform scale-100 opacity-100"
-									leave="transition duration-75 ease-out"
-									leaveFrom="transform scale-100 opacity-100"
-									leaveTo="transform scale-95 opacity-0"
-								>
-									<Popover.Panel className={'bg-white mt-46'}>
-										{findItem.data ? findItem.data?.map((item, index) => {
-											return (
-												<SearchBarItem
-													key={index}
-													item={item}
-												/>
-											)
-										}) : null}
-									</Popover.Panel>
-								</Transition>
-							</>
+							<Transition
+								className={`${openSearchBar ? "fixed right-150 top-16 rounded border-2 border-black " : ""}`}
+								show={openSearchBar || open}
+								enter="transition duration-100 ease-out"
+								enterFrom="transform scale-95 opacity-0"
+								enterTo="transform scale-100 opacity-100"
+								leave="transition duration-75 ease-out"
+								leaveFrom="transform scale-100 opacity-100"
+								leaveTo="transform scale-95 opacity-0"
+							>
+								<Popover.Panel className={'bg-white mt-46'}>
+									{findItem.data ? findItem.data?.map((item, index) => {
+										return (
+											<SearchBarItem
+												key={index}
+												item={item}
+											/>
+										)
+									}) : null}
+								</Popover.Panel>
+							</Transition>
 						)}
 					</Popover>
 				</div>
