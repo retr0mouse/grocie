@@ -1,7 +1,6 @@
 import { Grocery } from 'groceries-component';
 import Head from 'next/head';
 import { useEffect, useMemo, useState } from 'react';
-import Layout from '../components/Layout';
 import NavigationBar from '../components/NavigationBar';
 import Pagination from '../components/Pagination';
 import SmallProduct from '../components/SmallProduct';
@@ -62,6 +61,9 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 
 	return (
 		<>
+			<Head>
+				<title>Grocie</title>|
+			</Head>
 			<NavigationBar
 				total={total}
 				triggerOpen={hasChanged}
@@ -75,46 +77,42 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 					}
 				}}
 			/>
-			<Layout>
-				<Head>
-					<title>Grocie</title>|
-				</Head>
-				<div className={"flex flex-wrap self-center space-x-3"}>
-					{currentItems?.map((item: Grocery, index: number) => {
-						if (!item.allPrices) return;
-						const minPrice = Math.min.apply(null, item.allPrices);
-						return (
-							<SmallProduct
-								count={cart.get(item.name)?.[1] ?? 0}
-								key={index}
-								image={item.image}
-								name={item.name}
-								minPrice={minPrice}
-								rimi_price={item.rimi_price}
-								barbora_price={item.barbora_price}
-								selver_price={item.selver_price}
-								coop_price={item.coop_price}
-								category={item.category}
-								onChanged={(number) => {
-									if (number !== 0) {
-										setCart(new Map(cart.set(item.name, [item, number])))
-									} else {
-										cart.delete(item.name);
-										setCart(new Map(cart));
-									}
-									// setHasChanged(true);
-								}}
-							/>
-						)
-					})}
-				</div>
-				<Pagination
-					onPageChange={page => setCurrentPage(page)}
-					totalCount={allMeatItems?.length ?? 0}
-					currentPage={currentPage}
-					pageSize={pageSize}
-				/>
-				{/*
+			<div className={"flex flex-wrap self-center gap-3 grow"}>
+				{currentItems?.map((item: Grocery, index: number) => {
+					if (!item.allPrices) return;
+					const minPrice = Math.min.apply(null, item.allPrices);
+					return (
+						<SmallProduct
+							count={cart.get(item.name)?.[1] ?? 0}
+							key={index}
+							image={item.image}
+							name={item.name}
+							minPrice={minPrice}
+							rimi_price={item.rimi_price}
+							barbora_price={item.barbora_price}
+							selver_price={item.selver_price}
+							coop_price={item.coop_price}
+							category={item.category}
+							onChanged={(number) => {
+								if (number !== 0) {
+									setCart(new Map(cart.set(item.name, [item, number])))
+								} else {
+									cart.delete(item.name);
+									setCart(new Map(cart));
+								}
+								// setHasChanged(true);
+							}}
+						/>
+					)
+				})}
+			</div>
+			<Pagination
+				onPageChange={page => setCurrentPage(page)}
+				totalCount={allMeatItems?.length ?? 0}
+				currentPage={currentPage}
+				pageSize={pageSize}
+			/>
+			{/*
 			 <div className="flex p-10 absolute gap-10 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] border-solid border-2 border-indigo-400 rounded-2xl">
 				<div className='flex flex-col items-center gap-5'>
 				<h1 className="font-sans text-4xl font-bold">Barbora</h1>
@@ -138,12 +136,11 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 				</div>
 				</div>
 			</div>*/}
-				{/* <div className={"relative left-1/2 transform -translate-x-1/2 flex flex-col w-10, "}> */}
-				{/* <input type="text" className={"bg-slate-600"} defaultValue={title} onChange={(input) => setTitle(input.target.value)}/> */}
-				{/* <button className={"bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"} onClick={() => mutation.mutate()}>BREAK EVERYTHING</button> */}
-				{/* <h1 className={"bg-red-600"}>RESULT: {query.data ?? "nothing"}</h1> */}
-				{/* </div> */}
-			</Layout>
+			{/* <div className={"relative left-1/2 transform -translate-x-1/2 flex flex-col w-10, "}> */}
+			{/* <input type="text" className={"bg-slate-600"} defaultValue={title} onChange={(input) => setTitle(input.target.value)}/> */}
+			{/* <button className={"bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"} onClick={() => mutation.mutate()}>BREAK EVERYTHING</button> */}
+			{/* <h1 className={"bg-red-600"}>RESULT: {query.data ?? "nothing"}</h1> */}
+			{/* </div> */}
 		</>
 	)
 }
