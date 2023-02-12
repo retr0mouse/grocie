@@ -26,7 +26,7 @@ export default function Pagination(props: Props): ReactElement {
 
 	let lastPage = paginationRange[paginationRange.length - 1];
 	return (
-		<div className={"relative mt-5 flex justify-center"}>
+		<div className={"mt-5 flex justify-center"}>
 			<button
 				className={'m-2 border-2 border-amber-500 rounded-md w-10 h-10'} 
 				// disabled-aria={props.currentPage === 1}

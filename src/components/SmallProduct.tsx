@@ -60,7 +60,7 @@ export default function SmallProduct(props: Props) {
             <Link href={{ pathname: '/product/[name]', query: { name: thisProduct.name, product: JSON.stringify(thisProduct), count: String(counter) } }} as='/product/[name]' className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200">
                 <img alt={"a picture of " + props.name} className="p-5" src={props.image}></img>
                 <div className="w-32 h-[78px] overflow-hidden text-ellipsis">
-                    <p className="text-slate-700 font-sans text-md">{props.name} asdflkjasdf asdflkjasdf asdflkjasdf asdflkjasdf lkjasdf lkajsdf alskdjf </p>
+                    <p className="text-slate-700 font-sans text-md">{props.name}</p>
                 </div>
             </Link>
 

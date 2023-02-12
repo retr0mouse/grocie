@@ -6,11 +6,11 @@ import MobileMenu from '../components/MobileMenu';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Component className={'bg-slate-400'} {...pageProps} />
+    <div className='h-full w-full flex flex-col'>
+      <Component {...pageProps} />
       <Footer/>
       <MobileMenu/>
-    </>
+    </div>
   )
 }
 
