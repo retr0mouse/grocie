@@ -50,7 +50,7 @@ export default function NavigationBar(props: Props) {
 	{console.log(openSearchBar)}
 	// setOpenSearchBar(findItem.data ? true : false);
 	let titles: string[];
-	let values: [Grocery, number][];
+	let values: [Grocery, number][] = [];
 
 	if (props.items.size !== 0) {
 		titles = Array.from(props.items.keys());
@@ -134,13 +134,9 @@ export default function NavigationBar(props: Props) {
 									leaveFrom="transform scale-100 opacity-100"
 									leaveTo="transform scale-95 opacity-0"
 								>
-									<Popover.Panel className={'absolute -left-[425px] rounded-lg bg-slate-200'}>
-										<div className='p-2 rounded-2xl w-96'>
-											<Link href={'/basket'}>
-												<div className='bg-orange-100 w-full h-fit mb-5 rounded-xl transition ease-in-out delay-50 hover:scale-95 duration-150 '>
-													<p className='text-2xl text-slate-700 font-medium text-center p-2'>Sinu ostukorv</p>
-												</div>
-											</Link>
+									<Popover.Panel className={'absolute -left-[425px] rounded-md bg-slate-200'}>
+										<div className='p-5 w-96'>
+											<h1 className='font-sans font-semibold text-slate-800 text-2xl mb-3'>Shopping cart</h1>
 											{values?.length > 0 ? values.map((item, index: number) => {
 												return (
 													<BasketPopupItem
@@ -151,6 +147,11 @@ export default function NavigationBar(props: Props) {
 													/>
 												)
 											}) : <p className="text-xl text-slate-700 font-medium text-center">Sinu ostukorv on tühi!</p>}
+											<Link href={'/basket'}>
+												<div className='bg-[#f1bb4e] w-full h-fit mt-5 rounded-xl transition ease-in-out delay-50 hover:bg-[#d1a246] duration-150 '>
+													<p className='text-2xl text-slate-100 font-medium text-center p-2'>View shopping cart - {props.total} €</p>
+												</div>
+											</Link>
 										</div>
 									</Popover.Panel>
 								</Transition>
