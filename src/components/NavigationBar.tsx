@@ -134,10 +134,10 @@ export default function NavigationBar(props: Props) {
 									leaveFrom="transform scale-100 opacity-100"
 									leaveTo="transform scale-95 opacity-0"
 								>
-									<Popover.Panel className={'absolute -left-[425px] rounded-2xl bg-orange-500'}>
+									<Popover.Panel className={'absolute -left-[425px] rounded-lg bg-slate-200'}>
 										<div className='p-2 rounded-2xl w-96'>
 											<Link href={'/basket'}>
-												<div className='bg-orange-100 border-2 border-orange-300 w-full h-fit mb-5 rounded-xl transition ease-in-out delay-50 hover:scale-95 duration-150 '>
+												<div className='bg-orange-100 w-full h-fit mb-5 rounded-xl transition ease-in-out delay-50 hover:scale-95 duration-150 '>
 													<p className='text-2xl text-slate-700 font-medium text-center p-2'>Sinu ostukorv</p>
 												</div>
 											</Link>

@@ -17,7 +17,9 @@ export default function AddToCartButton(props: Props) {
                     </button>
                 </div>
                 :
-                <button onClick={() => props.onClicked(1)} className="w-full bg-[#f1bb4e] inline-block py-1 px-2 border-4 border-[#f1bb4e] rounded-md box-border decoration-none font-sans font-medium text-white text-center transition-all hover:border-slate-100 text-md">Lisa ostukorvi</button>
+                <button onClick={() => props.onClicked(1)} className="w-full bg-[#f1bb4e] inline-block py-2 px-2 rounded-md box-border decoration-none font-sans font-medium text-white text-center transition-all hover:bg-[#d1a246] text-md">
+                    Lisa ostukorvi
+                </button>
             }
         </>
 
