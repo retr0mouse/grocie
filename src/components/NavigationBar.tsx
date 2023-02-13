@@ -18,7 +18,7 @@ import VegetablesPicture from '../images/vegetables.svg';
 import { trpc } from '../utils/trpc';
 import BasketPopupItem from './BasketPopupItem';
 import SearchBarItem from './SearchBarItem';
-import CartIcon from './../images/cart.svg';
+import CartIcon from './../images/cart-black.svg';
 import SearchBar from './SearchBar';
 
 interface Props {
@@ -67,7 +67,7 @@ export default function NavigationBar(props: Props) {
 	return (
 		<>
 			<div className="relative flex flex-col shadow-none items-center">
-				<div className='flex w-full place-content-evenly'>
+				<div className='flex w-full place-content-center sm:place-content-evenly'>
 					<a className="" href="/">
 						<h1 className='text-5xl text-amber-500 font-medium m-5'>
 							Grocie
@@ -111,7 +111,7 @@ export default function NavigationBar(props: Props) {
 					<Popover className={'relative flex items-center z-10'}>
 						{({ open }) => (
 							<>
-								<Popover.Button className={`focus:outline-none sticky top-4 h-10`}>
+								<Popover.Button className={`hidden sm:block focus:outline-none sticky top-4 h-10`}>
 									<div className='group w-auto flex h-10'>
 										<div className={" group-hover:fill-orange-700 w-10 h-10 duration-75 mr-4"} >
 											<Image className='w-min' src={CartIcon} alt={'shopping cart icon'} />
@@ -133,7 +133,7 @@ export default function NavigationBar(props: Props) {
 									leaveFrom="transform scale-100 opacity-100"
 									leaveTo="transform scale-95 opacity-0"
 								>
-									<Popover.Panel className={'flex items-center sm:block absolute right-full mt-3 w-screen max-w-sm px-4 sm:px-0 lg:max-w-2xl rounded-md bg-slate-200'}>
+									<Popover.Panel className={'hidden sm:block sm:absolute right-0 mx-auto mt-5 w-screen max-w-sm px-4 sm:right-full sm:px-0 lg:max-w-2xl rounded-md bg-slate-200'}>
 										<div className='p-5'>
 											<h1 className='font-sans font-semibold text-slate-800 text-2xl mb-3'>Shopping cart</h1>
 											{values?.length > 0 ? values.map((item, index: number) => {

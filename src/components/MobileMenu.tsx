@@ -16,6 +16,7 @@ import MilkPicture from '../images/milk.svg';
 import OtherPicture from '../images/other.svg';
 import BrushPicture from '../images/toothbrush.svg';
 import VegetablesPicture from '../images/vegetables.svg';
+import CartIcon from './../images/cart-white.svg';
 
 const categories = [
     [VegetablesPicture, "Köögiviljad, puuviljad"],
@@ -43,8 +44,12 @@ export default function MobileMenu() {
                 </button> */}
                 <button className="w-full h-full flex flex-col items-center p-2" onClick={() => { setIsOpen(!isOpen) }}>
                     <Image className="max-w-[50%] max-h-[50%]" src={CategoryButton} alt="category button" />
-                    <span className="mt-1 text-md text-[#f2f6f7]">Kategooriad</span>
+                    <span className="mt-1 text-md text-[#f2f6f7]">Categories</span>
                 </button>
+                <Link href={'/basket'} className='w-full h-full flex flex-col items-center p-2'>
+                    <Image className="max-w-[50%] max-h-[50%]" src={CartIcon} alt="category button" />
+                    <span className="mt-1 text-md text-[#f2f6f7]">Cart</span>
+                </Link>
             </div>
             <Dialog
                 open={isOpen}
