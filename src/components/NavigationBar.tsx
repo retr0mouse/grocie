@@ -65,7 +65,7 @@ export default function NavigationBar(props: Props) {
 	}, [query])
 
 	return (
-		<div>
+		<>
 			<div className="relative flex flex-col shadow-none items-center">
 				<div className='flex w-full place-content-evenly'>
 					<a className="" href="/">
@@ -108,7 +108,7 @@ export default function NavigationBar(props: Props) {
 					</div>
 
 
-					<Popover className={'flex items-center'}>
+					<Popover className={'relative flex items-center z-10'}>
 						{({ open }) => (
 							<>
 								<Popover.Button className={`focus:outline-none sticky top-4 h-10`}>
@@ -133,8 +133,8 @@ export default function NavigationBar(props: Props) {
 									leaveFrom="transform scale-100 opacity-100"
 									leaveTo="transform scale-95 opacity-0"
 								>
-									<Popover.Panel className={'absolute -left-[425px] rounded-md bg-slate-200'}>
-										<div className='p-5 w-96'>
+									<Popover.Panel className={'flex items-center sm:block absolute right-full mt-3 w-screen max-w-sm px-4 sm:px-0 lg:max-w-2xl rounded-md bg-slate-200'}>
+										<div className='p-5'>
 											<h1 className='font-sans font-semibold text-slate-800 text-2xl mb-3'>Shopping cart</h1>
 											{values?.length > 0 ? values.map((item, index: number) => {
 												return (
@@ -199,7 +199,7 @@ export default function NavigationBar(props: Props) {
 								<div className='transition ease-in-out delay-50 hover:scale-110 hover:bg-orange-200 duration-200 bg-orange-50 rounded-full border-2 border-orange-100'>
 									<Image className='w-full h-full p-[1vw]' src={category[0]} alt="" />
 								</div>
-								<p className='mt-3 text-[1vw] text-slate-700 font-medium  break-word'>
+								<p className='mt-3 text-[1vw] text-slate-700 font-medium break-word'>
 									{category[1]}
 								</p>
 							</div>
@@ -207,7 +207,7 @@ export default function NavigationBar(props: Props) {
 					)
 				})}
 			</div>
-		</div>
+		</>
 
 	);
 }

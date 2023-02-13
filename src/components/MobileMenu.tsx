@@ -63,7 +63,7 @@ export default function MobileMenu() {
                             <div className="p-5 flex rounded-t-sm bg-neutral-200 w-full border-b-2 items-center justify-between">
                                 <Dialog.Title className='text-3xl font-normal leading-normal mt-0 mb-2 text-orange-800'>Kategooriad</Dialog.Title>
                                 <button className="w-8 h-8" onClick={() => setIsOpen(false)}>
-                                    <Image className='w-full h-full' src={CrossPicture} alt='arrow down image'></Image>
+                                    <Image className='w-full h-full' src={CrossPicture} alt='cross image'/>
                                 </button>
                             </div>
                             <div className="p-5 bg-white flex flex-col place-content-center">
