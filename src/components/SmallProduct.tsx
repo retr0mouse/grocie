@@ -21,7 +21,6 @@ export default function SmallProduct(props: Props) {
     const price = String(props.minPrice).split('.');
 
     useEffect(() => {
-        if (typeof counter === 'undefined' || counter < 0) return;
         props.onChanged(counter);
     }, [counter])
 
@@ -35,7 +34,7 @@ export default function SmallProduct(props: Props) {
     }, [])
 
     useEffect(() => {
-        if (props.count) setCounter(props.count);
+        setCounter(props.count);
     }, [props.count])
 
     const thisProduct = {
