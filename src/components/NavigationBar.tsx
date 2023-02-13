@@ -47,7 +47,6 @@ export default function NavigationBar(props: Props) {
 	const [query, setQuery] = useState<string>("");
 	const findItem = trpc.findItem.useQuery({ title: query?.length > 0 ? query : "" });
 	const [openSearchBar, setOpenSearchBar] = useState(false);
-	{console.log(openSearchBar)}
 	// setOpenSearchBar(findItem.data ? true : false);
 	let titles: string[];
 	let values: [Grocery, number][] = [];
