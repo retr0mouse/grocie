@@ -21,7 +21,6 @@ export default function SmallProduct(props: Props) {
     const price = String(props.minPrice).split('.');
 
     useEffect(() => {
-        if (typeof counter === 'undefined' || counter < 0) return;
         props.onChanged(counter);
     }, [counter])
 
@@ -35,7 +34,7 @@ export default function SmallProduct(props: Props) {
     }, [])
 
     useEffect(() => {
-        if (props.count) setCounter(props.count);
+        setCounter(props.count);
     }, [props.count])
 
     const thisProduct = {
@@ -65,11 +64,11 @@ export default function SmallProduct(props: Props) {
             </Link>
 
             <div className="m-3 self-center place-content-center w-4/5 h-full">
-                <div className="flex flex-raw place-content-start items-center">
+                <div className="flex place-content-start items-center">
                     <span className="text-slate-800 self-center mb-auto text-5xl font-bold mt-auto">{price[0]}</span>
                     <div>
-                        <sup className="text-slate-800 text-2xl block ">{price[1]}</sup>
-                        <sub className="text-slate-800 block text-2xl -mt-6">€</sub>
+                        <p className="align-super text-slate-800 text-2xl block ">{price[1]}</p>
+                        <p className="align-super text-slate-800 block text-2xl -mt-2">€</p>
                     </div>
                 </div>
                 <div className="mb-4 h-[70%] w-full flex flex-col place-content-center">

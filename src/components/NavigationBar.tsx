@@ -18,7 +18,7 @@ import VegetablesPicture from '../images/vegetables.svg';
 import { trpc } from '../utils/trpc';
 import BasketPopupItem from './BasketPopupItem';
 import SearchBarItem from './SearchBarItem';
-import CartIcon from './../images/cart.svg';
+import CartIcon from './../images/cart-black.svg';
 import SearchBar from './SearchBar';
 
 interface Props {
@@ -47,7 +47,6 @@ export default function NavigationBar(props: Props) {
 	const [query, setQuery] = useState<string>("");
 	const findItem = trpc.findItem.useQuery({ title: query?.length > 0 ? query : "" });
 	const [openSearchBar, setOpenSearchBar] = useState(false);
-	{console.log(openSearchBar)}
 	// setOpenSearchBar(findItem.data ? true : false);
 	let titles: string[];
 	let values: [Grocery, number][] = [];
@@ -66,9 +65,9 @@ export default function NavigationBar(props: Props) {
 	}, [query])
 
 	return (
-		<div>
+		<>
 			<div className="relative flex flex-col shadow-none items-center">
-				<div className='flex w-full place-content-evenly'>
+				<div className='flex w-full place-content-center sm:place-content-evenly'>
 					<a className="" href="/">
 						<h1 className='text-5xl text-amber-500 font-medium m-5'>
 							Grocie
@@ -109,10 +108,10 @@ export default function NavigationBar(props: Props) {
 					</div>
 
 
-					<Popover className={'flex items-center'}>
+					<Popover className={'relative flex items-center z-10'}>
 						{({ open }) => (
 							<>
-								<Popover.Button className={`focus:outline-none sticky top-4 h-10`}>
+								<Popover.Button className={`hidden sm:block focus:outline-none sticky top-4 h-10`}>
 									<div className='group w-auto flex h-10'>
 										<div className={" group-hover:fill-orange-700 w-10 h-10 duration-75 mr-4"} >
 											<Image className='w-min' src={CartIcon} alt={'shopping cart icon'} />
@@ -134,8 +133,8 @@ export default function NavigationBar(props: Props) {
 									leaveFrom="transform scale-100 opacity-100"
 									leaveTo="transform scale-95 opacity-0"
 								>
-									<Popover.Panel className={'absolute -left-[425px] rounded-md bg-slate-200'}>
-										<div className='p-5 w-96'>
+									<Popover.Panel className={'hidden sm:block sm:absolute right-0 mx-auto mt-5 w-screen max-w-sm px-4 sm:right-full sm:px-0 lg:max-w-2xl rounded-md bg-slate-200'}>
+										<div className='p-5'>
 											<h1 className='font-sans font-semibold text-slate-800 text-2xl mb-3'>Shopping cart</h1>
 											{values?.length > 0 ? values.map((item, index: number) => {
 												return (
@@ -200,7 +199,7 @@ export default function NavigationBar(props: Props) {
 								<div className='transition ease-in-out delay-50 hover:scale-110 hover:bg-orange-200 duration-200 bg-orange-50 rounded-full border-2 border-orange-100'>
 									<Image className='w-full h-full p-[1vw]' src={category[0]} alt="" />
 								</div>
-								<p className='mt-3 text-[1vw] text-slate-700 font-medium  break-word'>
+								<p className='mt-3 text-[1vw] text-slate-700 font-medium break-word'>
 									{category[1]}
 								</p>
 							</div>
@@ -208,7 +207,7 @@ export default function NavigationBar(props: Props) {
 					)
 				})}
 			</div>
-		</div>
+		</>
 
 	);
 }

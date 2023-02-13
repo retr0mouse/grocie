@@ -10,9 +10,9 @@ interface Props {
 
 export default function BasketPopupItem(props: Props) {
     const [counter, setCounter] = useState<number>(props.count ?? 0);
-
+    // props.onChanged(counter);
     useEffect(() => {
-        if (counter) props.onChanged(counter);
+        props.onChanged(counter);
     }, [counter])
 
     return (

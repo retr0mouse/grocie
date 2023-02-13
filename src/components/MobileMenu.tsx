@@ -16,6 +16,7 @@ import MilkPicture from '../images/milk.svg';
 import OtherPicture from '../images/other.svg';
 import BrushPicture from '../images/toothbrush.svg';
 import VegetablesPicture from '../images/vegetables.svg';
+import CartIcon from './../images/cart-white.svg';
 
 const categories = [
     [VegetablesPicture, "Köögiviljad, puuviljad"],
@@ -43,8 +44,12 @@ export default function MobileMenu() {
                 </button> */}
                 <button className="w-full h-full flex flex-col items-center p-2" onClick={() => { setIsOpen(!isOpen) }}>
                     <Image className="max-w-[50%] max-h-[50%]" src={CategoryButton} alt="category button" />
-                    <span className="mt-1 text-md text-[#f2f6f7]">Kategooriad</span>
+                    <span className="mt-1 text-md text-[#f2f6f7]">Categories</span>
                 </button>
+                <Link href={'/basket'} className='w-full h-full flex flex-col items-center p-2'>
+                    <Image className="max-w-[50%] max-h-[50%]" src={CartIcon} alt="category button" />
+                    <span className="mt-1 text-md text-[#f2f6f7]">Cart</span>
+                </Link>
             </div>
             <Dialog
                 open={isOpen}
@@ -63,7 +68,7 @@ export default function MobileMenu() {
                             <div className="p-5 flex rounded-t-sm bg-neutral-200 w-full border-b-2 items-center justify-between">
                                 <Dialog.Title className='text-3xl font-normal leading-normal mt-0 mb-2 text-orange-800'>Kategooriad</Dialog.Title>
                                 <button className="w-8 h-8" onClick={() => setIsOpen(false)}>
-                                    <Image className='w-full h-full' src={CrossPicture} alt='arrow down image'></Image>
+                                    <Image className='w-full h-full' src={CrossPicture} alt='cross image'/>
                                 </button>
                             </div>
                             <div className="p-5 bg-white flex flex-col place-content-center">
