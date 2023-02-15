@@ -23,7 +23,7 @@ import SearchBar from './SearchBar';
 
 interface Props {
 	total: number;
-	items: Map<string, [Grocery, number]>,
+	cart: Map<string, [Grocery, number]>,
 	triggerOpen: boolean,
 	onChanged(item: Grocery, count: number): void;
 }
@@ -44,25 +44,22 @@ const categories = [
 ];
 
 export default function NavigationBar(props: Props) {
-	const [query, setQuery] = useState<string>("");
-	const findItem = trpc.findItem.useQuery({ title: query?.length > 0 ? query : "" });
+	const [searchQuery, setSearchQuery] = useState<string>("");
+	const foundProducts = trpc.findItem.useQuery({ title: searchQuery?.length > 0 ? searchQuery : "" });
 	const [openSearchBar, setOpenSearchBar] = useState(false);
-	// setOpenSearchBar(findItem.data ? true : false);
-	let titles: string[];
-	let values: [Grocery, number][] = [];
+	let productsWithCounts: [Grocery, number][] = [];
 
-	if (props.items.size !== 0) {
-		titles = Array.from(props.items.keys());
-		values = Array.from(props.items.values());
+	if (props.cart.size !== 0) {
+		productsWithCounts = Array.from(props.cart.values());
 	}
 
 	useEffect(() => {
-		if (findItem?.data && findItem?.data?.length > 0) {
+		if (foundProducts?.data && foundProducts?.data?.length > 0) {
 			setOpenSearchBar(true);
 		} else {
 			setOpenSearchBar(false);
 		}
-	}, [query])
+	}, [searchQuery])
 
 	return (
 		<>
@@ -76,7 +73,7 @@ export default function NavigationBar(props: Props) {
 					<div className='hidden sm:block self-center w-[60%] h-12'>
 						<SearchBar
 							placeholder="Search…"
-							onChanged={(text) => setQuery(text)}
+							onChanged={(text) => setSearchQuery(text)}
 						/>
 						<Popover className={'flex absolute mt-56'} >
 							{({ open }) => (
@@ -92,7 +89,7 @@ export default function NavigationBar(props: Props) {
 										leaveTo="transform scale-95 opacity-0"
 									>
 										<Popover.Panel className={'bg-white mt-46'}>
-											{findItem.data ? findItem.data?.map((item, index) => {
+											{foundProducts.data ? foundProducts.data?.map((item, index) => {
 												return (
 													<SearchBarItem
 														key={index}
@@ -116,9 +113,9 @@ export default function NavigationBar(props: Props) {
 										<div className={" group-hover:fill-orange-700 w-10 h-10 duration-75 mr-4"} >
 											<Image className='w-min' src={CartIcon} alt={'shopping cart icon'} />
 										</div>
-										{values?.length > 0 ?
+										{productsWithCounts?.length > 0 ?
 											<span className={'absolute left-6 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}>
-												<p className='text-white'>{values.length > 0 ? values.reduce((resultItem, currentItem) => [resultItem[0], resultItem[1] + currentItem[1]])[1] : 0}</p>
+												<p className='text-white'>{productsWithCounts.length > 0 ? productsWithCounts.reduce((resultItem, currentItem) => [resultItem[0], resultItem[1] + currentItem[1]])[1] : 0}</p>
 											</span> : null}
 										<p className='text-2xl text-slate-700 font-medium group-hover:text-orange-700 duration-75 whitespace-nowrap'>{props.total} €</p>
 									</div>
@@ -136,13 +133,13 @@ export default function NavigationBar(props: Props) {
 									<Popover.Panel className={'hidden sm:block sm:absolute right-0 mx-auto mt-5 w-screen max-w-sm px-4 sm:right-full sm:px-0 lg:max-w-2xl rounded-md bg-slate-200'}>
 										<div className='p-5'>
 											<h1 className='font-sans font-semibold text-slate-800 text-2xl mb-3'>Shopping cart</h1>
-											{values?.length > 0 ? values.map((item, index: number) => {
+											{productsWithCounts?.length > 0 ? productsWithCounts.map((productWithCount, index: number) => {
 												return (
 													<BasketPopupItem
 														key={index}
-														item={item[0]}
-														onChanged={(counter) => props.onChanged(item[0], counter)}
-														count={props.items.get(item[0].name)?.[1]}
+														item={productWithCount[0]}
+														onChanged={(counter) => props.onChanged(productWithCount[0], counter)}
+														count={props.cart.get(productWithCount[0].name)?.[1]}
 													/>
 												)
 											}) : <p className="text-xl text-slate-700 font-medium text-center">Sinu ostukorv on tühi!</p>}
@@ -161,7 +158,7 @@ export default function NavigationBar(props: Props) {
 				<div className="block sm:hidden w-[90%] self-center h-12 my-5">
 					<SearchBar
 						placeholder="Search…"
-						onChanged={(text) => setQuery(text)}
+						onChanged={(text) => setSearchQuery(text)}
 					/>
 					<Popover className={'flex absolute mt-56'} >
 						{({ open }) => (
@@ -176,7 +173,7 @@ export default function NavigationBar(props: Props) {
 								leaveTo="transform scale-95 opacity-0"
 							>
 								<Popover.Panel className={'bg-white mt-46'}>
-									{findItem.data ? findItem.data?.map((item, index) => {
+									{foundProducts.data ? foundProducts.data?.map((item, index) => {
 										return (
 											<SearchBarItem
 												key={index}

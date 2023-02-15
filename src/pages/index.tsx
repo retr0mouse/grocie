@@ -67,7 +67,7 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 			<NavigationBar
 				total={total}
 				triggerOpen={hasChanged}
-				items={cart}
+				cart={cart}
 				onChanged={(item, counter) => {
 					if (counter !== 0) {
 						setCart(new Map(cart.set(item.name, [item, counter])))

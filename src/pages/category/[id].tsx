@@ -7,23 +7,23 @@ import { Database } from "../../server/middleware/Database";
 
 export default function Category({ itemsData, categoryTitle }: any) {
     const [total, setTotal] = useState(0);
-    const [cart, setCart] = useState<Map<string, [Grocery, number]>>(new Map());
+    const [cartFromLocalStorage, setCartFromLocalStorage] = useState<Map<string, [Grocery, number]>>(new Map());
 
     useEffect(() => {
-        if (localStorage.getItem('cart') !== null) setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
+        if (localStorage.getItem('cart') !== null) setCartFromLocalStorage(new Map(JSON.parse(localStorage.getItem('cart')!)));
     }, []) 
 
     useEffect(() => {
 		// console.log(cart);
 		// setTimeout(() => setHasChanged(false), 1000);
 		let currentTotal = 0;
-		cart.forEach((item, title) => {
+		cartFromLocalStorage.forEach((item) => {
 			currentTotal += item[1] * (item[0].allPrices ? Math.min.apply(null, item[0].allPrices) : 0);
 		});
 		setTotal(Number(currentTotal.toFixed(2)));
-		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
+		localStorage.setItem('cart', JSON.stringify(Array.from(cartFromLocalStorage.entries())));
 		// console.log(localStorage.getItem('cart'));
-	}, [cart])
+	}, [cartFromLocalStorage])
 
     const [currentPage, setCurrentPage] = useState(1) as any;
 
@@ -41,14 +41,14 @@ export default function Category({ itemsData, categoryTitle }: any) {
         <>
             <NavigationBar
                 total={total}
-                items={cart}
+                cart={cartFromLocalStorage}
                 triggerOpen={false}
 				onChanged={(item, counter) => {
 					if (counter !== 0) {
-						setCart(new Map(cart.set(item.name, [item, counter])))
+						setCartFromLocalStorage(new Map(cartFromLocalStorage.set(item.name, [item, counter])))
 					} else {
-						cart.delete(item.name);
-						setCart(new Map(cart));
+						cartFromLocalStorage.delete(item.name);
+						setCartFromLocalStorage(new Map(cartFromLocalStorage));
 					}
 				}}
             />
@@ -59,7 +59,7 @@ export default function Category({ itemsData, categoryTitle }: any) {
 					const minPrice = Math.min.apply(null, item.allPrices);
 					return (
 						<SmallProduct 
-							count={cart.get(item.name)?.[1] ?? 0}
+							count={cartFromLocalStorage.get(item.name)?.[1] ?? 0}
 							key={item.name + index}
 							image={item.image}
 							name={item.name}
@@ -70,10 +70,10 @@ export default function Category({ itemsData, categoryTitle }: any) {
 							coop_price={item.coop_price}
 							onChanged={(number) => {
 								if (number !== 0) {
-									setCart(new Map(cart.set(item.name, [item, number])));
+									setCartFromLocalStorage(new Map(cartFromLocalStorage.set(item.name, [item, number])));
 								} else {
-									cart.delete(item.name);
-									setCart(new Map(cart));
+									cartFromLocalStorage.delete(item.name);
+									setCartFromLocalStorage(new Map(cartFromLocalStorage));
 								}
 								// setHasChanged(true);
 							} } 

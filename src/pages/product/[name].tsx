@@ -47,7 +47,7 @@ export default function BigProductPage( { data }: any) {
         <div className={'flex flex-col'}>
             <NavigationBar 
                 total={total} 
-                items={cart} 
+                cart={cart} 
                 triggerOpen={false}
                 onChanged={(product, count) => {
                     setCounter(count);
