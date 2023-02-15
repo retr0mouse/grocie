@@ -10,13 +10,13 @@ interface Props {
 
 export default function BasketPopupItem(props: Props) {
     const [counter, setCounter] = useState<number>(props.count ?? 0);
-    // props.onChanged(counter);
+
     useEffect(() => {
         props.onChanged(counter);
     }, [counter])
 
     return (
-        counter > 0 ? <div className='flex justify-between bg-white rounded-lg my-3 pr-4'>
+        <div className='flex justify-between bg-white rounded-lg my-3 pr-4'>
             <Link href={{ pathname: '/product/[name]', query: { name: props.item?.name, product: JSON.stringify(props.item), count: counter } }} as='/product/[name]'>
                 <div className='flex items-center gap-3 p-2 group'>
                     <div className={'block relative'}>
@@ -41,6 +41,6 @@ export default function BasketPopupItem(props: Props) {
                     +
                 </button>
             </div>
-        </div> : <></> 
+        </div>
     );
 }
