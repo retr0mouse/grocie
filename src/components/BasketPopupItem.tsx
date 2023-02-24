@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 
 interface Props {
     item: Grocery;
-    count: number | undefined;
+    count: number;
     onChanged(counter: number): void;
 }
 
 export default function BasketPopupItem(props: Props) {
-    const [counter, setCounter] = useState<number>(props.count ?? 0);
+    const [counter, setCounter] = useState<number>(props.count ? props.count : 0);
 
     useEffect(() => {
         props.onChanged(counter);
     }, [counter])
 
     return (
-        <div className='flex justify-between bg-white rounded-lg my-3 pr-4'>
+        <div className='flex justify-between bg-white rounded-lg my-3 pr-4 transition-all'>
             <Link href={{ pathname: '/product/[name]', query: { name: props.item?.name, product: JSON.stringify(props.item), count: counter } }} as='/product/[name]'>
                 <div className='flex items-center gap-3 p-2 group'>
                     <div className={'block relative'}>
@@ -33,7 +33,7 @@ export default function BasketPopupItem(props: Props) {
                 >
                     -
                 </button>
-                <p className="">{counter}</p>
+                <p className="">{props.count}</p>
                 <button
                     onClick={() => setCounter(counter + 1)}
                     className="transition hover:text-[#f1bb4e] border-2 border-slate-300 bg-slate-200 rounded-md w-10 h-10 text-xl"
