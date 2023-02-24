@@ -48,6 +48,7 @@ export default function NavigationBar(props: Props) {
 	const foundProducts = trpc.findItem.useQuery({ title: searchQuery?.length > 0 ? searchQuery : "" });
 	const [openSearchBar, setOpenSearchBar] = useState(false);
 	let productsWithCounts: [Grocery, number][] = [];
+	// console.log(props.cart.values());
 
 	if (props.cart.size !== 0) {
 		productsWithCounts = Array.from(props.cart.values());
@@ -115,7 +116,7 @@ export default function NavigationBar(props: Props) {
 										</div>
 										{productsWithCounts?.length > 0 ?
 											<span className={'absolute left-6 -top-2 bg-slate-500 w-6 h-6 bg-opacity-85 rounded-full m-0 items-center text-center justify-center'}>
-												<p className='text-white'>{productsWithCounts.length > 0 ? productsWithCounts.reduce((resultItem, currentItem) => [resultItem[0], resultItem[1] + currentItem[1]])[1] : 0}</p>
+												<p className='text-white'>{productsWithCounts.reduce((resultItem, currentItem) => [resultItem[0], resultItem[1] + currentItem[1]])[1]}</p>
 											</span> : null}
 										<p className='text-2xl text-slate-700 font-medium group-hover:text-orange-700 duration-75 whitespace-nowrap'>{props.total} €</p>
 									</div>
@@ -136,10 +137,10 @@ export default function NavigationBar(props: Props) {
 											{productsWithCounts?.length > 0 ? productsWithCounts.map((productWithCount, index: number) => {
 												return (
 													<BasketPopupItem
-														key={index}
+														key={productWithCount[0].name + index}
 														item={productWithCount[0]}
 														onChanged={(counter) => props.onChanged(productWithCount[0], counter)}
-														count={props.cart.get(productWithCount[0].name)?.[1]}
+														count={props.cart.get(productWithCount[0].name)?.[1] ?? 0} // not here
 													/>
 												)
 											}) : <p className="text-xl text-slate-700 font-medium text-center">Sinu ostukorv on tühi!</p>}
