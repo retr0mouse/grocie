@@ -30,16 +30,15 @@ export default function BigProduct(props: Props) {
     }, [props.count])
 
     return (
-        <div className="items-center mt-16 rounded-lg space-x-20 bg-white p-10 w-auto flex-row flex place-content-center place-items-center self-center">
-            <div className="flex-col items-center flex">
+        <div className="items-center mt-16 rounded-lg bg-white p-10 w-auto flex-row flex place-content-center place-items-center self-center">
+            <div className="flex-col items-center flex w-60">
                 <h1 className="mb-5 text-3xl font-sans font-semibold text-slate-800">{props.productName}</h1>
-                <img
+                <Image
                     alt={"a picture of " + props.productName}
-                    className=""
                     src={props.image}
                     width={200}
                     height={200}
-                ></img>
+                ></Image>
                 <AddToCartButton
                     counter={counter}
                     onClicked={(counter) => setCounter(counter)}

@@ -22,6 +22,7 @@ export default function BigProductPage( { data }: any) {
     const selverPrice = item.selver_price;
     const coopPrice = item.coop_price;
     const barboraPrice = item.barbora_price;
+
     useEffect(() => {
         if (localStorage.getItem('cart') !== null) {
             setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
@@ -44,7 +45,7 @@ export default function BigProductPage( { data }: any) {
     // console.log(product);
 
     return(
-        <div className={'flex flex-col'}>
+        <>
             <NavigationBar 
                 total={total} 
                 cart={cart} 
@@ -59,7 +60,7 @@ export default function BigProductPage( { data }: any) {
 					}
                 }}
             />
-            <BigProduct 
+            <BigProduct
                 count={counter}
                 image={image}
                 productName={name}
@@ -81,13 +82,13 @@ export default function BigProductPage( { data }: any) {
                     // setHasChanged(true);
                 }}
             />
-           {data.datasets.length > 0 ? 
+           {/* {data.datasets.length > 0 ? 
                 <div className='bg-white rounded-lg px-5 py-10 flex flex-col self-center items-center w-auto h-auto mt-10 mb-10'>
                     <h1 className='mb-10 text-4xl font-sans font-semibold text-slate-800'>Hinnamuutused</h1>
                     <Line width={1000} height={500} data={data}/>
                 </div> 
-            : null}
-        </div>
+            : null} */}
+        </>
     )
 }
 
