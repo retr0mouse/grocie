@@ -82,12 +82,12 @@ export default function BigProductPage( { data }: any) {
                     // setHasChanged(true);
                 }}
             />
-           {/* {data.datasets.length > 0 ? 
+           {data.datasets.length > 0 ? 
                 <div className='bg-white rounded-lg px-5 py-10 flex flex-col self-center items-center w-auto h-auto mt-10 mb-10'>
                     <h1 className='mb-10 text-4xl font-sans font-semibold text-slate-800'>Hinnamuutused</h1>
                     <Line width={1000} height={500} data={data}/>
                 </div> 
-            : null} */}
+            : null}
         </>
     )
 }

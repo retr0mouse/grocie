@@ -61,9 +61,6 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 
 	return (
 		<>
-			<Head>
-				<title>Grocie</title>|
-			</Head>
 			<NavigationBar
 				total={total}
 				triggerOpen={hasChanged}
