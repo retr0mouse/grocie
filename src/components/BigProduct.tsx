@@ -30,40 +30,53 @@ export default function BigProduct(props: Props) {
     }, [props.count])
 
     return (
-        <div className="items-center mt-16 rounded-lg space-x-20 bg-white p-10 w-auto flex-row flex place-content-center place-items-center self-center">
-            <div className="flex-col items-center flex">
-                <h1 className="mb-5 text-3xl font-sans font-semibold text-slate-800">{props.productName}</h1>
-                <img
-                    alt={"a picture of " + props.productName}
-                    className=""
-                    src={props.image}
-                    width={200}
-                    height={200}
-                ></img>
+        <div className="flex-col md:flex-row flex items-center mt-16 rounded-lg bg-white p-10 max-w-4xl w-4/5 place-content-center place-items-center self-center">
+            <div className="flex-col items-center flex w-full">
+                <h1 className="md:hidden mb-5 text-2xl font-poppins font-semibold text-slate-800">{props.productName}</h1>
+                <div className="relative w-2/3 max-w-xs h-72">
+                    <Image
+                        alt={"a picture of " + props.productName}
+                        src={props.image}
+                        fill
+                        className='object-contain'
+                    />
+                </div>
+                
+            </div>
+            <div className="flex flex-col justify-center w-full sm:w-2/3">
+                <h1 className="hidden md:block mb-5 text-3xl font-poppins font-semibold  text-slate-800">{props.productName}</h1>
+                <div className='mb-5 flex flex-col gap-3'>
+                    {props.barboraPrice ? 
+                        <div className="flex justify-between">
+                            <Image alt="barbora logo" className="object-contain h-8 w-fit" src={Barbora}></Image>
+                            <p className="text-2xl text-orange-500 font-medium">€{props.barboraPrice}</p>
+                        </div> 
+                    : null}
+                    {props.rimiPrice ? 
+                        <div className="flex justify-between">
+                            <Image alt="rimi logo" className="object-contain h-6 w-fit" src={Rimi}></Image>
+                            <p className="text-2xl text-orange-500 font-medium">€{props.rimiPrice}</p>
+                        </div> 
+                    : null}
+                    {props.selverPrice ? 
+                        <div className="flex justify-between">
+                            <Image alt="selver logo" className="object-contain h-6 w-fit" src={Selver}></Image>
+                            <p className="text-2xl text-orange-500 font-medium">€{props.selverPrice}</p>
+                        </div> 
+                    : null}
+                    {props.coopPrice ? 
+                        <div className="flex justify-between">
+                            <Image alt="coop logo" className="object-contain h-8 w-fit" src={Coop}></Image>
+                            <p className="text-2xl text-orange-500 font-medium">€{props.coopPrice}</p>
+                        </div> 
+                    : null}
+                </div>
+
                 <AddToCartButton
                     counter={counter}
                     onClicked={(counter) => setCounter(counter)}
                 />
             </div>
-            <div className="pr-10 flex-col space-y-10 w-[20rem]">
-                {props.barboraPrice ? <div className="flex flex-raw items-center">
-                    <Image alt="barbora logo" className="w-20 h-8 mr-16 flex" src={Barbora}></Image>
-                    <p className="text-2xl text-orange-500 font-medium">€{props.barboraPrice}</p>
-                </div> : null}
-                {props.rimiPrice ? <div className="flex flex-raw items-center">
-                    <Image alt="rimi logo" className="w-auto h-6 mr-16 flex" src={Rimi}></Image>
-                    <p className="text-2xl text-orange-500 font-medium">€{props.rimiPrice}</p>
-                </div> : null}
-                {props.selverPrice ? <div className="flex flex-raw items-center">
-                    <Image alt="selver logo" className="w-auto h-6 mr-16 flex" src={Selver}></Image>
-                    <p className="text-2xl text-orange-500 font-medium">€{props.selverPrice}</p>
-                </div> : null}
-                {props.coopPrice ? <div className="flex flex-raw items-center">
-                    <Image alt="coop logo" className="-ml-2 w-auto h-8 mr-14 flex" src={Coop}></Image>
-                    <p className="text-2xl text-orange-500 font-medium">€{props.coopPrice}</p>
-                </div> : null}
-            </div>
-            <div></div>
         </div>
     )
 }
