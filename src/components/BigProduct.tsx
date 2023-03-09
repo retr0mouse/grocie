@@ -30,7 +30,7 @@ export default function BigProduct(props: Props) {
     }, [props.count])
 
     return (
-        <div className="flex-col bg-white rounded-lg md:flex-row flex justify-between items-center w-4/5 p-10 max-w-4xl place-content-center place-items-center self-center">
+        <div className="flex-col bg-white rounded-lg md:flex-row flex justify-between items-center w-4/5 p-10 max-w-4xl place-content-center place-items-center self-center mt-12">
             <div className="flex flex-col items-center w-full">
                 <h1 className="md:hidden mb-5 text-2xl font-poppins font-semibold text-slate-700">{props.productName}</h1>
                 <div className="relative w-2/3 max-w-xs h-72">
