@@ -30,9 +30,9 @@ export default function BigProduct(props: Props) {
     }, [props.count])
 
     return (
-        <div className="flex-col md:flex-row flex items-center mt-16 rounded-lg bg-white p-10 max-w-4xl w-4/5 place-content-center place-items-center self-center">
-            <div className="flex-col items-center flex w-full">
-                <h1 className="md:hidden mb-5 text-2xl font-poppins font-semibold text-slate-800">{props.productName}</h1>
+        <div className="flex-col bg-white rounded-lg md:flex-row flex justify-between items-center w-4/5 p-10 max-w-4xl place-content-center place-items-center self-center">
+            <div className="flex flex-col items-center w-full">
+                <h1 className="md:hidden mb-5 text-2xl font-poppins font-semibold text-slate-700">{props.productName}</h1>
                 <div className="relative w-2/3 max-w-xs h-72">
                     <Image
                         alt={"a picture of " + props.productName}
@@ -41,7 +41,6 @@ export default function BigProduct(props: Props) {
                         className='object-contain'
                     />
                 </div>
-                
             </div>
             <div className="flex flex-col justify-center w-full sm:w-2/3">
                 <h1 className="hidden md:block mb-5 text-3xl font-poppins font-semibold  text-slate-800">{props.productName}</h1>

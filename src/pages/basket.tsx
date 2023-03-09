@@ -7,6 +7,7 @@ import Coop from "../images/cope.png";
 import Rimi from "../images/rime.png";
 import Selver from "../images/selve.png";
 import Footer from "../components/Footer";
+import AddToCartButton from "../components/AddToCartButton";
 
 export default function Basket() {
     const [total, setTotal] = useState(0);
@@ -52,55 +53,67 @@ export default function Basket() {
                     }
                 }}
             />
-            <div className="flex justify-center">
-                <div className="flex items-center flex-col space-y-5">
-                    <h1 className="self-start text-4xl text-orange-400 mb-6 mt-10">Ostukorv</h1>
-                    {values?.map((item, index) => {
-                        return (
-                            <div className=" bg-white text-center h-auto rounded-2xl flex-row flex justify-between w-fit p-10 items-center gap-24" key={index}>
-                                <div className="flex flex-col">
-                                    <p className="font-sans font-semibold text-xl">{item[0].name}</p>
-                                    <img width={300} alt={"a picture of " + item[0].name} className="" src={item[0].image}></img>
-                                </div>
-                                <div className="flex-col space-y-10 w-auto">
-                                    {item[0].barbora_price ? <div className="flex flex-raw items-center">
-                                        <Image alt="barbora logo" className="w-24 mr-16 flex aspect-[3/2] object-contain" src={Barbora}></Image>
-                                        <p className="text-2xl text-orange-500 font-medium">{item[0].barbora_price}</p>
-                                    </div> : null}
-                                    {item[0].rimi_price ? <div className="flex flex-raw items-center">
-                                        <Image alt="rimi logo" className="w-24 mr-16 flex aspect-[3/2] object-contain" src={Rimi}></Image>
-                                        <p className="text-2xl text-orange-500 font-medium">{item[0].rimi_price}</p>
-                                    </div> : null}
-                                    {item[0].selver_price ? <div className="flex flex-raw items-center">
-                                        <Image alt="rimi logo" className="w-24 mr-16 flex aspect-[3/2] object-contain" src={Selver}></Image>
-                                        <p className="text-2xl text-orange-500 font-medium">{item[0].selver_price}</p>
-                                    </div> : null}
-                                    {item[0].coop_price ? <div className="flex flex-raw items-center">
-                                        <Image alt="rimi logo" className="w-24 mr-16 flex aspect-[3/2] object-contain" src={Coop}></Image>
-                                        <p className="text-2xl text-orange-500 font-medium">{item[0].coop_price}</p>
-                                    </div> : null}
-                                </div>
-                                <div className="w-[150px] border-orange-500 border-2 rounded-full flex flex-row justify-between items-center">
-                                    <button
-                                        disabled={item[1] == 0}
-                                        onClick={() => item[1] = (item[1] - 1)}
-                                        className="ml-0"
-                                    >
-
-                                    </button>
-                                    <p className="">{item[1]}</p>
-                                    <button
-                                        onClick={() => item[1] = (item[1] + 1)}
-                                        className=""
-                                    >
-                                        
-                                    </button>
+            <div className="flex items-center flex-col gap-3 w-4/5 self-center">
+                <h1 className="text-4xl font-poppins font-semibold text-slate-800 mb-6 mt-10 self-start">Your Cart</h1>
+                {values?.map((item, index) => {
+                    return (
+                        <div className="flex-col bg-white rounded-lg md:flex-row flex justify-between items-center w-full p-10 max-w-4xl place-content-center place-items-center" key={index}>
+                            <div className="flex flex-col items-center w-full">
+                                <h1 className="md:hidden mb-5 text-2xl font-poppins font-semibold text-slate-700">{item[0].name}</h1>
+                                <div className="relative w-2/3 max-w-xs h-72">
+                                    <Image
+                                        alt={"a picture of " + item[0].name}
+                                        src={item[0].image}
+                                        fill
+                                        className='object-contain'
+                                    />
                                 </div>
                             </div>
-                        )
-                    })}
-                    <h1 className="self-start text-4xl text-orange-400 mb-6 mt-10">Sinu ostukorvi hind</h1>
-                    <div className="w-[700px] flex flex-col gap-5">
+                            <div className="flex flex-col justify-center w-full sm:w-2/3">
+                                <h1 className="hidden md:block mb-5 text-3xl font-poppins font-semibold  text-slate-800">{item[0].name}</h1>
+                                <div className='mb-5 flex flex-col gap-3'>
+                                    {item[0].barbora_price ?
+                                        <div className="flex justify-between">
+                                            <Image alt="barbora logo" className="object-contain h-8 w-fit" src={Barbora}></Image>
+                                            <p className="text-2xl text-orange-500 font-medium">€{item[0].barbora_price}</p>
+                                        </div>
+                                        : null}
+                                    {item[0].rimi_price ?
+                                        <div className="flex justify-between">
+                                            <Image alt="rimi logo" className="object-contain h-8 w-fit" src={Rimi}></Image>
+                                            <p className="text-2xl text-orange-500 font-medium">€{item[0].rimi_price}</p>
+                                        </div>
+                                        : null}
+                                    {item[0].selver_price ?
+                                        <div className="flex justify-between">
+                                            <Image alt="rimi logo" className="object-contain h-8 w-fit" src={Selver}></Image>
+                                            <p className="text-2xl text-orange-500 font-medium">€{item[0].selver_price}</p>
+                                        </div>
+                                        : null}
+                                    {item[0].coop_price ?
+                                        <div className="flex justify-between">
+                                            <Image alt="rimi logo" className="object-contain h-8 w-fit" src={Coop}></Image>
+                                            <p className="text-2xl text-orange-500 font-medium">€{item[0].coop_price}</p>
+                                        </div>
+                                        : null}
+                                </div>
+                                <AddToCartButton
+                                    counter={item[1]}
+                                    onClicked={(counter) => {
+                                        if (counter !== 0) {
+                                            setCart(new Map(cart.set(item[0].name, [item[0], counter])))
+                                        } else {
+                                            cart.delete(item[0].name);
+                                            setCart(new Map(cart));
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    )
+                })}
+                <h1 className="text-4xl font-poppins font-semibold text-slate-800 mb-6 mt-10 self-start">Sinu ostukorvi hind</h1>
+                    <div className="w-full flex flex-col gap-5">
                         <div className="bg-white rounded-lg p-5">
                             <div className="flex justify-between my-5 ">
                                 <p className="text-3xl">Rimi</p>
@@ -115,7 +128,8 @@ export default function Basket() {
                                     }
                                 </p>
 
-                            </div>{values.filter(item => !item[0].rimi_price).map(item => {
+                            </div>
+                            {values.filter(item => !item[0].rimi_price).map(item => {
                                 return (<p className="text-red-500">{item[0].name}</p>)
                             })}
                         </div>
@@ -155,14 +169,15 @@ export default function Basket() {
 
                                 </p>
 
-                            </div>{values.filter(item => !item[0].coop_price).map(item => {
+                            </div>
+                            {values.filter(item => !item[0].coop_price).map(item => {
                                 return (<p className="text-red-500">{item[0].name}</p>)
                             })}
                         </div>
 
                         <div className="bg-white rounded-lg p-5">
                             <div className="flex justify-between my-5">
-                                <p className="text-3xl">Selve</p>
+                                <p className="text-3xl">Selver</p>
                                 <p className="text-2xl">
                                     €
                                     {
@@ -178,9 +193,7 @@ export default function Basket() {
                                 return (<p className="text-red-500">{item[0].name}</p>)
                             })}
                         </div>
-
                     </div>
-                </div>
             </div>
         </>
     )
