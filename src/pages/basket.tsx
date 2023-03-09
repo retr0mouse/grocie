@@ -53,11 +53,11 @@ export default function Basket() {
                     }
                 }}
             />
-            <div className="flex items-center flex-col gap-3 w-4/5 self-center">
+            <div className="flex items-center flex-col gap-3 w-4/5 md:w-3/5 self-center">
                 <h1 className="text-4xl font-poppins font-semibold text-slate-800 mb-6 mt-10 self-start">Your Cart</h1>
                 {values?.map((item, index) => {
                     return (
-                        <div className="flex-col bg-white rounded-lg md:flex-row flex justify-between items-center w-full p-10 max-w-4xl place-content-center place-items-center" key={index}>
+                        <div className="flex-col w-full bg-white rounded-lg md:flex-row flex justify-between items-center p-10 place-content-center place-items-center" key={index}>
                             <div className="flex flex-col items-center w-full">
                                 <h1 className="md:hidden mb-5 text-2xl font-poppins font-semibold text-slate-700">{item[0].name}</h1>
                                 <div className="relative w-2/3 max-w-xs h-72">
