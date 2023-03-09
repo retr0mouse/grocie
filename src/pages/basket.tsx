@@ -112,8 +112,8 @@ export default function Basket() {
                         </div>
                     )
                 })}
-                {/* <h1 className="self-start text-4xl text-orange-400 mb-6 mt-10">Sinu ostukorvi hind</h1>
-                    <div className="w-[700px] flex flex-col gap-5">
+                <h1 className="text-4xl font-poppins font-semibold text-slate-800 mb-6 mt-10 self-start">Sinu ostukorvi hind</h1>
+                    <div className="w-full flex flex-col gap-5">
                         <div className="bg-white rounded-lg p-5">
                             <div className="flex justify-between my-5 ">
                                 <p className="text-3xl">Rimi</p>
@@ -128,7 +128,8 @@ export default function Basket() {
                                     }
                                 </p>
 
-                            </div>{values.filter(item => !item[0].rimi_price).map(item => {
+                            </div>
+                            {values.filter(item => !item[0].rimi_price).map(item => {
                                 return (<p className="text-red-500">{item[0].name}</p>)
                             })}
                         </div>
@@ -168,14 +169,15 @@ export default function Basket() {
 
                                 </p>
 
-                            </div>{values.filter(item => !item[0].coop_price).map(item => {
+                            </div>
+                            {values.filter(item => !item[0].coop_price).map(item => {
                                 return (<p className="text-red-500">{item[0].name}</p>)
                             })}
                         </div>
 
                         <div className="bg-white rounded-lg p-5">
                             <div className="flex justify-between my-5">
-                                <p className="text-3xl">Selve</p>
+                                <p className="text-3xl">Selver</p>
                                 <p className="text-2xl">
                                     €
                                     {
@@ -191,8 +193,7 @@ export default function Basket() {
                                 return (<p className="text-red-500">{item[0].name}</p>)
                             })}
                         </div>
-
-                    </div> */}
+                    </div>
             </div>
         </>
     )
