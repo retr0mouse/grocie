@@ -69,11 +69,9 @@ export default function BigProductPage( { data }: any) {
                 coopPrice={coopPrice}
                 barboraPrice={barboraPrice}
                 onChanged={(count) => {
-
                     if (count !== 0) {
                         // console.log(JSON.stringify(Array.from(cart.entries()).pop()?.[0]));
                         // console.log(cart);
-                        
                         setCart(new Map(cart.set(item.name, [item, count])));
                     } else {
                         cart.delete(item.name);

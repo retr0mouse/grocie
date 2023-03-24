@@ -5,13 +5,13 @@ import { resourceLimits } from "worker_threads";
 import { Database } from "../../server/middleware/Database";
 
 export default async function updateDatabase (req: NextApiRequest, res: NextApiResponse) {
-    const requestToken = req.body.requestToken;
-    if (requestToken !== env.CRON_TOKEN) {
-        res.status(401).json({message: 'Unauthorized'});
-        return; 
-    }
+    // const requestToken = req.body.requestToken;
+    // if (requestToken !== env.CRON_TOKEN) {
+    //     res.status(401).json({message: 'Unauthorized'});
+    //     return; 
+    // }
     try {
-        Promise.all([
+        await Promise.all([
             await Database.updateBarboraItems(), 
             await Database.updateRimiItems(),
             await Database.updateCoopItems(),

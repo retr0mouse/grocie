@@ -112,7 +112,7 @@ export default function Basket() {
                         </div>
                     )
                 })}
-                <h1 className="text-4xl font-poppins font-semibold text-slate-800 mb-6 mt-10 self-start">Sinu ostukorvi hind</h1>
+                <h1 className="text-4xl font-poppins font-semibold text-slate-800 mb-6 mt-10 self-start">Your cart's price</h1>
                     <div className="w-full flex flex-col gap-5">
                         <div className="bg-white rounded-lg p-5">
                             <div className="flex justify-between my-5 ">
