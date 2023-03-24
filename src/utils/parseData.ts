@@ -4,7 +4,7 @@ export function translateCategory(categoryName: string): string {
 	const categoryHash = new Map([
 		["Köögiviljad, puuviljad", "Fruits and Vegetables"],
 		["Piimatooted ja munad", "Milk and Eggs"],
-		["Bread and pastries", "Bread and pastries"],
+		["Leivad, saiad, kondiitritooted", "Bread and pastries"],
 		["Liha, kala, valmistoit", "Meat, fish, ready food"],
 		["Kauasäilivad toidukaubad", "Long-lasting food"],
 		["Külmutatud tooted", "Frozen"],
@@ -73,7 +73,7 @@ export function parseSelverCategory(categoryId: number): string {
 	const kastmed = [266, 267, 268, 269, 270]
 	const maiustused = [271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283]
 	const külmatatud = [284, 285, 286, 287, 288, 289]
-	const Drinks = [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 373, 374, 375, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 62]
+	const joogid = [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 373, 374, 375, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 62]
 	const laste = [306, 307, 308, 309, 310, 313]
 	const lemmiklooma = [314, 315, 316, 317, 318, 319]
 	const ennesehooldus = [63, 64, 65, 66, 68, 69, 70, 71, 425, 72, 73, 74, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
@@ -93,7 +93,7 @@ export function parseSelverCategory(categoryId: number): string {
 		kastmed, 
 		maiustused, 
 		külmatatud, 
-		Drinks, 
+		joogid, 
 		laste, 
 		lemmiklooma,
 		ennesehooldus, 
