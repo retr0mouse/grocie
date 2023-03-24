@@ -1,6 +1,6 @@
 import { Category, Grocery } from "groceries-component";
 import mongoose from "mongoose";
-import { parseCategory } from "../../utils/parseData";
+import { parseCategory, translateCategory } from "../../utils/parseData";
 import { Compare } from "../lib/Compare";
 import { Parser } from "../lib/Parser";
 import { Product, ProductType } from "../models/Product";
@@ -9,18 +9,18 @@ export class Database {
     private static CATEGORIES_COUNT = 15;
 
     private static categoriesMapping = new Map([
-        ["0", "Köögiviljad, puuviljad"],
-        ["1", "Piimatooted ja munad"],
-        ["2", "Leivad, saiad, kondiitritooted"],
-        ["3", "Liha, kala, valmistoit"],
-        ["4", "Kauasäilivad toidukaubad"],
-        ["5", "Külmutatud tooted"],
-        ["6", "Joogid"],
-        ["7", "Enesehooldustooted"],
-        ["8", "Puhastustarbed ja lemmikloomatooted"],
-        ["9", "Lastekaubad"],
-        ["10", "Kodukaubad ja vaba aeg"],
-        ["11", "Muu"]
+        ["0", "Fruits and Vegetables"],                 // Fruits and Vegetables
+        ["1", "Milk and Eggs"],                  // Milk and Eggs
+        ["2", "Bread and pastries"],        // Bread and pastries
+        ["3", "Meat, fish, ready food"],                // Meat, fish, ready food
+        ["4", "Long-lasting food"],              // Long-lasting food
+        ["5", "Frozen"],                     // Frozen
+        ["6", "Drinks"],                                // Drinks
+        ["7", "Self care"],                    // Self care
+        ["8", "Cleaning supplies and pet products"],   // Cleaning supplies and pet products
+        ["9", "Children's goods"],                           // Children's goods
+        ["10", "Home goods and leisure"],               // Home goods and leisure
+        ["11", "Other"]                                   // Other
     ])
 
     static getCategoriesCount() {
@@ -170,7 +170,7 @@ export class Database {
         const items = await Parser.getAllBarboraItems();
         items.forEach(async (item: Grocery) => {
             const newItem = {
-                category: item.category.trim(),
+                category: translateCategory(item.category.trim()),
                 name: item.name.trim(),
                 barbora_price: item.price,
                 product_image: item.image
@@ -194,7 +194,7 @@ export class Database {
             const newCategory = parseCategory(item.category.trim()) ?? "";
             const commonTitle = await Compare.compareCommonItem(item.name);
             const newItem = {
-                category: newCategory,
+                category: translateCategory(newCategory),
                 name: item.name,
                 rimi_price: item.price,
                 product_image: item.image
@@ -216,7 +216,7 @@ export class Database {
         items.forEach(async (item: Grocery) => {
             const commonTitle = await Compare.compareCommonItem(item.name);
             const newItem = {
-                category: item.category,
+                category: translateCategory(item.category),
                 name: item.name,
                 coop_price: item.price,
                 product_image: item.image
@@ -238,7 +238,7 @@ export class Database {
         items.forEach(async (item: Grocery) => {
             const commonTitle = await Compare.compareCommonItem(item.name);
             const newItem = {
-                category: item.category,
+                category: translateCategory(item.category),
                 name: item.name,
                 selver_price: item.price,
                 product_image: item.image

@@ -19,18 +19,18 @@ import VegetablesPicture from '../images/vegetables.svg';
 import CartIcon from './../images/cart-white.svg';
 
 const categories = [
-    [VegetablesPicture, "Köögiviljad, puuviljad"],
-    [MilkPicture, "Piimatooted ja munad"],
-    [BreadPicture, "Leivad, saiad, kondiitritooted"],
-    [MeatPicture, "Liha, kala, valmistoit"],
-    [FlourPicture, "Kauasäilivad toidukaubad"],
-    [FrozenPicture, "Külmutatud tooted"],
-    [DrinksPicture, "Joogid"],
-    [BrushPicture, "Enesehooldus tooted"],
-    [CleaningPicture, "Puhastustarbed ja loomatooted"],
-    [ChildrenPicture, "Lastekaubad"],
-    [HomePicture, "Kodukaubad ja vaba aeg"],
-    [OtherPicture, "Muu"]
+    [VegetablesPicture, "Fruits and Vegetables"],
+    [MilkPicture, "Milk and Eggs"],
+    [BreadPicture, "Bread and pastries"],
+    [MeatPicture, "Meat, fish, ready food"],
+    [FlourPicture, "Long-lasting food"],
+    [FrozenPicture, "Frozen"],
+    [DrinksPicture, "Drinks"],
+    [BrushPicture, "Self care"],
+    [CleaningPicture, "Cleaning supplies and pet products"],
+    [ChildrenPicture, "Children's goods"],
+    [HomePicture, "Home goods and leisure"],
+    [OtherPicture, "Other"]
 ];
 
 export default function MobileMenu() {

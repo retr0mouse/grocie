@@ -1,53 +1,63 @@
 import { Database } from "../server/middleware/Database";
 
-export function parseCategory(categoryName: string) {
+export function translateCategory(categoryName: string): string {
+	const categoryHash = new Map([
+		["Köögiviljad, puuviljad", "Fruits and Vegetables"],
+		["Piimatooted ja munad", "Milk and Eggs"],
+		["Bread and pastries", "Bread and pastries"],
+		["Liha, kala, valmistoit", "Meat, fish, ready food"],
+		["Kauasäilivad toidukaubad", "Long-lasting food"],
+		["Külmutatud tooted", "Frozen"],
+		["Joogid", "Drinks"],
+		["Lastekaubad", "Children's goods"],
+		["Enesehooldustooted", "Self care"],
+		["Kodukaubad ja vaba aeg", "Home goods and leisure"],
+		["Puhastustarbed ja lemmikloomatooted", "Cleaning supplies and pet products"]
+	]);
+	return categoryHash.get(categoryName) ?? "Other";
+}
+
+export function parseCategory(categoryName: string): string {
 	let newName = categoryName.split("-") as string | string[];
 	newName = newName[0] + "-" + newName[1];
 	const categoryHash = new Map([
-		["SH-12", "Köögiviljad, puuviljad"],
-		["SH-11", "Piimatooted ja munad"],
-		["SH-6", "Leivad, saiad, kondiitritooted"],
-		["SH-8", "Liha, kala, valmistoit"],
-		["SH-16", "Liha, kala, valmistoit"],
-		["SH-13", "Kauasäilivad toidukaubad"],
-		["SH-4", "Külmutatud tooted"],
-		["SH-9", "Kauasäilivad toidukaubad"],
-		["SH-3", "Joogid"],
-		["SH-1", "Joogid"],
-		["SH-5", "Lastekaubad"],
-		["SH-2", "Enesehooldustooted"],
-		["SH-10", "Kodukaubad ja vaba aeg"],
-		["SH-7", "Puhastustarbed ja lemmikloomatooted"]
+		["SH-12", "Fruits and Vegetables"],
+		["SH-11", "Milk and Eggs"],
+		["SH-6", "Bread and pastries"],
+		["SH-8", "Meat, fish, ready food"],
+		["SH-16", "Meat, fish, ready food"],
+		["SH-13", "Long-lasting food"],
+		["SH-4", "Frozen"],
+		["SH-9", "Long-lasting food"],
+		["SH-3", "Drinks"],
+		["SH-1", "Drinks"],
+		["SH-5", "Children's goods"],
+		["SH-2", "Self care"],
+		["SH-10", "Home goods and leisure"],
+		["SH-7", "Cleaning supplies and pet products"]
 	]);
-	if (typeof categoryHash.get(newName) == "string") {
-		return categoryHash.get(newName);
-	}
-	else {
-		return "Muu";
-	}
-
-
+	return categoryHash.get(newName) ?? "Other";
 }
 
 export function parseCoopCategory(categoryName: string) {
 	const categoryHash = new Map([
-		["1", "Köögiviljad, puuviljad"],
-		["20", "Piimatooted ja munad"],
-		["47", "Leivad, saiad, kondiitritooted"],
-		["6", "Liha, kala, valmistoit"],
-		["30", "Kauasäilivad toidukaubad"],
-		["69", "Kauasäilivad toidukaubad"],
-		["53", "Joogid"],
-		["78", "Lastekaubad"],
-		["81", "Enesehooldustooted"],
-		["93", "Kodukaubad ja vaba aeg"],
-		["109", "Puhastustarbed ja lemmikloomatooted"]
+		["1", "Fruits and Vegetables"],
+		["20", "Milk and Eggs"],
+		["47", "Bread and pastries"],
+		["6", "Meat, fish, ready food"],
+		["30", "Long-lasting food"],
+		["69", "Long-lasting food"],
+		["53", "Drinks"],
+		["78", "Children's goods"],
+		["81", "Self care"],
+		["93", "Home goods and leisure"],
+		["109", "Cleaning supplies and pet products"]
 	]);
 	if (typeof categoryHash.get(categoryName) == "string") {
 		return categoryHash.get(categoryName);
 	}
 	else {
-		return "Muu";
+		return "Other";
 	}
 }
 
@@ -63,7 +73,7 @@ export function parseSelverCategory(categoryId: number): string {
 	const kastmed = [266, 267, 268, 269, 270]
 	const maiustused = [271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283]
 	const külmatatud = [284, 285, 286, 287, 288, 289]
-	const joogid = [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 373, 374, 375, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 62]
+	const Drinks = [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 373, 374, 375, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 62]
 	const laste = [306, 307, 308, 309, 310, 313]
 	const lemmiklooma = [314, 315, 316, 317, 318, 319]
 	const ennesehooldus = [63, 64, 65, 66, 68, 69, 70, 71, 425, 72, 73, 74, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
@@ -83,7 +93,7 @@ export function parseSelverCategory(categoryId: number): string {
 		kastmed, 
 		maiustused, 
 		külmatatud, 
-		joogid, 
+		Drinks, 
 		laste, 
 		lemmiklooma,
 		ennesehooldus, 
@@ -93,31 +103,31 @@ export function parseSelverCategory(categoryId: number): string {
 	];
 
 	const names = [
-		"Köögiviljad, puuviljad", 
-		"Liha, kala, valmistoit", 
-		"Piimatooted ja munad", 
-		"Piimatooted ja munad", 
-		"Leivad, saiad, kondiitritooted",
-		"Liha, kala, valmistoit", 
-		"Kauasäilivad toidukaubad",
-		"Kauasäilivad toidukaubad",
-		"Kauasäilivad toidukaubad",
-		"Kauasäilivad toidukaubad",
-		"Külmutatud tooted",
-		"Joogid",
-		"Lastekaubad",
-		"Puhastustarbed ja lemmikloomatooted",
-		"Enesehooldustooted",
-		"Puhastustarbed ja lemmikloomatooted",
-		"Kodukaubad ja vaba aeg",
-		"Muu"
+		"Fruits and Vegetables", 
+		"Meat, fish, ready food", 
+		"Milk and Eggs", 
+		"Milk and Eggs", 
+		"Bread and pastries",
+		"Meat, fish, ready food", 
+		"Long-lasting food",
+		"Long-lasting food",
+		"Long-lasting food",
+		"Long-lasting food",
+		"Frozen",
+		"Drinks",
+		"Children's goods",
+		"Cleaning supplies and pet products",
+		"Self care",
+		"Cleaning supplies and pet products",
+		"Home goods and leisure",
+		"Other"
 	]
 	for (let i = 0; i < categories.length; i++) {
 		if (categories[i].includes(categoryId)) {
 			return names[i];
 		}
 	}
-	return "Muu";
+	return "Other";
 }
 
 export function reverse(s: string){
@@ -170,21 +180,21 @@ export async function createChart(productName: string) {
 		labels: dates,
 		datasets: [
 			{
-				label: 'Minimaalne',
+				label: 'Minimum',
 				data: minimum,
 				borderColor: 'blue',
 				fill: false,
 				stepped: false,
 			},
 			{
-				label: 'Keskmine',
+				label: 'Average',
 				data: avarage,
 				borderColor: "green",
 				fill: false,
 				stepped: false,
 			},
 			{
-				label: 'Maksimaalne',
+				label: 'Maximum',
 				data: maximum,
 				borderColor: "red",
 				fill: false,

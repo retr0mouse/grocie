@@ -69,11 +69,9 @@ export default function BigProductPage( { data }: any) {
                 coopPrice={coopPrice}
                 barboraPrice={barboraPrice}
                 onChanged={(count) => {
-
                     if (count !== 0) {
                         // console.log(JSON.stringify(Array.from(cart.entries()).pop()?.[0]));
                         // console.log(cart);
-                        
                         setCart(new Map(cart.set(item.name, [item, count])));
                     } else {
                         cart.delete(item.name);
@@ -84,7 +82,7 @@ export default function BigProductPage( { data }: any) {
             />
            {data.datasets.length > 0 ? 
                 <div className='bg-white rounded-lg px-5 py-10 flex flex-col self-center items-center w-4/5 md:w-3/5 mt-10 mb-10 h-full'>
-                    <h1 className='self-start ml-5 mb-10 text-2xl sm:text-3xl md:text-5xl font-poppins font-semibold text-slate-800'>Hinnamuutused</h1>
+                    <h1 className='self-start ml-5 mb-10 text-2xl sm:text-3xl md:text-5xl font-poppins font-semibold text-slate-800'>HinnaOthertused</h1>
                     <Line width={1000} height={500} data={data}/>
                 </div> 
             : null}
