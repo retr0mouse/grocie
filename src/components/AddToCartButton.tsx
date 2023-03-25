@@ -5,7 +5,8 @@ interface Props {
 
 export default function AddToCartButton(props: Props) {
     return (
-        <div className="justify-around flex flex-row items-center md:self-start">
+
+        <div className="justify-around flex flex-row items-center md:self-start w-full">
             {props.counter && props.counter > 0 ?
                 <div className="w-full flex h-12 gap-2 justify-around items-center">
                     <button onClick={() => props.onClicked(props.counter - 1)} className="transition hover:text-[#f1bb4e] border-2 border-slate-300 bg-slate-200 rounded-md w-10 h-10 text-xl">
@@ -22,5 +23,6 @@ export default function AddToCartButton(props: Props) {
                 </button>
             }
         </div>
+
     );
 }

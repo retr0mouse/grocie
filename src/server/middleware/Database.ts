@@ -32,7 +32,7 @@ export class Database {
     }
 
     static async addProducts(products: ProductType[]) {
-        if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
+        if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file");
         mongoose.connect(process.env.DATABASE_URL);
         try {
             Product.create(products);
