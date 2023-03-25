@@ -45,36 +45,38 @@ export default function BigProduct(props: Props) {
             <div className="flex flex-col justify-center w-full sm:w-2/3">
                 <h1 className="hidden md:block mb-5 text-3xl font-poppins font-semibold  text-slate-800">{props.productName}</h1>
                 <div className='mb-5 flex flex-col gap-3'>
-                    {props.barboraPrice ? 
+                    {props.barboraPrice ?
                         <div className="flex justify-between">
                             <Image alt="barbora logo" className="object-contain h-8 w-fit" src={Barbora}></Image>
                             <p className="text-2xl text-orange-500 font-medium">€{props.barboraPrice}</p>
-                        </div> 
-                    : null}
-                    {props.rimiPrice ? 
+                        </div>
+                        : null}
+                    {props.rimiPrice ?
                         <div className="flex justify-between">
                             <Image alt="rimi logo" className="object-contain h-6 w-fit" src={Rimi}></Image>
                             <p className="text-2xl text-orange-500 font-medium">€{props.rimiPrice}</p>
-                        </div> 
-                    : null}
-                    {props.selverPrice ? 
+                        </div>
+                        : null}
+                    {props.selverPrice ?
                         <div className="flex justify-between">
                             <Image alt="selver logo" className="object-contain h-6 w-fit" src={Selver}></Image>
                             <p className="text-2xl text-orange-500 font-medium">€{props.selverPrice}</p>
-                        </div> 
-                    : null}
-                    {props.coopPrice ? 
+                        </div>
+                        : null}
+                    {props.coopPrice ?
                         <div className="flex justify-between">
                             <Image alt="coop logo" className="object-contain h-8 w-fit" src={Coop}></Image>
                             <p className="text-2xl text-orange-500 font-medium">€{props.coopPrice}</p>
-                        </div> 
-                    : null}
+                        </div>
+                        : null}
+                </div>
+                <div className="w-36">
+                    <AddToCartButton
+                        counter={counter}
+                        onClicked={(counter) => setCounter(counter)}
+                    />
                 </div>
 
-                <AddToCartButton
-                    counter={counter}
-                    onClicked={(counter) => setCounter(counter)}
-                />
             </div>
         </div>
     )
