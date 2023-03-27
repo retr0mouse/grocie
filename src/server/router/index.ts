@@ -42,7 +42,7 @@ export const appRouter = router({
             await Database.updateCoopItems();
             await Database.createStatsForEverything();
         }),
-    findItem: publicProcedure    
+    findItem: publicProcedure
         .input(z.object({ title: z.string() }))
         .query(async ({ input }) => {
             if (input.title.length > 0 ) {
@@ -50,6 +50,15 @@ export const appRouter = router({
                 return findItems;
             }
             return null;
+        }),
+    getItem: publicProcedure
+        .input(z.object({ title: z.string() }))
+        .query(async ({ input }) => {
+            if (input.title.length > 0 ) {
+                const foundItem = await Database.getProduct(input.title);
+                return foundItem;
+            }
+            return null;  
         })
 });
 

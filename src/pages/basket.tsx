@@ -1,13 +1,12 @@
 import { Grocery } from "groceries-component";
 import Image from 'next/image';
 import { useEffect, useState } from "react";
+import AddToCartButton from "../components/AddToCartButton";
 import NavigationBar from "../components/NavigationBar";
 import Barbora from "../images/barbore.png";
 import Coop from "../images/cope.png";
 import Rimi from "../images/rime.png";
 import Selver from "../images/selve.png";
-import Footer from "../components/Footer";
-import AddToCartButton from "../components/AddToCartButton";
 
 export default function Basket() {
     const [total, setTotal] = useState(0);
