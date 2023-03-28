@@ -39,6 +39,7 @@ export default function BigProduct(props: Props) {
                         src={props.image}
                         fill
                         className='object-contain'
+                        sizes="(min-width: 640px) 2/3, 100vw"
                     />
                 </div>
             </div>

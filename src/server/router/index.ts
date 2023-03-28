@@ -52,13 +52,14 @@ export const appRouter = router({
             return null;
         }),
     getItem: publicProcedure
-        .input(z.object({ title: z.string() }))
+        .input(z.object({ title: z.string().nullish() }).nullish())
         .query(async ({ input }) => {
-            if (input.title.length > 0 ) {
+            if (input?.title && input.title.length > 0 ) {
                 const foundItem = await Database.getProduct(input.title);
                 return foundItem;
+            } else {
+                return null
             }
-            return null;  
         })
 });
 

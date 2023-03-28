@@ -31,9 +31,7 @@ export default function BigProductPage({ chart, name }: any) {
         localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
     }, [cart])
 
-    if (productQuery.status !== 'success') {
-        return <>Loading...</>;
-    }
+
 
     const { data } = productQuery;
     const product = {
@@ -58,55 +56,52 @@ export default function BigProductPage({ chart, name }: any) {
         ]
     } as Grocery;
 
+    if (productQuery.status !== 'success' || productQuery.data === null) {
+        return <>Loading...</>;
+    } else {
+        return (
+            <>
+                <NavigationBar
+                    total={total ?? 0}
+                    cart={cart}
+                    triggerOpen={false}
+                    onChanged={(product, count) => {
+                        setCounter(count);
+                        if (counter !== 0) {
+                            setCart(new Map(cart.set(product.name, [product, count])))
+                        } else {
+                            cart.delete(product.name);
+                            setCart(new Map(cart));
+                        }
+                    }}
+                />
+                <BigProduct
+                    count={counter}
+                    image={product.image}
+                    productName={product.name}
+                    rimiPrice={product.rimi_price}
+                    selverPrice={product.selver_price}
+                    coopPrice={product.coop_price}
+                    barboraPrice={product.barbora_price}
+                    onChanged={(count) => {
+                        if (count !== 0) {
+                            setCart(new Map(cart.set(product.name, [product, count])));
+                        } else {
+                            cart.delete(product.name);
+                            setCart(new Map(cart));
+                        }
+                    }}
+                />
+                {chart?.datasets.length > 0 ?
+                    <div className='bg-white rounded-lg px-5 py-10 flex flex-col self-center items-center w-4/5 md:w-3/5 mt-10 mb-10 h-full'>
+                        <h1 className='self-start ml-5 mb-10 text-2xl sm:text-3xl md:text-5xl font-poppins font-semibold text-slate-800'>Price changes</h1>
+                        <Line width={1000} height={500} data={chart} />
+                    </div>
+                    : null}
+            </>
+        )
+    }
 
-    const image = product.image ?? "";
-    const title = product.name ?? "";
-    const rimiPrice = product.rimi_price;
-    const selverPrice = product.selver_price;
-    const coopPrice = product.coop_price;
-    const barboraPrice = product.barbora_price;
-
-    return (
-        <>
-            <NavigationBar
-                total={total ?? 0}
-                cart={cart}
-                triggerOpen={false}
-                onChanged={(product, count) => {
-                    setCounter(count);
-                    if (counter !== 0) {
-                        setCart(new Map(cart.set(product.name, [product, count])))
-                    } else {
-                        cart.delete(product.name);
-                        setCart(new Map(cart));
-                    }
-                }}
-            />
-            <BigProduct
-                count={counter}
-                image={image}
-                productName={name}
-                rimiPrice={rimiPrice}
-                selverPrice={selverPrice}
-                coopPrice={coopPrice}
-                barboraPrice={barboraPrice}
-                onChanged={(count) => {
-                    if (count !== 0) {
-                        setCart(new Map(cart.set(title, [product, count])));
-                    } else {
-                        cart.delete(title);
-                        setCart(new Map(cart));
-                    }
-                }}
-            />
-            {chart?.datasets.length > 0 ?
-                <div className='bg-white rounded-lg px-5 py-10 flex flex-col self-center items-center w-4/5 md:w-3/5 mt-10 mb-10 h-full'>
-                    <h1 className='self-start ml-5 mb-10 text-2xl sm:text-3xl md:text-5xl font-poppins font-semibold text-slate-800'>Price changes</h1>
-                    <Line width={1000} height={500} data={chart} />
-                </div>
-                : null}
-        </>
-    )
 }
 
 export async function getStaticPaths() {
