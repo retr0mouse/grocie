@@ -45,22 +45,22 @@ const categories = [
 
 export default function NavigationBar(props: Props) {
 	const [searchQuery, setSearchQuery] = useState<string>("");
-	const foundProducts = trpc.findItem.useQuery({ title: searchQuery?.length > 0 ? searchQuery : "" });
+	const foundProducts = trpc.findItems.useQuery({ title: searchQuery });
 	const [openSearchBar, setOpenSearchBar] = useState(false);
 	let productsWithCounts: [Grocery, number][] = [];
-	// console.log(props.cart.values());
 
 	if (props.cart.size !== 0) {
 		productsWithCounts = Array.from(props.cart.values());
 	}
 
 	useEffect(() => {
-		if (foundProducts?.data && foundProducts?.data?.length > 0) {
+		if (foundProducts.isSuccess && foundProducts.data && foundProducts.data.length > 0) {
+			console.log("true");
 			setOpenSearchBar(true);
 		} else {
 			setOpenSearchBar(false);
 		}
-	}, [searchQuery])
+	}, [foundProducts])
 
 	return (
 		<>

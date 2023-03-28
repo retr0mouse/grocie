@@ -42,24 +42,21 @@ export const appRouter = router({
             await Database.updateCoopItems();
             await Database.createStatsForEverything();
         }),
-    findItem: publicProcedure
+    findItems: publicProcedure
         .input(z.object({ title: z.string() }))
         .query(async ({ input }) => {
-            if (input.title.length > 0 ) {
-                const findItems = await Database.findTenSimilarItemsByTitle(input.title);
-                return findItems;
+            if (input?.title && input.title.length > 0) {
+                return await Database.findTenSimilarItemsByTitle(input.title);
             }
             return null;
         }),
     getItem: publicProcedure
         .input(z.object({ title: z.string().nullish() }).nullish())
         .query(async ({ input }) => {
-            if (input?.title && input.title.length > 0 ) {
-                const foundItem = await Database.getProduct(input.title);
-                return foundItem;
-            } else {
-                return null
+            if (input?.title && input.title.length > 0) {
+                return await Database.getProduct(input.title);
             }
+            return null;
         })
 });
 
