@@ -9,7 +9,7 @@ interface Props {
 export default function SearchBarItem(props: Props) {
     return (
         <div className='flex items-center bg-white rounded-xl'>
-            <Link href={{ pathname: '/product/[name]', query: { name: props.item?.name, product: JSON.stringify(props.item)} }} as='/product/[name]'>
+            <Link href={{ pathname: '/product/[name]', query: { name: props.item?.name } }} as='/product/[name]'>
                 <div className='flex items-center  gap-3 mb-2 p-2'>
                     <div className={'block relative'}>
                         <img className={"w-20"} src={props.item.image} />
