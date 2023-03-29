@@ -71,16 +71,16 @@ export default function NavigationBar(props: Props) {
 							Grocie
 						</h1>
 					</a>
-					<div className='hidden sm:block self-center w-[60%] h-12'>
+					<div className='hidden sm:flex flex-col self-center w-[60%] h-12'>
 						<SearchBar
 							placeholder="Search…"
 							onChanged={(text) => setSearchQuery(text)}
 						/>
-						<Popover className={'flex absolute mt-56'} >
+						<Popover className={'self-center w-11/12 z-10'} >
 							{({ open }) => (
 								<>
 									<Transition
-										className={`${openSearchBar ? "fixed right-150 top-16 rounded border-2 border-black " : "hidden"}`}
+										className={`${openSearchBar ? "w-full max-h-[70vh] overflow-auto rounded border-2 border-black " : "hidden"}`}
 										show={openSearchBar || open}
 										enter="transition duration-100 ease-out"
 										enterFrom="transform scale-95 opacity-0"
@@ -89,7 +89,7 @@ export default function NavigationBar(props: Props) {
 										leaveFrom="transform scale-100 opacity-100"
 										leaveTo="transform scale-95 opacity-0"
 									>
-										<Popover.Panel className={'bg-white mt-46'}>
+										<Popover.Panel className={'bg-white'}>
 											{foundProducts.data ? foundProducts.data?.map((item, index) => {
 												return (
 													<SearchBarItem
@@ -106,7 +106,7 @@ export default function NavigationBar(props: Props) {
 					</div>
 
 
-					<Popover className={'relative flex items-center z-10'}>
+					<Popover className={' flex items-center z-10 '}>
 						{({ open }) => (
 							<>
 								<Popover.Button className={`hidden sm:block focus:outline-none sticky top-4 h-10`}>
@@ -156,15 +156,15 @@ export default function NavigationBar(props: Props) {
 						)}
 					</Popover>
 				</div>
-				<div className="block sm:hidden w-[90%] self-center h-12 my-5">
+				<div className="flex flex-col sm:hidden w-[90%] self-center h-12 my-5">
 					<SearchBar
 						placeholder="Search…"
 						onChanged={(text) => setSearchQuery(text)}
 					/>
-					<Popover className={'flex absolute mt-56'} >
+					<Popover className={'z-10 self-center w-11/12'} >
 						{({ open }) => (
 							<Transition
-								className={`${openSearchBar ? "fixed right-150 top-16 rounded border-2 border-black " : ""}`}
+								className={`${openSearchBar ? "w-full max-h-[70vh] overflow-scroll rounded border-2 border-black " : ""}`}
 								show={openSearchBar || open}
 								enter="transition duration-100 ease-out"
 								enterFrom="transform scale-95 opacity-0"
@@ -173,7 +173,7 @@ export default function NavigationBar(props: Props) {
 								leaveFrom="transform scale-100 opacity-100"
 								leaveTo="transform scale-95 opacity-0"
 							>
-								<Popover.Panel className={'bg-white mt-46'}>
+								<Popover.Panel className={'bg-white'}>
 									{foundProducts.data ? foundProducts.data?.map((item, index) => {
 										return (
 											<SearchBarItem
