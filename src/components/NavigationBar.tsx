@@ -143,7 +143,7 @@ export default function NavigationBar(props: Props) {
 														count={props.cart.get(productWithCount[0].name)?.[1] ?? 0} // not here
 													/>
 												)
-											}) : <p className="text-xl text-slate-700 font-medium text-center">Sinu ostukorv on tühi!</p>}
+											}) : <p className="text-xl text-slate-700 font-medium text-center">Your cart is empty!</p>}
 											<Link href={'/basket'}>
 												<div className='bg-[#f1bb4e] w-full h-fit mt-5 rounded-xl transition ease-in-out delay-50 hover:bg-[#d1a246] duration-150 '>
 													<p className='text-2xl text-slate-100 font-medium text-center p-2'>View shopping cart - {props.total} €</p>
