@@ -1,7 +1,7 @@
-import { Grocery } from "groceries-component";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import AddToCartButton from "./AddToCartButton";
+import {GroceryFromDB} from "../server/models/Product";
 
 interface Props {
     name: string;
@@ -26,7 +26,7 @@ export default function SmallProduct(props: Props) {
 
     useEffect(() => {
         if (localStorage.getItem('cart') !== null) {
-            const result = new Map(JSON.parse(localStorage.getItem('cart')!)) as Map<string, [Grocery, number]>;
+            const result = new Map(JSON.parse(localStorage.getItem('cart')!)) as Map<string, [GroceryFromDB, number]>;
             if (result) {
                 setCounter(result.get(props.name) ? result.get(props.name)![1] : 0);
             }
@@ -37,26 +37,12 @@ export default function SmallProduct(props: Props) {
         setCounter(props.count);
     }, [props.count])
 
-    const thisProduct = {
-        name: props.name,
-        price: props.minPrice,
-        barbora_price: props.barbora_price,
-        rimi_price: props.rimi_price,
-        selver_price: props.selver_price,
-        coop_price: props.coop_price,
-        image: props.image,
-        category: props.category,
-        allPrices: []
-    } as Grocery;
 
-    if (props.rimi_price && thisProduct.allPrices) thisProduct.allPrices.push(props.rimi_price);
-    if (props.barbora_price && thisProduct.allPrices) thisProduct.allPrices.push(props.barbora_price);
-    if (props.coop_price && thisProduct.allPrices) thisProduct.allPrices.push(props.coop_price);
-    if (props.selver_price && thisProduct.allPrices) thisProduct.allPrices.push(props.selver_price);
+    const allPrices = [props.rimi_price ?? 0, props.coop_price ?? 0, props.barbora_price ?? 0, props.selver_price ?? 0];
 
     return (
         <div className="pr-5 pl-5 bg-white text-center flex-[1_0_15%] w-60 h-100 min-h-fit mt-16 rounded-2xl flex-col flex">
-            <Link href={{ pathname: '/product/[name]', query: { name: thisProduct.name, count: String(counter) } }} as='/product/[name]' className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200">
+            <Link href={{ pathname: '/product/[name]', query: { name: props.name, count: String(counter) } }} as='/product/[name]' className="self-center mt-4 place-content-center place-items-center flex flex-col transition ease-in-out delay-50  hover:text-orange-700 duration-200">
                 <img alt={"a picture of " + props.name} className="p-5" src={props.image}></img>
                 <div className="w-32 h-[78px] overflow-hidden text-ellipsis">
                     <p className="text-slate-700 font-sans text-md">{props.name}</p>

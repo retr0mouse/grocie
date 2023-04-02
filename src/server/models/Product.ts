@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema; 
  
-export interface ProductType {
+export interface GroceryFromDB {
   category: string,
   name: string,
   rimi_price?: number
@@ -18,7 +18,7 @@ export interface ProductType {
   }[]
 }
 
-const ProductSchema = new Schema<ProductType>({
+const GroceryFromDBSchema = new Schema<GroceryFromDB>({
   category: {type: String, required: true},
   name: {type: String, required: true},
   rimi_price: {type: Schema.Types.Number},
@@ -34,4 +34,4 @@ const ProductSchema = new Schema<ProductType>({
   }]
 });
 
-export const Product = mongoose.models.Product || mongoose.model("Product", ProductSchema);
+export const Product = mongoose.models.Product || mongoose.model("Product", GroceryFromDBSchema);

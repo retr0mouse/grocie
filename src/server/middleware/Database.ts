@@ -1,9 +1,9 @@
-import { Category, Grocery } from "groceries-component";
+import {Category} from "groceries-component";
 import mongoose from "mongoose";
-import { parseCategory, translateCategory } from "../../utils/parseData";
-import { Compare } from "../lib/Compare";
-import { Parser } from "../lib/Parser";
-import { Product, ProductType } from "../models/Product";
+import {parseCategory, translateCategory} from "../../utils/parseData";
+import {Compare} from "../lib/Compare";
+import {Parser} from "../lib/Parser";
+import {GroceryFromDB, Product} from "../models/Product";
 
 export class Database {
     private static CATEGORIES_COUNT = 15;
@@ -31,9 +31,9 @@ export class Database {
         return this.categoriesMapping.get(id);
     }
 
-    static async addProducts(products: ProductType[]) {
+    static async addProducts(products: GroceryFromDB[]) {
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file");
-        mongoose.connect(process.env.DATABASE_URL);
+        await mongoose.connect(process.env.DATABASE_URL);
         try {
             Product.create(products);
         } catch (error) {
@@ -42,77 +42,52 @@ export class Database {
         }
     }
 
-    static async getProduct(productTitle: string): Promise<ProductType> {
-        let foundProduct = {} as ProductType;
+    static async getProduct(productTitle: string): Promise<GroceryFromDB> {
+        let foundProduct = {} as GroceryFromDB;
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
-        mongoose.connect(process.env.DATABASE_URL);
+        await mongoose.connect(process.env.DATABASE_URL);
         foundProduct = await Product.findOne({name: productTitle}).exec();
         return foundProduct;
     }
 
-    static async getProductsContainingTitle(productTitle: string): Promise<ProductType[]> {
-        let foundProduct = {} as ProductType [];
+    static async getProductsContainingTitle(productTitle: string): Promise<GroceryFromDB[]> {
+        let foundProduct = {} as GroceryFromDB [];
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
-        mongoose.connect(process.env.DATABASE_URL);
+        await mongoose.connect(process.env.DATABASE_URL);
         foundProduct = await Product.find({name: { "$regex": `${productTitle}`}}).exec();
         return foundProduct;
     }
 
-    static async findTenSimilarItemsByTitle(title: string): Promise<Grocery[]> {
-        let foundProduct = {} as ProductType [];
+    static async findTenSimilarItemsByTitle(title: string): Promise<GroceryFromDB[]> {
+        let foundProduct = {} as GroceryFromDB [];
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
-        mongoose.connect(process.env.DATABASE_URL);
-        let itemsData: Grocery[] = [];
+        await await await await await await await await await await await mongoose.connect(process.env.DATABASE_URL);
+        let itemsData: GroceryFromDB[] = [];
         foundProduct = await Product.find({name: { "$regex": `${title.toLowerCase()}`, '$options' : 'i'}}).limit(10).exec();
         for (let i = 0; i < foundProduct.length; i++) {
-            const item = foundProduct[i] as ProductType;
-            let prices: number[] = []
-            const newItem = {
-                name: item.name,
-                category: item.category,
-                image: item.product_image
-            } as Grocery;
-
-            if (typeof item.barbora_price  !== "undefined"){
-                newItem.barbora_price = item.barbora_price;
-                prices.push(item.barbora_price)
-            }
-            if (typeof item.rimi_price  !== "undefined"){
-                newItem.rimi_price = item.rimi_price;
-                prices.push(item.rimi_price)
-            }
-            if (typeof item.selver_price  !== "undefined"){
-                newItem.selver_price = item.selver_price;
-                prices.push(item.selver_price)
-            }
-            if (typeof item.coop_price  !== "undefined"){
-                newItem.coop_price = item.coop_price;
-                prices.push(item.coop_price)
-            }
-            // if (prices.length < 1) continue
-            newItem.allPrices = prices;
-            itemsData.push(newItem);
+            const item = foundProduct[i] as GroceryFromDB;
+            itemsData.push(item);
         }
         return itemsData;
     }
 
-    static async updateRimiProduct(newProduct: ProductType) {
+    static async updateRimiProduct(newProduct: GroceryFromDB) {
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
         mongoose.connect(process.env.DATABASE_URL);
         Product.updateOne({name: newProduct.name}, {rimi_price: newProduct.rimi_price}).exec();
     }
-    static async updateCoopProduct(newProduct: ProductType) {
+    static async updateCoopProduct(newProduct: GroceryFromDB) {
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
         mongoose.connect(process.env.DATABASE_URL);
         Product.updateOne({name: newProduct.name}, {coop_price: newProduct.coop_price}).exec();
     }
-    static async updateSelverProduct(newProduct: ProductType) {
+    static async updateSelverProduct(newProduct: GroceryFromDB) {
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
         mongoose.connect(process.env.DATABASE_URL);
         Product.updateOne({name: newProduct.name}, {selver_price: newProduct.selver_price}).exec();
     }
 
-    static async updateBarboraProduct(newProduct: ProductType) {
+    static async updateBarboraProduct(newProduct: GroceryFromDB) {
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
         mongoose.connect(process.env.DATABASE_URL);
         Product.updateOne({name: newProduct.name}, {barbora_price: newProduct.barbora_price}).exec();
@@ -121,8 +96,7 @@ export class Database {
     static async getCategories(): Promise<Category[]> {
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
         mongoose.connect(process.env.DATABASE_URL);
-        const allCategories = await (Product.find().exec()) as Category[];
-        return allCategories;
+        return await (Product.find().exec()) as Category[];
     }
 
     static async createStatsForEverything(){
@@ -168,13 +142,13 @@ export class Database {
     
     static async updateBarboraItems() {
         const items = await Parser.getAllBarboraItems();
-        items.forEach(async (item: Grocery) => {
+        for (const item of items) {
             const newItem = {
                 category: translateCategory(item.category.trim()),
                 name: item.name.trim(),
-                barbora_price: item.price,
-                product_image: item.image
-            } as ProductType;
+                barbora_price: item.barbora_price,
+                product_image: item.product_image
+            } as GroceryFromDB;
             const commonTitle = await Compare.compareCommonItem(item.name);
 
             if (typeof commonTitle == 'string' && commonTitle.length > 1) {
@@ -185,20 +159,20 @@ export class Database {
             else {
                 await this.addProducts([newItem]);
             }
-        });
+        }
     }
 
     static async updateRimiItems() {
         const items = await Parser.getAllRimiItems();
-        items.forEach(async (item: Grocery) => {
+        for (const item of items) {
             const newCategory = parseCategory(item.category.trim()) ?? "";
             const commonTitle = await Compare.compareCommonItem(item.name);
             const newItem = {
                 category: translateCategory(newCategory),
                 name: item.name,
-                rimi_price: item.price,
-                product_image: item.image
-            }; 
+                rimi_price: item.rimi_price,
+                product_image: item.product_image
+            };
 
             if (typeof commonTitle == 'string' && commonTitle.length > 1) {
                 newItem.name = commonTitle
@@ -208,19 +182,19 @@ export class Database {
             else {
                 await this.addProducts([newItem]);
             }
-        });
+        }
     }
 
     static async updateCoopItems() {
         const items = await Parser.getAllCoopItems();
-        items.forEach(async (item: Grocery) => {
+        for (const item of items) {
             const commonTitle = await Compare.compareCommonItem(item.name);
             const newItem = {
                 category: translateCategory(item.category),
                 name: item.name,
-                coop_price: item.price,
-                product_image: item.image
-            } as ProductType;
+                coop_price: item.coop_price,
+                product_image: item.product_image
+            } as GroceryFromDB;
 
             if (typeof commonTitle == 'string' && commonTitle.length > 1) {
                 newItem.name = commonTitle
@@ -230,19 +204,19 @@ export class Database {
             else {
                 await this.addProducts([newItem]);
             }
-        });
+        }
     }
 
     static async updateSelverItems() {
         const items = await Parser.getAllSelverItems();
-        items.forEach(async (item: Grocery) => {
+        for (const item of items) {
             const commonTitle = await Compare.compareCommonItem(item.name);
             const newItem = {
                 category: translateCategory(item.category),
                 name: item.name,
-                selver_price: item.price,
-                product_image: item.image
-            } as ProductType;
+                selver_price: item.selver_price,
+                product_image: item.product_image
+            } as GroceryFromDB;
 
             if (typeof commonTitle == 'string' && commonTitle.length > 1) {
                 newItem.name = commonTitle
@@ -251,44 +225,29 @@ export class Database {
             else {
                 await this.addProducts([newItem]);
             }
-        });
+        }
     }
 
-    static async getProductsByCategory(categoryTitle: string): Promise<Grocery[]> {
-        let foundProduct = {} as ProductType[];
-        let itemsData = [] as Grocery[];
+    static async getProductsByCategory(categoryTitle: string): Promise<GroceryFromDB[]> {
+        let foundProduct = {} as GroceryFromDB[];
+        let itemsData = [] as GroceryFromDB[];
         if (!process.env.DATABASE_URL) throw new Error("please specify your database in the .env file")
-        mongoose.connect(process.env.DATABASE_URL);
+        await mongoose.connect(process.env.DATABASE_URL);
         foundProduct = await Product.find({category: categoryTitle}).exec();
         for (let i = 0; i < foundProduct.length; i++) {
-            const item = foundProduct[i] as ProductType;
-            let prices: number[] = []
-            const newItem = {
+            const item = foundProduct[i] as GroceryFromDB;
+            const newItem= {
                 name: item.name,
                 category: item.category,
-                image: item.product_image
-            } as Grocery;
-
-            if (typeof item.barbora_price  !== "undefined"){
-                newItem.barbora_price = item.barbora_price;
-                prices.push(item.barbora_price)
-            }
-            if (typeof item.rimi_price  !== "undefined"){
-                newItem.rimi_price = item.rimi_price;
-                prices.push(item.rimi_price)
-            }
-            if (typeof item.selver_price  !== "undefined"){
-                newItem.selver_price = item.selver_price;
-                prices.push(item.selver_price)
-            }
-            if (typeof item.coop_price  !== "undefined"){
-                newItem.coop_price = item.coop_price;
-                prices.push(item.coop_price)
-            }
-            if (prices.length < 2) continue
-            newItem.allPrices = prices;
+                product_image: item.product_image,
+                barbora_price: item.barbora_price ?? null,
+                rimi_price: item.rimi_price ?? null,
+                selver_price: item.selver_price ?? null,
+                coop_price: item.coop_price ?? null
+            } as GroceryFromDB;
             itemsData.push(newItem);
         }
+        // console.log(itemsData[0]);
         return itemsData;
     }
 }

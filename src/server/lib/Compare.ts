@@ -1,6 +1,6 @@
 import { findMeasures } from '../../utils/parseData';
 import { Database } from '../middleware/Database';
-import { ProductType } from '../models/Product';
+import { GroceryFromDB } from '../models/Product';
 
 
 // find all items that have a match in db : {rimi_price: { $not: { $eq: null } }, barbora_price: { $not: { $eq: null } }}
@@ -10,7 +10,7 @@ export class Compare{
     static async compareCommonItem(productTitle: string): Promise<string | undefined> { 
         const stringSimilarity = require("string-similarity");
         const title = productTitle.split(" ")[0];
-        let productsToCompare: string[] | ProductType[] = (await Database.getProductsContainingTitle(title));
+        let productsToCompare: string[] | GroceryFromDB[] = (await Database.getProductsContainingTitle(title));
         let titles = productsToCompare.map(x => x.name);
         productsToCompare = productsToCompare.map(x => x.name.toLowerCase());
         let initialMeasure = findMeasures(productTitle);

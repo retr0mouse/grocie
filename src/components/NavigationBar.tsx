@@ -1,5 +1,4 @@
 import { Popover, Transition } from '@headlessui/react';
-import { Grocery } from 'groceries-component';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -20,12 +19,13 @@ import BasketPopupItem from './BasketPopupItem';
 import SearchBarItem from './SearchBarItem';
 import CartIcon from './../images/cart-black.svg';
 import SearchBar from './SearchBar';
+import {GroceryFromDB} from "../server/models/Product";
 
 interface Props {
 	total: number;
-	cart: Map<string, [Grocery, number]>,
+	cart: Map<string, [GroceryFromDB, number]>,
 	triggerOpen: boolean,
-	onChanged(item: Grocery, count: number): void;
+	onChanged(item: GroceryFromDB, count: number): void;
 }
 
 const categories = [
@@ -47,7 +47,7 @@ export default function NavigationBar(props: Props) {
 	const [searchQuery, setSearchQuery] = useState<string>("");
 	const foundProducts = trpc.findItems.useQuery({ title: searchQuery });
 	const [openSearchBar, setOpenSearchBar] = useState(false);
-	let productsWithCounts: [Grocery, number][] = [];
+	let productsWithCounts: [GroceryFromDB, number][] = [];
 
 	if (props.cart.size !== 0) {
 		productsWithCounts = Array.from(props.cart.values());

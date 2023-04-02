@@ -1,4 +1,3 @@
-import { Grocery } from "groceries-component";
 import Image from 'next/image';
 import { useEffect, useState } from "react";
 import AddToCartButton from "../components/AddToCartButton";
@@ -7,13 +6,14 @@ import Barbora from "../images/barbore.png";
 import Coop from "../images/cope.png";
 import Rimi from "../images/rime.png";
 import Selver from "../images/selve.png";
+import {GroceryFromDB} from "../server/models/Product";
 
 export default function Basket() {
     const [total, setTotal] = useState(0);
-    const [cart, setCart] = useState<Map<string, [Grocery, number]>>(new Map());
+    const [cart, setCart] = useState<Map<string, [GroceryFromDB, number]>>(new Map());
     const [hasChanged, setHasChanged] = useState(false);
     let titles: string[] = [];
-    let values: [Grocery, number][] = [];
+    let values: [GroceryFromDB, number][] = [];
 
     useEffect(() => {
         if (localStorage.getItem('cart') !== null) setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
@@ -30,7 +30,8 @@ export default function Basket() {
         // setTimeout(() => setHasChanged(false), 1000);
         let currentTotal = 0;
         cart.forEach((item, title) => {
-            currentTotal += item[1] * (item[0].allPrices ? Math.min.apply(null, item[0].allPrices) : 0);
+            const allPrices = [item[0].rimi_price ?? 0, item[0].coop_price ?? 0, item[0].barbora_price ?? 0, item[0].selver_price ?? 0];
+            currentTotal += item[1] * (allPrices ? Math.min.apply(null, allPrices) : 0);
         });
         setTotal(Number(currentTotal.toFixed(2)));
         localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
@@ -62,7 +63,7 @@ export default function Basket() {
                                 <div className="relative w-2/3 max-w-xs h-72">
                                     <Image
                                         alt={"a picture of " + item[0].name}
-                                        src={item[0].image}
+                                        src={item[0].product_image}
                                         fill
                                         className='object-contain'
                                     />
