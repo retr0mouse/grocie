@@ -2,29 +2,31 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {HYDRATE} from "next-redux-wrapper";
 import {Grocery} from "groceries-component";
 
-export interface CartSlice {
-    cartState: Map<string, [Grocery, number]>;
-}
-
-const initialState: CartSlice = {
-    cartState: new Map(),
+interface cartItem {
+    title: string,
+    count: number,
+    price: number
 }
 
 export const cartSlice = createSlice({
     name: "cart",
-    initialState,
+    initialState: [] as cartItem[],
     reducers: {
-        setCartState(state, action: PayloadAction<Map<string, [Grocery, number]>>) {
-            state.cartState = action.payload;
+        setCartState(state, action: PayloadAction<cartItem[]>) {
+            state = action.payload;
         },
         addToCart: {
-           reducer(state, action: PayloadAction<string>) {
-                console.log('big dick lmao');
+           reducer(state, action: PayloadAction<cartItem>) {
+                state.push(action.payload);
            },
-           prepare: (productTitle: string, count: number)=> {
+           prepare: (title: string, count: number, price: number) => {
                return {
-                   payload: productTitle
-               };
+                   payload: {
+                       title,
+                       count,
+                       price
+                    }
+               }
            }
         }
     },

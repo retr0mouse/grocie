@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a147e841-8081-42f8-8e5b-5cb1e1ad1d19" name="Changes" comment="delete Grocery type to use the original from db, made according changes" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="redux" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="8856f569-2574-454a-91ef-b9582c014016" />
+        <option name="url" value="https://github.com/retr0mouse/grocie.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/node_modules/@trpc/server/dist/core/router.d.ts" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Noz9kOTwqI6erXFyNM3pY0onco" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "redux",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Daniil/Documents/Code/soodne",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Daniil\Documents\Code\soodne\src\redux" />
+      <recent name="C:\Users\Daniil\Documents\Code\soodne\src\redux\slices" />
+      <recent name="C:\Users\Daniil\Documents\Code\soodne\src\store" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a147e841-8081-42f8-8e5b-5cb1e1ad1d19" name="Changes" comment="" />
+      <created>1680345074165</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680345074165</updated>
+      <workItem from="1680345075333" duration="3597000" />
+      <workItem from="1680377461637" duration="2975000" />
+      <workItem from="1680430636243" duration="220000" />
+      <workItem from="1680430865632" duration="8359000" />
+      <workItem from="1680443141211" duration="3725000" />
+      <workItem from="1680465484394" duration="1370000" />
+      <workItem from="1680551997078" duration="3525000" />
+    </task>
+    <task id="LOCAL-00001" summary="cart slice and store init">
+      <created>1680380437110</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680380437110</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/redux" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="cart slice and store init" />
+    <MESSAGE value="delete Grocery type to use the original from db, made according changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete Grocery type to use the original from db, made according changes" />
+  </component>
+</project>
