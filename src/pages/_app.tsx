@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import MobileMenu from '../components/MobileMenu';
 import Head from 'next/head';
 import {Provider} from "react-redux";
-import { store } from "../redux/store";
+import store from "../redux/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

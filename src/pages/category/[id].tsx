@@ -4,10 +4,13 @@ import NavigationBar from "../../components/NavigationBar";
 import Pagination from "../../components/Pagination";
 import SmallProduct from "../../components/SmallProduct";
 import { Database } from "../../server/middleware/Database";
+import {useDispatch} from "react-redux";
+import {addToCart, removeFromCart} from "../../redux/slices/cartSlice";
 
 export default function Category({ itemsData, categoryTitle }: any) {
     const [total, setTotal] = useState(0);
     const [cartFromLocalStorage, setCartFromLocalStorage] = useState<Map<string, [Grocery, number]>>(new Map());
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (localStorage.getItem('cart') !== null) setCartFromLocalStorage(new Map(JSON.parse(localStorage.getItem('cart')!)));
@@ -45,8 +48,10 @@ export default function Category({ itemsData, categoryTitle }: any) {
                 triggerOpen={false}
 				onChanged={(item, counter) => {
 					if (counter !== 0) {
+                        dispatch(addToCart({ title: item.name, price: item.price }));
 						setCartFromLocalStorage(new Map(cartFromLocalStorage.set(item.name, [item, counter])))
 					} else {
+                        dispatch(removeFromCart({ title: item.name, price: item.price }));
 						cartFromLocalStorage.delete(item.name);
 						setCartFromLocalStorage(new Map(cartFromLocalStorage));
 					}

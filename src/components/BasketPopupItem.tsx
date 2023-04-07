@@ -13,7 +13,7 @@ export default function BasketPopupItem(props: Props) {
 
     useEffect(() => {
         props.onChanged(counter);
-    }, [counter])
+    }, [counter]);
 
     return (
         <div className='flex justify-between bg-white rounded-lg my-3 pr-4 transition-all'>
