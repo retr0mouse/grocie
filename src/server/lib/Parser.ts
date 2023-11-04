@@ -1,13 +1,14 @@
 import * as cheerio from "cheerio";
-import { Category, Grocery } from "groceries-component";
+import { Category } from "groceries-component";
 import { BarboraGrocery, CoopGrocery, RimiGrocery, SelverGrocery } from "groceries-result";
 import { parseCategory, parseCoopCategory, parseSelverCategory } from "../../utils/parseData";
+import {GroceryFromDB} from "../models/Product";
 
 export class Parser {
     
 
-    static async getBarboraItemsByCategory(category: Category): Promise<Grocery[]> {
-        const resultProducts = [] as Grocery[];
+    static async getBarboraItemsByCategory(category: Category): Promise<GroceryFromDB[]> {
+        const resultProducts = [] as GroceryFromDB[];
         const resp = await fetch(`https://barbora.ee/${category.link}?page=0`);
         const $ = cheerio.load(await resp.text());
         const items = $('div[class="b-product--wrap clearfix b-product--js-hook   "]');
@@ -15,16 +16,16 @@ export class Parser {
             const item = JSON.parse($(items[i]).attr("data-b-for-cart") ?? "") as BarboraGrocery;
             resultProducts.push({
                 name: item.title,
-                price: Math.round(item.price * 100) / 100,
-                image: item.image,
+                barbora_price: Math.round(item.price * 100) / 100,
+                product_image: item.image,
                 category: category.title
             });
         }
         return resultProducts;
     }
 
-    static async getAllBarboraItems(): Promise<Grocery[]> {
-        let itemsData = [] as Grocery[];
+    static async getAllBarboraItems(): Promise<GroceryFromDB[]> {
+        let itemsData = [] as GroceryFromDB[];
         //for (let categoryIndex = 0; categoryIndex < 2; categoryIndex++) {
         for (let categoryIndex = 0; categoryIndex < await this.getBarboraCategoriesCount(); categoryIndex++) {
             const category = await Parser.getBarboraCategoryById(categoryIndex);
@@ -68,9 +69,9 @@ export class Parser {
         return categories.length;
     }
     
-    static async getRimiItemsByCategory(category: Category): Promise<Grocery[]> {
+    static async getRimiItemsByCategory(category: Category): Promise<GroceryFromDB[]> {
         let page = 1;
-        const resultProducts = [] as Grocery[];
+        const resultProducts = [] as GroceryFromDB[];
         while (true) {
             const resp = await fetch(`https://rimi.ee${category.link}?page=${page}&pageSize=99`);
             const $ = cheerio.load(await resp.text());
@@ -83,8 +84,8 @@ export class Parser {
                 const cents = $(items[i]).children("div").children('div [class="card__details"]').children("div").children("div").children("div").children("div").children("sup").text();
                 resultProducts.push({
                     name: item.name,
-                    price: Math.round(Number(euros + "." + cents) * 100) / 100 ,
-                    image: image ?? "",
+                    rimi_price: Math.round(Number(euros + "." + cents) * 100) / 100 ,
+                    product_image: image ?? "",
                     category: item.category
                 });
             }
@@ -127,8 +128,8 @@ export class Parser {
         return titles.length - 3;
     }
 
-    static async getAllRimiItems(): Promise<Grocery[]> {
-        let itemsData = [] as Grocery[];
+    static async getAllRimiItems(): Promise<GroceryFromDB[]> {
+        let itemsData = [] as GroceryFromDB[];
         //for (let categoryIndex = 0; categoryIndex < 2; categoryIndex++) {
         
         for (let categoryIndex = 0; categoryIndex < await this.getRimiCategoriesCount(); categoryIndex++) {
@@ -143,7 +144,7 @@ export class Parser {
     
     static async getAllCoopItems() {
         let titles = ["1","6","20","30","39","47","53","69","78","81","93","109","113","10768","19014"] as string[];
-        const items: Grocery[] = [];
+        const items: GroceryFromDB[] = [];
         for (let i = 0; i < titles.length; i++) {
             let page = 1;
             while(true) {
@@ -154,8 +155,8 @@ export class Parser {
                 coopData.forEach((item) => {
                     items.push({
                         name: item.name,
-                        price: Math.round(Number(item.price) * 100) / 100,
-                        image: item.image ?? "",
+                        coop_price: Math.round(Number(item.price) * 100) / 100,
+                        product_image: item.image ?? "",
                         category: parseCoopCategory(titles[i]) ?? ""
                     });
                     //console.log(parseCoopCategory(titles[i]));
@@ -168,7 +169,7 @@ export class Parser {
     }
 
     static async getAllSelverItems() {
-        const items: Grocery[] = [];
+        const items: GroceryFromDB[] = [];
         const size = 100;
         let from = 0;
         while(true) {
@@ -178,8 +179,8 @@ export class Parser {
             selverItems.forEach(item => {
                 items.push({
                     name: item._source.name,
-                    price: Math.round(item._source.final_price * 100) / 100,
-                    image: "https://www.selver.ee/img/800/800/resize/" + item._source.image,
+                    selver_price: Math.round(item._source.final_price * 100) / 100,
+                    product_image: "https://www.selver.ee/img/800/800/resize/" + item._source.image,
                     category: parseSelverCategory(item._source.category[0].category_id)
                 })
             });

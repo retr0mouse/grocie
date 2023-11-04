@@ -1,9 +1,9 @@
-import { Grocery } from 'groceries-component';
 import Head from 'next/head';
 import { useEffect, useMemo, useState } from 'react';
 import NavigationBar from '../components/NavigationBar';
 import Pagination from '../components/Pagination';
 import SmallProduct from '../components/SmallProduct';
+import {GroceryFromDB} from "../server/models/Product";
 
 export async function getStaticProps() {  // for ssg
 	// const allCategoriesBarbora = await Parser.getBarboraCategories();
@@ -27,11 +27,11 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 	// const [result, setResult] = useState("Banaan");
 	const [total, setTotal] = useState(0);
 	// const query = trpc.findItem.useQuery({ title: result });
-	const [cart, setCart] = useState<Map<string, [Grocery, number]>>(new Map());
+	const [localCart, setLocalCart] = useState<Map<string, [GroceryFromDB, number]>>(new Map());
 	const [hasChanged, setHasChanged] = useState(false);
 
 	useEffect(() => {
-		if (localStorage.getItem('cart') !== null) setCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
+		if (localStorage.getItem('cart') !== null) setLocalCart(new Map(JSON.parse(localStorage.getItem('cart')!)));
 		// console.log(JSON.parse(localStorage.getItem('cart')!));
 	}, [])
 
@@ -39,13 +39,14 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 		// console.log(cart);
 		// setTimeout(() => setHasChanged(false), 1000);
 		let currentTotal = 0;
-		cart.forEach((item, title) => {
-			currentTotal += item[1] * (item[0].allPrices ? Math.min.apply(null, item[0].allPrices) : 0);
+		localCart.forEach((item, title) => {
+			const allPrices = [item[0].rimi_price ?? 0, item[0].coop_price ?? 0, item[0].barbora_price ?? 0, item[0].selver_price ?? 0];
+			currentTotal += item[1] * (allPrices ? Math.min.apply(null, allPrices) : 0);
 		});
 		setTotal(Number(currentTotal.toFixed(2)));
-		localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
+		localStorage.setItem('cart', JSON.stringify(Array.from(localCart.entries())));
 		// console.log(localStorage.getItem('cart'));
-	}, [cart])
+	}, [localCart])
 
 	const [currentPage, setCurrentPage] = useState(1) as any;
 
@@ -64,25 +65,26 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 			<NavigationBar
 				total={total}
 				triggerOpen={hasChanged}
-				cart={cart}
+				cart={localCart}
 				onChanged={(item, counter) => {
 					if (counter !== 0) {
-						setCart(new Map(cart.set(item.name, [item, counter])))
+						setLocalCart(new Map(localCart.set(item.name, [item, counter])))
 					} else {
-						cart.delete(item.name);
-						setCart(new Map(cart));
+						localCart.delete(item.name);
+						setLocalCart(new Map(localCart));
 					}
 				}}
 			/>
 			<div className={"flex flex-wrap self-center gap-3 grow"}>
-				{currentItems?.map((item: Grocery, index: number) => {
-					if (!item.allPrices) return;
-					const minPrice = Math.min.apply(null, item.allPrices);
+				{currentItems?.map((item: GroceryFromDB, index: number) => {
+					const allPrices = [item.rimi_price ?? 0, item.coop_price ?? 0, item.barbora_price ?? 0, item.selver_price ?? 0];
+					if (!allPrices) return;
+					const minPrice = Math.min.apply(null, allPrices);
 					return (
 						<SmallProduct
-							count={cart.get(item.name)?.[1] ?? 0}
+							count={localCart.get(item.name)?.[1] ?? 0}
 							key={index}
-							image={item.image}
+							image={item.product_image}
 							name={item.name}
 							minPrice={minPrice}
 							rimi_price={item.rimi_price}
@@ -92,10 +94,10 @@ export default function Home({ allCategoriesBarbora, allCategoriesRimi, allItems
 							category={item.category}
 							onChanged={(number) => {
 								if (number !== 0) {
-									setCart(new Map(cart.set(item.name, [item, number])))
+									setLocalCart(new Map(localCart.set(item.name, [item, number])))
 								} else {
-									cart.delete(item.name);
-									setCart(new Map(cart));
+									localCart.delete(item.name);
+									setLocalCart(new Map(localCart));
 								}
 								// setHasChanged(true);
 							}}

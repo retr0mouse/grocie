@@ -1,16 +1,16 @@
-import { Grocery } from "groceries-component";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import {GroceryFromDB} from "../server/models/Product";
 
 interface Props {
-    item: Grocery;
+    item: GroceryFromDB;
     count: number;
     onChanged(counter: number): void;
 }
 
 export default function BasketPopupItem(props: Props) {
     const [counter, setCounter] = useState<number>(props.count ? props.count : 0);
-
+    const allPrices = [props.item.rimi_price ?? 0, props.item.coop_price ?? 0, props.item.barbora_price ?? 0, props.item.selver_price ?? 0];
     useEffect(() => {
         props.onChanged(counter);
     }, [counter])
@@ -20,10 +20,10 @@ export default function BasketPopupItem(props: Props) {
             <Link href={{ pathname: '/product/[name]', query: { name: props.item?.name, product: JSON.stringify(props.item), count: counter } }} as='/product/[name]'>
                 <div className='flex items-center gap-3 p-2 group'>
                     <div className={'block relative'}>
-                        <img className={'w-16 h-12'} src={props.item.image} />
+                        <img className={'w-16 h-12'} src={props.item.product_image} />
                         <span className={'absolute bottom-0 right-0 bg-slate-500 w-8 h-8 bg-opacity-85 rounded-full m-0 flex items-center text-center justify-center'}> <p className='text-white'>{counter}</p> </span>
                     </div>
-                    <p><span className="text-md font-sans group-hover:text-[#f1bb4e]">{props.item.name.length > 12 ? props.item.name.substring(0, 12) + '...' : props.item.name}</span> <span className='flex text-orange-400 font-bold'>{Math.min.apply(null, typeof props.item.allPrices !== 'undefined' ? props.item?.allPrices : [0])} €</span></p>
+                    <p><span className="text-md font-sans group-hover:text-[#f1bb4e]">{props.item.name.length > 12 ? props.item.name.substring(0, 12) + '...' : props.item.name}</span> <span className='flex text-orange-400 font-bold'>{Math.min.apply(null, allPrices)} €</span></p>
                 </div>
             </Link>
             <div className="flex flex-row items-center gap-2">
